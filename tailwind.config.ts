@@ -8,10 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        "solar-blue-dark": "#154295",
+        "solar-blue-light": "#019EE3",
+        "solar-green": "#A7C414",
+        "solar-gray-light": "#F6F5FA",
+        'solar-yellow-100': '#FFF200',
+        'solar-yellow-200': '#F99F1E',
+        'solar-yellow-300': '#F37021',
+      },
+      fontFamily: {
+        Roboto: ['var(--font-roboto)'],
       },
     },
   },
