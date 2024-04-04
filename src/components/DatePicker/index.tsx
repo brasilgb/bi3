@@ -8,7 +8,7 @@ type Props = {}
 const index = (props: Props) => {
     const [selectedDay, setSelectedDay] = useState<any>(null);
     return (
-        <div className="z-40">
+        <div className="bg-white">
             <DatePicker
                 value={selectedDay}
                 onChange={setSelectedDay}
