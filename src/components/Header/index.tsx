@@ -3,29 +3,23 @@ import React from 'react'
 import Profile from "../profile"
 import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 
 type Props = {}
 
 const Header = (props: Props) => {
-    const pathname = usePathname();
-    const sizeimage = (url: any) => {
-        switch (url) {
-            case '/': return 200;
-            case '/lojas': return 200;
-            case '/naturovos': return 200;
-        }
-    }
+    const searchParams = useSearchParams()
+    const setor = searchParams.get('setor')
 
     return (
-        <header className={`${pathname === '/' ? 'bg-solar-blue-light' : pathname === '/solar' ? 'bg-solar-blue-dark' : 'bg-solar-yellow-200'} px-2`}>
+        <header className={`${setor === 'loja' ? 'bg-solar-blue-dark' : setor === 'naturovos' ? 'bg-solar-yellow-200' : 'bg-solar-blue-light'} px-2`}>
             <div className="container py-1 h-16 mx-auto">
                 <div className="flex items-center justify-between h-full">
-                    <div className={`flex items-center h-full ${pathname === '/' ? 'w-36' : pathname === '/solar' ? 'w-32' : 'w-24'} p-0.5`}>
+                    <div className={`flex items-center h-full ${setor === 'loja' ? 'w-32' : setor === 'naturovos' ? 'w-24' : 'w-36'} p-0.5`}>
                         <Link
                             href="/"
                         >
-                            <Image layout="responsive" src={`/logo/${pathname === '/' ? 'logo_grupo.png' : pathname === '/solar' ? 'logo_solar.png' : 'logo_naturovos.png'}`} width={120} height={40} alt={""} />
+                            <Image layout="responsive" src={`/logo/${setor === 'lojas' ? 'logo_solar.png' : setor === 'naturovos' ? 'logo_naturovos.png' : 'logo_grupo.png'}`} width={120} height={40} alt={""} />
                         </Link>
                     </div>
                     <div>

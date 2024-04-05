@@ -23,13 +23,13 @@ const SubBarTop = (props: SubBarTopProps) => {
                     </Link>
                 </div>
                 <div>
-                    <div className={`${props.colors} font-medium px-3 py-1 text-sm drop-shadow flex items-center justify-center gap-1`}>
-                        <IoCalendar size={18} /> <div className=""><DatePicker /></div>
+                    <div className={`${props.colors}`}>
+                         <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400"><IoCalendar size={18} /><DatePicker /></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`${props.colors} font-medium px-3 py-1 text-sm drop-shadow flex items-center justify-center gap-1`}>
-                        <IoMdClock size={18} /> <span>03/04/2024 11:07</span>
+                    <div className={`${props.colors} font-medium`}>
+                    <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400"><IoMdClock size={18} /> <span>03/04/2024 11:07</span></div>
                     </div>
                 </div>
                 <div>

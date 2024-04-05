@@ -21,7 +21,7 @@ const Progress = ({ title, value, colorBar, colorText, sizevalue, sizetitle }: P
         };
         getSizeWindow();
 
-    }, [window]);
+    }, []);
 
     const options = {
         chart: {
