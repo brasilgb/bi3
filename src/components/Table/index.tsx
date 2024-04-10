@@ -4,6 +4,7 @@ interface TableProps {
     children: ReactNode
     classname?: string;
     colspan?: number;
+    onclick?: any;
 }
 
 export const BTable = (props: TableProps) => {
@@ -16,7 +17,7 @@ export const BTable = (props: TableProps) => {
 
 export const BTr = (props: TableProps) => {
     return (
-        <tr className={`${props.classname}`}>
+        <tr onClick={props.onclick} className={`${props.classname} py-0.5 border-b border-b-gray-200`}>
             {props.children}
         </tr>
     )
