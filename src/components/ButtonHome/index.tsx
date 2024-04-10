@@ -10,7 +10,7 @@ interface ButtonHomeProps {
     colorbutton: string;
     width?: number;
     url: string;
-    setor: string;
+    depto: string;
 }
 const ButtonHome = (props: ButtonHomeProps) => {
     const pathname = usePathname();
@@ -20,13 +20,13 @@ const ButtonHome = (props: ButtonHomeProps) => {
                 className="w-full h-full flex items-center justify-center"
                 href={{
                     pathname: `${props.url}`,
-                    query: { setor: `${props.setor}` },
+                    query: { depto: `${props.depto}` },
                 }}
             >
                 <div
                     className={`${props.colorbutton} ${props.logobutton === 'logo_solar.png' ? 'w-36' : 'w-28'}`}
                 >
-                    <Image layout="responsive" src={`/logo/${props.logobutton}`} width={120} height={45} alt="" />
+                    <Image layout="responsive" src={`/bi3/logo/${props.logobutton}`} width={120} height={45} alt="" />
                 </div>
             </Link>
         </div>

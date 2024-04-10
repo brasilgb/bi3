@@ -9,6 +9,7 @@ interface SubBarTopProps {
     colors: string;
     back: string;
     forwards: string;
+    depto: string;
 }
 
 const SubBarTop = (props: SubBarTopProps) => {
@@ -17,19 +18,22 @@ const SubBarTop = (props: SubBarTopProps) => {
             <div className="container m-auto flex items-center justify-between">
                 <div>
                     <Link
-                        href={props.back}
+                        href={`${props.back}?depto=${props.depto}`}
                     >
                         <IoArrowBack size={20} />
                     </Link>
                 </div>
                 <div>
                     <div className={`${props.colors}`}>
-                         <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400"><IoCalendar size={18} /><DatePicker /></div>
+                        <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
+                            <IoCalendar size={18} />
+                            <DatePicker />
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div className={`${props.colors} font-medium`}>
-                    <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400"><IoMdClock size={18} /> <span>03/04/2024 11:07</span></div>
+                        <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400"><IoMdClock size={18} /> <span>03/04/2024 11:07</span></div>
                     </div>
                 </div>
                 <div>

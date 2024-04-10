@@ -32,7 +32,7 @@ const Progress = ({ title, value, colorBar, colorText, sizevalue, sizetitle }: P
             text: ""
         },
         subtitle: {
-            text: `<div style='font-size: ${sizeWindow > 1900 ? '30px' : '15px'}; font-weight: bold; color: ${colorText}'>${value.replace('.', ',')}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span>`,
+            text: `<div style='font-size: ${sizeWindow > 1900 ? '30px' : '15px'}; font-weight: bold; color: ${colorText}'>${value}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span>`,
             align: "center",
             verticalAlign: "middle",
             style: {

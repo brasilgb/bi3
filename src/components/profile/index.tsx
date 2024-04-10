@@ -1,4 +1,5 @@
 'use client'
+import { useAuthContext } from "@/contexts/AuthContext";
 // import { useAuthContext } from "@/contexts/AuthContext";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,7 +8,7 @@ import { IoExit, IoImage, IoPerson } from 'react-icons/io5';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Profile = () => {
-    // const { signOut, user } = useAuthContext();
+    const { signOut, user } = useAuthContext();
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggle = () => {
@@ -36,12 +37,12 @@ const Profile = () => {
                         className="text-sm text-gray-600 px-4 pb-3 flex items-center"
                     >
                         <IoPerson color="#6d6a6a" size={20} />
-                        <span className="ml-1">Usuário</span>
+                        <span className="ml-1">{user?.userName}</span>
                     </span>
                     <span className="w-full border-b border-gray-200"></span>
                     <button
                         className="text-gray-600 hover:text-gray-400 px-4 pt-2 flex items-center"
-                    // onClick={signOut}
+                        onClick={signOut}
                     >
                         <IoExit color="#6d6a6a" size={20} />
                         <span className="ml-1">Sair</span>

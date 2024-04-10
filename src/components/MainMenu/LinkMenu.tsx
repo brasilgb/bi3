@@ -6,7 +6,7 @@ interface LinkMenuProps {
     title?: string;
     icon?: any;
     url: string;
-    setor: string;
+    depto: string;
 }
 
 const LinkMenu = (props: LinkMenuProps) => {
@@ -18,7 +18,7 @@ const LinkMenu = (props: LinkMenuProps) => {
                 className={`flex items-center justify-center ${!props.title ? 'w-8' : 'md:w-32 w-28 '} py-1 rounded md:text-sm text-[10px] text-center font-medium uppercase border hover:bg-solar-green hover:text-white duration-300 ${pathname === props.url ? 'bg-solar-green border-white text-white' : 'border-solar-green text-gray-500'}`}
                 href={{
                     pathname: `${props.url}`,
-                    query: { setor: `${props.setor}` },
+                    query: { depto: `${props.depto}` },
                 }}
             >
                 <span className="md:text-xl text-[16px]">{props.icon}</span>
