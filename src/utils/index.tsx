@@ -1,4 +1,4 @@
-export const removeAcentos = (value: string) => {
+export const removeAcentos = (value: any) => {
     const removed = value.normalize('NFD').replace(/[^\w\s]/gi, '');
     return removed.toLocaleLowerCase().split(' ').join('');
 }

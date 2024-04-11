@@ -26,8 +26,8 @@ const SCompras = (props: Props) => {
                     <div className='flex items-center justify-start gap-2 md:gap-4 overflow-x-auto'>
                         <ButtonAnalise title={'Comp. diário'} onclick={() => setAnalise('compdiario')} active={analise} />
                         <ButtonAnalise title={'Performance'} onclick={() => setAnalise('performance')} active={analise} />
-                        <ButtonAnalise title={'Perform. Assoc.'} onclick={() => setAnalise('performassoc')} active={analise} />
-                        <ButtonAnalise title={'Perform. Mês'} onclick={() => setAnalise('performmes')} active={analise} />
+                        <ButtonAnalise title={'Perform. assoc.'} onclick={() => setAnalise('performassoc')} active={analise} />
+                        <ButtonAnalise title={'Perform. mês'} onclick={() => setAnalise('performmes')} active={analise} />
                     </div>
                     <div className="mt-2">
                         {analise === "compdiario" &&

@@ -15,7 +15,7 @@ const MainMenu = (props: Props) => {
         <LinkMenu title="Inadimplência" url="/solar/sinadimplencia" depto="loja" />
         <LinkMenu title="Compras" url="/solar/scompras" depto="loja" />
         <LinkMenu title="Fluxo" url="/solar/sfluxo" depto="loja" />
-        <LinkMenu title="Empréstimo" url="/" depto="loja" />
+        <LinkMenu title="Empréstimo" url="/solar/semprestimos" depto="loja" />
         <LinkMenu title="DRE" url="/" depto="loja" />
       </ul>
     </div>

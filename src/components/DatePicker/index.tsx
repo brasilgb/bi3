@@ -37,8 +37,7 @@ const index = (props: Props) => {
 
   const formatInputRange = () => {
     if (!selectedRange) return '';
-    return moment(selectedRange.from).format("DD/MM/YYYY") + "-" + moment(selectedRange.to).format("DD/MM/YYYY");
-    // return `${selectedRange.from?.day + '/' + selectedRange.from?.month + '/' + selectedRange.from?.year + ' - ' + selectedRange.to?.day + '/' + selectedRange.to?.month + '/' + selectedRange.to?.year}`;
+    return `${("0" + selectedRange.from?.day).slice(-2) + '/' + ("0" + selectedRange.from?.month).slice(-2) + '/' + selectedRange.from?.year + ' - ' + ("0" + selectedRange.to?.day).slice(-2) + '/' + ("0" + selectedRange.to?.month).slice(-2) + '/' + selectedRange.to?.year}`;
   };
 
   useEffect(() => {
@@ -79,7 +78,7 @@ const index = (props: Props) => {
   const pathname = usePathname();
   return (
     <div className="">
-      {pathname === '/solar/sfluxo'
+      {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos'
         ? <DatePicker
           value={selectedRange}
           onChange={setSelectedRange}

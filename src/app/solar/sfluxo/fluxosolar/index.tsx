@@ -59,8 +59,6 @@ const FluxoSolar = (props: Props) => {
         return fluxoDataParcialLojas.filter((lv: any) => lv.nivel === nivel && codigo === lv.agrupador).length;
     }
 
-    // console.log('caret', caretLevel1);
-
     return (
         <div className="w-full bg-solar-blue-dark text-white rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
             <div className="font-medium text-left px-2 py-0.5 whitespace-nowrap">Fluxo de caixa lojas</div>
@@ -76,7 +74,7 @@ const FluxoSolar = (props: Props) => {
                                         ? <span className={`text-gray-500 duration-300 ${levelOpen && levelNum === fluxo1.codigo ? '-rotate-180' : 'rotate-0'}`}><IoChevronDown size={18} /></span>
                                         : <span className="text-gray-400"><IoRemove size={18} /></span>
                                     }
-                                    <span className="text-sm font-medium text-gray-500">{fluxo1.descricao}</span></BTd>
+                                    <span className="text-sm text-gray-500">{fluxo1.descricao}</span></BTd>
                                 <BTd classname={`font-bold ${fluxo1.valor > 0 ? "text-blue-600" : "text-red-500"}`}>{formatMoney(fluxo1.valor)}</BTd>
                             </BTr>
                             {levelOpen && levelNum === fluxo1.codigo &&
@@ -93,7 +91,7 @@ const FluxoSolar = (props: Props) => {
                                                                 : <span className="ml-2 text-gray-400"><IoRemove size={14} /></span>
                                                             }
                                                             <span className="text-gray-500">{fluxo2.descricao}</span></BTd>
-                                                        <BTd classname={`font-bold ${fluxo2.valor > 0 ? "text-blue-500" : "text-red-500"}`}>{formatMoney(fluxo2.valor)}</BTd>
+                                                        <BTd classname={`font-bold text-sm ${fluxo2.valor > 0 ? "text-blue-500" : "text-red-500"}`}>{formatMoney(fluxo2.valor)}</BTd>
                                                     </BTr>
                                                     {levelOpen2 && levelNum2 === fluxo2.codigo &&
                                                         <BTr classname="!p-0 flex flex-col">
@@ -105,7 +103,7 @@ const FluxoSolar = (props: Props) => {
                                                                             <BTd classname="flex items-center">
                                                                                 <span className="ml-4 text-gray-400"><IoRemove size={14} /></span>
                                                                                 <span className="pl-1">{fluxo3.descricao}</span></BTd>
-                                                                            <BTd classname={`font-bold ${fluxo3.valor > 0 ? "text-sky-600" : "text-red-500"}`}>{formatMoney(fluxo3.valor)}</BTd>
+                                                                            <BTd classname={`font-bold text-sm ${fluxo3.valor > 0 ? "text-sky-600" : "text-red-500"}`}>{formatMoney(fluxo3.valor)}</BTd>
                                                                         </BTr>
                                                                     ))}
                                                             </BTd>
