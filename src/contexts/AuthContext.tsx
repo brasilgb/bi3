@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
     };
     getYearSelected();
-  }, []);
+  });
 
   // useEffect(() => {
   //   const setStorage = () => {
