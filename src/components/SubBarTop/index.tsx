@@ -1,51 +1,87 @@
-'use client'
-import Link from "next/link";
-import React from 'react'
-import { IoMdClock } from "react-icons/io";
-import { IoArrowBack, IoArrowForward, IoCalendar } from "react-icons/io5";
-import DatePicker from "../DatePicker";
+'use client';
+import Link from 'next/link';
+import React from 'react';
+import { IoMdClock } from 'react-icons/io';
+import { IoArrowBack, IoArrowForward, IoCalendar } from 'react-icons/io5';
+import DatePicker from '../DatePicker';
+import { useAuthContext } from '@/contexts/AuthContext';
+import moment from 'moment';
+import { usePathname } from 'next/navigation';
 
 interface SubBarTopProps {
-    colors: string;
-    back: string;
-    forwards: string;
-    depto: string;
+  colors: string;
+  back: string;
+  forwards: string;
+  depto?: string;
+  dtatu?: string;
 }
 
 const SubBarTop = (props: SubBarTopProps) => {
-    return (
-        <div className="bg-gray-50 py-1 md:px-0 px-2">
-            <div className="container m-auto flex items-center justify-between">
-                <div>
-                    <Link
-                        href={`${props.back}?depto=${props.depto}`}
-                    >
-                        <IoArrowBack size={20} />
-                    </Link>
-                </div>
-                <div>
-                    <div className={`${props.colors}`}>
-                        <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
-                            <IoCalendar size={18} />
-                            <DatePicker />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className={`${props.colors} font-medium`}>
-                        <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400"><IoMdClock size={18} /> <span>03/04/2024 11:07</span></div>
-                    </div>
-                </div>
-                <div>
-                    <Link
-                        href={props.forwards}
-                    >
-                        <IoArrowForward size={20} />
-                    </Link>
-                </div>
-            </div>
-        </div>
-    )
-}
+  const pathname = usePathname();
+  const { yearExists, setYearSelected, yearSelected } = useAuthContext();
+  const anoAtual: any = yearExists
+    ? moment().format('YYYY')
+    : moment().add(-1, 'y').format('YYYY');
 
-export default SubBarTop
+  return (
+    <div className="bg-gray-50 py-1 md:px-0 px-2">
+      <div className="container m-auto flex items-center justify-between">
+        <div>
+          <Link
+            className={`${props.back === '' ? 'text-gray-50' : 'text-gray-500'}`}
+            href={`${props.back}?depto=${props.depto}`}
+          >
+            <IoArrowBack size={20} />
+          </Link>
+        </div>
+        <div>
+          <div className={`${props.colors}`}>
+            <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
+              <IoCalendar size={18} />
+              {pathname === '/solar/sdre' ? (
+                <ul className="flex items-center justify-center gap-2 text-sm py-0.5 px-1">
+                  <li>
+                    <button
+                      onClick={() => setYearSelected(anoAtual - 1)}
+                      className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                    >
+                      {anoAtual - 1}
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => setYearSelected(anoAtual)}
+                      className={`${yearSelected === anoAtual ? 'bg-solar-green text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                    >
+                      {anoAtual}
+                    </button>
+                  </li>
+                </ul>
+              ) : (
+                <DatePicker />
+              )}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className={`${props.colors} font-medium`}>
+            <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400">
+              <IoMdClock size={18} />
+              <span>{props.dtatu}</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <Link
+            className={`${props.forwards === '' ? 'text-gray-50' : 'text-gray-500'}`}
+            href={`${props.forwards}?depto=${props.depto}`}
+          >
+            <IoArrowForward size={20} />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SubBarTop;

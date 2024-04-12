@@ -1,11 +1,11 @@
-import { BTable, BTd, BTh, BTr } from "@/components/Table";
-import { useAuthContext } from "@/contexts/AuthContext";
-import birel from "@/services/birel";
-import { formatMoney } from "@/utils";
-import moment from "moment";
-import React, { useEffect, useState } from 'react'
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SComPerformanceAss = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -61,24 +61,28 @@ const SComPerformanceAss = (props: Props) => {
           <BTr classname="bg-blue-50 text-gray-600 font-bold">
             <BTd>Total</BTd>
             <BTd>{formatMoney(lComTotais[0]?.ComprasAssoc)}</BTd>
-            <BTd>{((lComTotais[0]?.RepAssoc) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lComTotais[0]?.RepAssoc * 100).toFixed(2)}%</BTd>
             <BTd>{lComTotais[0]?.PrazoMedioAssoc}</BTd>
           </BTr>
           {lComPerfAssoc
-            .sort((a: any, b: any) => parseInt(a.Compras) < parseInt(b.Compras) ? 1 : -1
+            .sort((a: any, b: any) =>
+              parseInt(a.Compras) < parseInt(b.Compras) ? 1 : -1
             )
             .map((associacao: any, idx: number) => (
-              <BTr key={idx} classname={`${idx % 2 === 0 ? "bg-gray-100" : "bg-neutral-50"} text-gray-500 hover:bg-red-50`}>
+              <BTr
+                key={idx}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+              >
                 <BTd>{associacao.Assoc}</BTd>
                 <BTd>{formatMoney(associacao?.Compras)}</BTd>
-                <BTd>{((associacao?.Rep) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.Rep * 100).toFixed(2)}%</BTd>
                 <BTd>{associacao?.PrazoMedio}</BTd>
               </BTr>
             ))}
         </tbody>
       </BTable>
     </div>
-  )
-}
+  );
+};
 
-export default SComPerformanceAss
+export default SComPerformanceAss;

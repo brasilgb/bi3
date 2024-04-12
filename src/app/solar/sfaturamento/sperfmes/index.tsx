@@ -1,11 +1,11 @@
-import { BTable, BTd, BTh, BTr } from "@/components/Table";
-import { useAuthContext } from "@/contexts/AuthContext";
-import birel from "@/services/birel";
-import { formatMoney } from "@/utils";
-import moment from "moment";
-import React, { useEffect, useState } from 'react'
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SPerfMes = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -66,31 +66,36 @@ const SPerfMes = (props: Props) => {
             <BTd>{formatMoney(lFatuTotMesLojas[0]?.MetaMes)}</BTd>
             <BTd>{formatMoney(lFatuTotMesLojas[0]?.MediaFatuMes)}</BTd>
             <BTd>{(lFatuTotMesLojas[0]?.MargemMes * 100).toFixed(2)}%</BTd>
-            <BTd>{((lFatuTotMesLojas[0]?.RepFatuMes) * 100).toFixed(2)}%</BTd>
-            <BTd>{((lFatuTotMesLojas[0]?.MetaAlcancadaMes) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lFatuTotMesLojas[0]?.RepFatuMes * 100).toFixed(2)}%</BTd>
+            <BTd>
+              {(lFatuTotMesLojas[0]?.MetaAlcancadaMes * 100).toFixed(2)}%
+            </BTd>
             <BTd>{formatMoney(lFatuTotMesLojas[0]?.MedJurSParcMes)}</BTd>
-            <BTd>{((lFatuTotMesLojas[0]?.RepJurosMes) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lFatuTotMesLojas[0]?.RepJurosMes * 100).toFixed(2)}%</BTd>
           </BTr>
           {lFatuPerfMesLojas
             .sort((a: any, b: any) =>
               parseInt(a.AnoMesNum) < parseInt(b.AnoMesNum) ? 1 : -1
             )
             .map((associacao: any, idx: number) => (
-              <BTr key={idx} classname={`${idx % 2 === 0 ? "bg-gray-100" : "bg-neutral-50"} text-gray-500 hover:bg-red-50`}>
+              <BTr
+                key={idx}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+              >
                 <BTd>{associacao.MesAno}</BTd>
                 <BTd>{formatMoney(associacao?.Meta)}</BTd>
                 <BTd>{formatMoney(associacao?.MediaFatu)}</BTd>
                 <BTd>{(associacao?.Margem * 100).toFixed(2)}%</BTd>
-                <BTd>{((associacao?.RepFatu) * 100).toFixed(2)}%</BTd>
-                <BTd>{((associacao?.MetaAlcancada) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.RepFatu * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.MetaAlcancada * 100).toFixed(2)}%</BTd>
                 <BTd>{formatMoney(associacao?.MedJurSParc)}</BTd>
-                <BTd>{((associacao?.RepJuros) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.RepJuros * 100).toFixed(2)}%</BTd>
               </BTr>
             ))}
         </tbody>
       </BTable>
     </div>
-  )
-}
+  );
+};
 
-export default SPerfMes
+export default SPerfMes;

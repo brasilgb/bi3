@@ -1,25 +1,38 @@
-import Link from "next/link"
-import React from 'react'
-import LinkMenu from "./LinkMenu"
-import { IoHome } from "react-icons/io5"
+import Link from 'next/link';
+import React from 'react';
+import LinkMenu from './LinkMenu';
+import { IoHome } from 'react-icons/io5';
+import { GrGroup } from 'react-icons/gr';
 
-type Props = {}
-
-const MainMenu = (props: Props) => {
+const MainMenu = () => {
   return (
     <div className="bg-white p-2 mt-4 rounded-md shadow-sm">
       <ul className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
-        <LinkMenu url="/solar" depto="loja" icon={<IoHome />} />
-        <LinkMenu title="Resumo" url="/solar/sresumo" depto="loja" />
-        <LinkMenu title="Faturamento" url="/solar/sfaturamento" depto="loja" />
-        <LinkMenu title="Inadimplência" url="/solar/sinadimplencia" depto="loja" />
-        <LinkMenu title="Compras" url="/solar/scompras" depto="loja" />
-        <LinkMenu title="Fluxo" url="/solar/sfluxo" depto="loja" />
-        <LinkMenu title="Empréstimo" url="/solar/semprestimos" depto="loja" />
-        <LinkMenu title="DRE" url="/" depto="loja" />
+        <LinkMenu
+          url="/"
+          depto="grupo"
+          icon={<GrGroup size={18} title="Voltar ao menu Grupo Solar" />}
+        />
+        <LinkMenu
+          url="/solar"
+          depto="loja"
+          icon={<IoHome />}
+          title="Voltar ao início de Lojas"
+        />
+        <LinkMenu value="Resumo" url="/solar/sresumo" depto="loja" />
+        <LinkMenu value="Faturamento" url="/solar/sfaturamento" depto="loja" />
+        <LinkMenu
+          value="Inadimplência"
+          url="/solar/sinadimplencia"
+          depto="loja"
+        />
+        <LinkMenu value="Compras" url="/solar/scompras" depto="loja" />
+        <LinkMenu value="Fluxo" url="/solar/sfluxo" depto="loja" />
+        <LinkMenu value="Empréstimo" url="/solar/semprestimos" depto="loja" />
+        <LinkMenu value="DRE" url="/solar/sdre" depto="loja" />
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default MainMenu
+export default MainMenu;

@@ -1,11 +1,11 @@
-import { BTable, BTd, BTh, BTr } from "@/components/Table";
-import { useAuthContext } from "@/contexts/AuthContext";
-import birel from "@/services/birel";
-import { formatMoney } from "@/utils";
-import moment from "moment";
-import React, { useEffect, useState } from 'react'
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SCompDiario = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -52,8 +52,12 @@ const SCompDiario = (props: Props) => {
         <thead>
           <BTr classname="">
             <BTh classname="w-16">Associação</BTh>
-            <BTh classname="w-16">Compra dia {lComTotais.map((d: any) => d.DiaAtual)}</BTh>
-            <BTh classname="w-16">Compra dia {lComTotais.map((d: any) => d.DiaAnterior)}</BTh>
+            <BTh classname="w-16">
+              Compra dia {lComTotais.map((d: any) => d.DiaAtual)}
+            </BTh>
+            <BTh classname="w-16">
+              Compra dia {lComTotais.map((d: any) => d.DiaAnterior)}
+            </BTh>
             <BTh classname="w-16">Compra Semana</BTh>
             <BTh classname="w-16">Compra Mês</BTh>
             <BTh classname="w-16">Rep.</BTh>
@@ -67,7 +71,7 @@ const SCompDiario = (props: Props) => {
             <BTd>{formatMoney(lComTotais[0]?.CompraAnterior)}</BTd>
             <BTd>{formatMoney(lComTotais[0]?.CompraSemana)}</BTd>
             <BTd>{formatMoney(lComTotais[0]?.CompraMes)}</BTd>
-            <BTd>{((lComTotais[0]?.Rep) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lComTotais[0]?.Rep * 100).toFixed(2)}%</BTd>
             <BTd>{lComTotais[0]?.PrazoMedio}</BTd>
           </BTr>
           {lComComparaDia
@@ -75,20 +79,23 @@ const SCompDiario = (props: Props) => {
               parseInt(a.CompraMes) < parseInt(b.CompraMes) ? 1 : -1
             )
             .map((associacao: any, idx: number) => (
-              <BTr key={idx} classname={`${idx % 2 === 0 ? "bg-gray-100" : "bg-neutral-50"} text-gray-500 hover:bg-red-50`}>
+              <BTr
+                key={idx}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+              >
                 <BTd>{associacao.Assoc}</BTd>
                 <BTd>{formatMoney(associacao?.CompraDia)}</BTd>
                 <BTd>{formatMoney(associacao?.CompraAnterior)}</BTd>
                 <BTd>{formatMoney(associacao?.CompraSemana)}</BTd>
                 <BTd>{formatMoney(associacao?.CompraMes)}</BTd>
-                <BTd>{((associacao?.Rep) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.Rep * 100).toFixed(2)}%</BTd>
                 <BTd>{associacao?.PrazoMedio}</BTd>
               </BTr>
             ))}
         </tbody>
       </BTable>
     </div>
-  )
-}
+  );
+};
 
-export default SCompDiario
+export default SCompDiario;

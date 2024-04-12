@@ -1,10 +1,10 @@
 export const APP_ROUTES = {
-    private: {
-        home: {
-            name: '/',
-        }
+  private: {
+    home: {
+      name: '/',
     },
-    public: {
-        login: 'http://portal.gruposolar.com.br/login',
-    },
+  },
+  public: {
+    login: 'http://portal.gruposolar.com.br/login',
+  },
 };

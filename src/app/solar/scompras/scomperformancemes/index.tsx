@@ -1,11 +1,11 @@
-import { BTable, BTd, BTh, BTr } from "@/components/Table";
-import { useAuthContext } from "@/contexts/AuthContext";
-import birel from "@/services/birel";
-import { formatMoney } from "@/utils";
-import moment from "moment";
-import React, { useEffect, useState } from 'react'
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SComPerformanceMes = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -61,7 +61,7 @@ const SComPerformanceMes = (props: Props) => {
           <BTr classname="bg-blue-50 text-gray-600 font-bold">
             <BTd>Total</BTd>
             <BTd>{formatMoney(lComTotais[0]?.MediaCompraMes)}</BTd>
-            <BTd>{((lComTotais[0]?.RepMes) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lComTotais[0]?.RepMes * 100).toFixed(2)}%</BTd>
             <BTd>{lComTotais[0]?.PrazoMedioMes}</BTd>
           </BTr>
           {lComPerfMes
@@ -69,17 +69,20 @@ const SComPerformanceMes = (props: Props) => {
               parseInt(a.AnoMesNum) < parseInt(b.AnoMesNum) ? 1 : -1
             )
             .map((mes: any, idx: number) => (
-              <BTr key={idx} classname={`${idx % 2 === 0 ? "bg-gray-100" : "bg-neutral-50"} text-gray-500 hover:bg-red-50`}>
+              <BTr
+                key={idx}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+              >
                 <BTd>{mes.MesAno}</BTd>
                 <BTd>{formatMoney(mes?.MediaCompra)}</BTd>
-                <BTd>{((mes?.Rep) * 100).toFixed(2)}%</BTd>
+                <BTd>{(mes?.Rep * 100).toFixed(2)}%</BTd>
                 <BTd>{mes?.PrazoMedio}</BTd>
               </BTr>
             ))}
         </tbody>
       </BTable>
     </div>
-  )
-}
+  );
+};
 
-export default SComPerformanceMes
+export default SComPerformanceMes;

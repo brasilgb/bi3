@@ -1,13 +1,13 @@
-'use client'
-import LFatCombination from "@/components/Charts/LFatCombination"
-import { BTable, BTd, BTh, BTr } from "@/components/Table"
-import { useAuthContext } from "@/contexts/AuthContext"
-import birel from "@/services/birel"
-import { formatMoney } from "@/utils"
-import moment from "moment"
-import React, { useEffect, useState } from 'react'
+'use client';
+import LFatCombination from '@/components/Charts/LFatCombination';
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SPerformance = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -70,12 +70,14 @@ const SPerformance = (props: Props) => {
           </thead>
           <tbody>
             <BTr classname="bg-blue-50 text-gray-600 font-bold">
-              <BTd classname="py-4">{formatMoney(lFatuTotLojas[0]?.MetaMes)}</BTd>
+              <BTd classname="py-4">
+                {formatMoney(lFatuTotLojas[0]?.MetaMes)}
+              </BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.VendaMes)}</BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.FaltaVenderMes)}</BTd>
-              <BTd>{((lFatuTotLojas[0]?.MetaParcMes) * 100).toFixed(2)}%</BTd>
-              <BTd>{((lFatuTotLojas[0]?.AtingidoMes) * 100).toFixed(2)}%</BTd>
-              <BTd>{((lFatuTotLojas[0]?.PerfAtualMes) * 100).toFixed(2)}%</BTd>
+              <BTd>{(lFatuTotLojas[0]?.MetaParcMes * 100).toFixed(2)}%</BTd>
+              <BTd>{(lFatuTotLojas[0]?.AtingidoMes * 100).toFixed(2)}%</BTd>
+              <BTd>{(lFatuTotLojas[0]?.PerfAtualMes * 100).toFixed(2)}%</BTd>
             </BTr>
           </tbody>
         </BTable>
@@ -98,12 +100,14 @@ const SPerformance = (props: Props) => {
           </thead>
           <tbody>
             <BTr classname="bg-blue-50 text-gray-600 font-bold">
-              <BTd classname="py-4">{formatMoney(lFatuTotLojas[0]?.MetaDia)}</BTd>
+              <BTd classname="py-4">
+                {formatMoney(lFatuTotLojas[0]?.MetaDia)}
+              </BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.VendaDia)}</BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.FaltaVenderDia)}</BTd>
-              <BTd>{((lFatuTotLojas[0]?.PerfMetaDia) * 100).toFixed(2)}%</BTd>
+              <BTd>{(lFatuTotLojas[0]?.PerfMetaDia * 100).toFixed(2)}%</BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.JurSParcDia)}</BTd>
-              <BTd>{((lFatuTotLojas[0]?.PerfJurDia) * 100).toFixed(2)}%</BTd>
+              <BTd>{(lFatuTotLojas[0]?.PerfJurDia * 100).toFixed(2)}%</BTd>
               <BTd>{formatMoney(lFatuTotLojas[0]?.MediaDia)}</BTd>
             </BTr>
           </tbody>
@@ -113,7 +117,7 @@ const SPerformance = (props: Props) => {
         <LFatCombination data={lGraficoLojas} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SPerformance
+export default SPerformance;

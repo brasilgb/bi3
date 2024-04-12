@@ -1,11 +1,11 @@
-import { BTable, BTd, BTh, BTr } from "@/components/Table";
-import { useAuthContext } from "@/contexts/AuthContext";
-import birel from "@/services/birel";
-import { formatMoney } from "@/utils";
-import moment from "moment";
-import React, { useEffect, useState } from 'react'
+import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { useAuthContext } from '@/contexts/AuthContext';
+import birel from '@/services/birel';
+import { formatMoney } from '@/utils';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 
-type Props = {}
+type Props = {};
 
 const SPerfAssociacao = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -67,34 +67,37 @@ const SPerfAssociacao = (props: Props) => {
             <BTd>Total</BTd>
             <BTd>{formatMoney(lFatuTotPerfLojas[0]?.FaturamentoAss)}</BTd>
             <BTd>{(lFatuTotPerfLojas[0]?.MargemAss * 100).toFixed(2)}%</BTd>
-            <BTd>{((lFatuTotPerfLojas[0]?.RepFatAss) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lFatuTotPerfLojas[0]?.RepFatAss * 100).toFixed(2)}%</BTd>
             <BTd>{formatMoney(lFatuTotPerfLojas[0]?.JurSFatAss)}</BTd>
-            <BTd>{((lFatuTotPerfLojas[0]?.RepJurosAss) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lFatuTotPerfLojas[0]?.RepJurosAss * 100).toFixed(2)}%</BTd>
             <BTd>{formatMoney(lFatuTotPerfLojas[0]?.EstoqueAss)}</BTd>
             <BTd>{parseFloat(lFatuTotPerfLojas[0]?.GiroAss).toFixed(2)}</BTd>
-            <BTd>{((lFatuTotPerfLojas[0]?.RepEstoqueAss) * 100).toFixed(2)}%</BTd>
+            <BTd>{(lFatuTotPerfLojas[0]?.RepEstoqueAss * 100).toFixed(2)}%</BTd>
           </BTr>
           {lFatuPerfAssocLojas
             .sort((a: any, b: any) =>
               parseInt(a.Faturamento) < parseInt(b.Faturamento) ? 1 : -1
             )
             .map((associacao: any, idx: number) => (
-              <BTr key={idx} classname={`${idx % 2 === 0 ? "bg-gray-100" : "bg-neutral-50"} text-gray-500 hover:bg-red-50`}>
+              <BTr
+                key={idx}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+              >
                 <BTd>{associacao.Assoc}</BTd>
                 <BTd>{formatMoney(associacao?.Faturamento)}</BTd>
                 <BTd>{(associacao?.Margem * 100).toFixed(2)}%</BTd>
-                <BTd>{((associacao?.RepFat) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.RepFat * 100).toFixed(2)}%</BTd>
                 <BTd>{formatMoney(associacao?.JurSFat)}</BTd>
-                <BTd>{((associacao?.RepJuros) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.RepJuros * 100).toFixed(2)}%</BTd>
                 <BTd>{formatMoney(associacao?.Estoque)}</BTd>
-                <BTd>{((associacao?.Giro)).toFixed(2)}</BTd>
-                <BTd>{((associacao?.RepEstoque) * 100).toFixed(2)}%</BTd>
+                <BTd>{(associacao?.Giro).toFixed(2)}</BTd>
+                <BTd>{(associacao?.RepEstoque * 100).toFixed(2)}%</BTd>
               </BTr>
             ))}
         </tbody>
       </BTable>
     </div>
-  )
-}
+  );
+};
 
-export default SPerfAssociacao
+export default SPerfAssociacao;

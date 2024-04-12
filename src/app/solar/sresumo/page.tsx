@@ -1,16 +1,16 @@
-'use client'
-import ButtonAnalise from '@/components/ButtonAnalise'
-import MainMenu from '@/components/MainMenu'
-import SubBarTop from '@/components/SubBarTop'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import SFiliais from './sfiliais'
-import SAssociacao from './sassociacao'
-import birel from "@/services/birel"
-import moment from "moment"
-import { useAuthContext } from "@/contexts/AuthContext"
+'use client';
+import ButtonAnalise from '@/components/ButtonAnalise';
+import MainMenu from '@/components/MainMenu';
+import SubBarTop from '@/components/SubBarTop';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import SFiliais from './sfiliais';
+import SAssociacao from './sassociacao';
+import birel from '@/services/birel';
+import moment from 'moment';
+import { useAuthContext } from '@/contexts/AuthContext';
 
-type Props = {}
+type Props = {};
 
 const SResumo = (props: Props) => {
   const { dataFiltro } = useAuthContext();
@@ -18,6 +18,9 @@ const SResumo = (props: Props) => {
   const [lFiliais, setLFiliais] = useState<any>([]);
   const [lAssociacao, setLAssociacao] = useState([]);
   const [lTotais, setLTotais] = useState<any>([]);
+  const [dataAtualizacao, setDataAtualizacao] = useState<any>(
+    moment().format('DD/MM/YYYY HH:mm:ss')
+  );
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -62,6 +65,7 @@ const SResumo = (props: Props) => {
         })
         .then(results => {
           setLTotais(results.data.bi040.bidata);
+          setDataAtualizacao(results.data.bi040.bidata[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);
@@ -72,30 +76,42 @@ const SResumo = (props: Props) => {
 
   return (
     <main>
-      <SubBarTop colors="border-gray-200 text-gray-500" back="/solar" forwards="" depto="loja" />
+      <SubBarTop
+        colors="border-gray-200 text-gray-500"
+        back="/solar"
+        forwards="/solar/sfaturamento"
+        depto="loja"
+        dtatu={dataAtualizacao}
+      />
       <div className="container m-auto md:px-0 px-2">
         <MainMenu />
       </div>
-      <div className='container m-auto'>
-
-        <div className='bg-white mt-2 rounded-md shadow-sm p-2'>
-          <div className='flex items-center justify-start md:gap-4 gap-2'>
-            <ButtonAnalise title={'Filiais'} onclick={() => setAnalise('filiais')} active={analise} />
-            <ButtonAnalise title={'Associação'} onclick={() => setAnalise('associacao')} active={analise} />
+      <div className="container m-auto">
+        <div className="bg-white mt-2 rounded-md shadow-sm p-2">
+          <div className="flex items-center justify-start md:gap-4 gap-2">
+            <ButtonAnalise
+              title={'Filiais'}
+              onclick={() => setAnalise('filiais')}
+              active={analise}
+            />
+            <ButtonAnalise
+              title={'Associação'}
+              onclick={() => setAnalise('associacao')}
+              active={analise}
+            />
           </div>
           <div className="mt-2">
-            {analise === "filiais" &&
+            {analise === 'filiais' && (
               <SFiliais totais={lTotais} data={lFiliais} />
-            }
-            {analise === "associacao" &&
+            )}
+            {analise === 'associacao' && (
               <SAssociacao totais={lTotais} data={lAssociacao} />
-            }
+            )}
           </div>
         </div>
-
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default SResumo
+export default SResumo;

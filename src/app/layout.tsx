@@ -1,12 +1,12 @@
-'use client'
-import { Roboto } from "next/font/google";
-import "@/styles/globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { AuthProvider } from "@/contexts/AuthContext";
-import PrivateRoute from "@/components/privateroute";
-import { usePathname } from "next/navigation";
-import { checkIsPublicRoute } from "@/functions/check-is-public-route";
+'use client';
+import { Roboto } from 'next/font/google';
+import '@/styles/globals.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { AuthProvider } from '@/contexts/AuthContext';
+import PrivateRoute from '@/components/privateroute';
+import { usePathname } from 'next/navigation';
+import { checkIsPublicRoute } from '@/functions/check-is-public-route';
 import 'animate.css';
 
 const roboto = Roboto({
@@ -37,9 +37,7 @@ export default function RootLayout({
             {!isPublicPage && (
               <PrivateRoute>
                 <Header />
-                <div className="flex-grow bg-gray-100 pb-4">
-                  {children}
-                </div>
+                <div className="flex-grow bg-gray-100 pb-4">{children}</div>
                 <Footer />
               </PrivateRoute>
             )}

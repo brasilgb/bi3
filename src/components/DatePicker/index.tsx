@@ -1,5 +1,5 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+'use client';
+import React, { useEffect, useState } from 'react';
 import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, {
   DayValue,
@@ -7,14 +7,20 @@ import DatePicker, {
 } from '@hassanmojab/react-modern-calendar-datepicker';
 import moment from 'moment';
 import { CustomLocale } from './LocaleCalendar';
-import { useAuthContext } from "@/contexts/AuthContext";
-import { usePathname } from "next/navigation";
+import { useAuthContext } from '@/contexts/AuthContext';
+import { usePathname } from 'next/navigation';
 
-type Props = {}
+type Props = {};
 
 const index = (props: Props) => {
-
-  const { dataFiltro, setDataFiltro, setDataInicial, dataInicial, setDataFinal, dataFinal } = useAuthContext();
+  const {
+    dataFiltro,
+    setDataFiltro,
+    setDataInicial,
+    dataInicial,
+    setDataFinal,
+    dataFinal,
+  } = useAuthContext();
   const [selectedDay, setSelectedDay] = useState<DayValue>(null);
   const [selectedRange, setSelectedRange] = useState<DayRange>({
     from: {
@@ -31,13 +37,13 @@ const index = (props: Props) => {
 
   const formatInputValue = () => {
     if (!selectedDay) return '';
-    return moment(selectedDay).format("DD/MM/YYYY");
+    return moment(selectedDay).format('DD/MM/YYYY');
     // return `${selectedDay.day + '/' + selectedDay.month + '/' + selectedDay.year}`;
   };
 
   const formatInputRange = () => {
     if (!selectedRange) return '';
-    return `${("0" + selectedRange.from?.day).slice(-2) + '/' + ("0" + selectedRange.from?.month).slice(-2) + '/' + selectedRange.from?.year + ' - ' + ("0" + selectedRange.to?.day).slice(-2) + '/' + ("0" + selectedRange.to?.month).slice(-2) + '/' + selectedRange.to?.year}`;
+    return `${('0' + selectedRange.from?.day).slice(-2) + '/' + ('0' + selectedRange.from?.month).slice(-2) + '/' + selectedRange.from?.year + ' - ' + ('0' + selectedRange.to?.day).slice(-2) + '/' + ('0' + selectedRange.to?.month).slice(-2) + '/' + selectedRange.to?.year}`;
   };
 
   useEffect(() => {
@@ -45,20 +51,20 @@ const index = (props: Props) => {
       setDataInicial(
         moment(
           selectedRange.from?.year +
-          '-' +
-          selectedRange.from?.month +
-          '-' +
-          selectedRange.from?.day,
+            '-' +
+            selectedRange.from?.month +
+            '-' +
+            selectedRange.from?.day,
           'YYYY-MM-DD'
         ).toDate()
       );
       setDataFinal(
         moment(
           selectedRange.to?.year +
-          '-' +
-          selectedRange.to?.month +
-          '-' +
-          selectedRange.to?.day,
+            '-' +
+            selectedRange.to?.month +
+            '-' +
+            selectedRange.to?.day,
           'YYYY-MM-DD'
         ).toDate()
       );
@@ -78,8 +84,8 @@ const index = (props: Props) => {
   const pathname = usePathname();
   return (
     <div className="">
-      {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos'
-        ? <DatePicker
+      {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos' ? (
+        <DatePicker
           value={selectedRange}
           onChange={setSelectedRange}
           inputPlaceholder={`${moment(dataFiltro).format('DD/MM/YYYY')}`} // placeholder
@@ -89,7 +95,8 @@ const index = (props: Props) => {
           shouldHighlightWeekends
           locale={CustomLocale}
         />
-        : <DatePicker
+      ) : (
+        <DatePicker
           value={selectedDay}
           onChange={setSelectedDay}
           inputPlaceholder={`${moment(dataFiltro).format('DD/MM/YYYY')}`} // placeholder
@@ -99,9 +106,9 @@ const index = (props: Props) => {
           shouldHighlightWeekends
           locale={CustomLocale}
         />
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

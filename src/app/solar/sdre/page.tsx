@@ -3,36 +3,38 @@ import ButtonAnalise from '@/components/ButtonAnalise';
 import MainMenu from '@/components/MainMenu';
 import SubBarTop from '@/components/SubBarTop';
 import React, { useEffect, useState } from 'react';
-import Vencidos from './vencidos';
-import birel from '@/services/birel';
+import SDreGrupo from './sdregrupo';
+import SDreSolar from './sdresolar';
 import moment from 'moment';
+import birel from '@/services/birel';
 
 type Props = {};
 
-const SInadimplencia = (props: Props) => {
-  const [analise, setAnalise] = useState<string>('vencidos');
+const SDre = (props: Props) => {
+  const [analise, setAnalise] = useState<string>('dresolar');
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
   useEffect(() => {
-    async function getVencidaosTotais() {
+    const getDreEstrutura = async () => {
       await birel
-        .get('(LOJVEN_INADIM)')
-        .then(results => {
-          setDataAtualizacao(results.data.bi062.bidata[0].Atualizacao);
+        .get(`(DRE_ESTRU)`)
+        .then(response => {
+          setDataAtualizacao(response.data.bi058.bidata[0].Atualizacao);
         })
-        .catch(err => {
-          console.log(err);
+        .catch(error => {
+          console.log(error);
         });
-    }
-    getVencidaosTotais();
+    };
+    getDreEstrutura();
   }, []);
+
   return (
     <main>
       <SubBarTop
         colors="border-gray-200 text-gray-500"
-        back="/solar/sfaturamento"
-        forwards="/solar/scompras"
+        back="/solar/semprestimos"
+        forwards=""
         depto="loja"
         dtatu={dataAtualizacao}
       />
@@ -43,16 +45,24 @@ const SInadimplencia = (props: Props) => {
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
           <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
             <ButtonAnalise
-              title={'Vencidos'}
-              onclick={() => setAnalise('vencidos')}
+              title={'DRE Solar'}
+              onclick={() => setAnalise('dresolar')}
+              active={analise}
+            />
+            <ButtonAnalise
+              title={'DRE Grupo'}
+              onclick={() => setAnalise('dregrupo')}
               active={analise}
             />
           </div>
-          <div className="mt-2">{analise === 'vencidos' && <Vencidos />}</div>
+          <div className="mt-2">
+            {analise === 'dresolar' && <SDreSolar />}
+            {analise === 'dregrupo' && <SDreGrupo />}
+          </div>
         </div>
       </div>
     </main>
   );
 };
 
-export default SInadimplencia;
+export default SDre;
