@@ -13,7 +13,7 @@ const Header = (props: Props) => {
 
   return (
     <header
-      className={`${depto === 'loja' ? 'bg-solar-blue-dark' : depto === 'naturovos' ? 'bg-solar-yellow-200' : 'bg-solar-blue-light'} px-2`}
+      className={`${depto === 'loja' ? 'bg-solar-blue-primary' : depto === 'naturovos' ? 'bg-solar-yellow-200' : 'bg-solar-blue-secundary'} px-2`}
     >
       <div className="container py-1 mx-auto flex items-center justify-between h-16">
         <div

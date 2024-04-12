@@ -9,13 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'solar-blue-dark': '#154295',
-        'solar-blue-light': '#019EE3',
-        'solar-green': '#A7C414',
+        'solar-blue-primary': '#1a9cd9',
+        'solar-blue-secundary': '#0d3b85',
+        'solar-green-prymary': '#bccf00',
+        'solar-green-secundary': '#fcee21',
+        'solar-orange-prymary': '#F99F1E',
+        'solar-wine-support': '#c1478a',
+        'solar-red-support': '#e54757',
         'solar-gray-light': '#F6F5FA',
-        'solar-yellow-100': '#FFF200',
-        'solar-yellow-200': '#F99F1E',
-        'solar-yellow-300': '#F37021',
       },
       fontFamily: {
         Roboto: ['var(--font-roboto)'],

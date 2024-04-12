@@ -54,10 +54,10 @@ const SPerformance = (props: Props) => {
   return (
     <>
       <div className="w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
-        <div className="bg-solar-blue-dark text-sm text-solar-green font-medium p-2 uppercase border-b border-b-slate-500">
+        <div className="bg-solar-blue-primary text-sm text-solar-green-prymary font-medium p-2 uppercase border-b border-b-slate-500">
           Performance Mês
         </div>
-        <BTable classname="text-gray-50 bg-solar-blue-dark rounded-b-lg">
+        <BTable classname="text-gray-50 bg-solar-blue-primary rounded-b-lg">
           <thead>
             <BTr classname="">
               <BTh classname="w-36">Meta</BTh>
@@ -83,10 +83,10 @@ const SPerformance = (props: Props) => {
         </BTable>
       </div>
       <div className="mt-4 w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
-        <div className="bg-solar-blue-dark text-sm text-solar-green font-medium p-2 uppercase border-b border-b-slate-500">
+        <div className="bg-solar-blue-primary text-sm text-solar-green-prymary font-medium p-2 uppercase border-b border-b-slate-500">
           Performance Dia
         </div>
-        <BTable classname="text-gray-50 bg-solar-blue-dark rounded-b-lg">
+        <BTable classname="text-gray-50 bg-solar-blue-primary rounded-b-lg">
           <thead>
             <BTr classname="">
               <BTh classname="w-36">Meta</BTh>

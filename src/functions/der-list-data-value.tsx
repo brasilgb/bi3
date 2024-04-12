@@ -4,6 +4,7 @@ interface DataDre {
   mes?: any;
   ano?: any;
   valor?: any; // 0 = percent or 1 = value
+  color?: string;
 }
 export const dreListDataValue = ({
   data,
@@ -11,6 +12,7 @@ export const dreListDataValue = ({
   mes,
   ano,
   valor,
+  color
 }: DataDre) => {
   const valueDre = data
     .filter(
@@ -28,7 +30,7 @@ export const dreListDataValue = ({
     );
   return (
     <span
-      className={`${Math.sign(valueDre) === -1 ? 'text-red-500' : Math.sign(valueDre) === 0 ? 'text-gray-300' : 'text-gray-500'}`}
+      className={`${Math.sign(valueDre) === -1 ? color : Math.sign(valueDre) === 0 ? 'text-gray-400' : 'text-gray-600'}`}
     >
       {valor === 0
         ? (valueDre * 100).toFixed(2).replace('.', ',')

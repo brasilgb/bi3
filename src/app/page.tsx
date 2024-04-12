@@ -7,7 +7,7 @@ const Home = (props: Props) => {
   return (
     <div className="container m-auto flex flex-col items-center animate__animated animate__fadeIn">
       <div className="flex items-center justify-center py-4">
-        <h1 className="md:text-3xl text-xl font-bold text-solar-blue-light uppercase -md">
+        <h1 className="md:text-3xl text-xl font-bold text-solar-blue-secundary uppercase -md">
           Relatórios Administrativos
         </h1>
       </div>
@@ -15,14 +15,14 @@ const Home = (props: Props) => {
         <ButtonHome
           url="/solar"
           depto="loja"
-          bgbutton="bg-solar-blue-dark"
+          bgbutton="bg-solar-blue-primary"
           logobutton="logo_solar.png"
           colorbutton="text-solar-gray-light"
         />
         <ButtonHome
           url="/naturovos"
           depto="naturovos"
-          bgbutton="bg-solar-yellow-200"
+          bgbutton="bg-solar-orange-prymary"
           logobutton="logo_naturovos.png"
           colorbutton="text-gray-700"
         />

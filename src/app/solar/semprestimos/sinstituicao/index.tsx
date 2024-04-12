@@ -35,7 +35,7 @@ const SInstituicao = (props: Props) => {
   }, [dataInicial, dataFinal]);
 
   return (
-    <div className="w-full bg-solar-blue-dark rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
+    <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
       <BTable classname="text-gray-50">
         <thead>
           <BTr classname="">

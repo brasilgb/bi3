@@ -16,7 +16,7 @@ const LinkMenu = (props: LinkMenuProps) => {
   return (
     <li>
       <Link
-        className={`flex items-center justify-center ${!props.value ? 'w-8' : 'md:w-32 w-28 '} py-1 rounded md:text-sm text-[10px] text-center font-medium uppercase border hover:bg-solar-green hover:text-white duration-300 ${pathname === props.url ? 'bg-solar-green border-white text-white' : 'border-solar-green text-gray-500'}`}
+        className={`flex items-center justify-center ${!props.value ? 'w-8' : 'md:w-32 w-28 '} py-1 rounded md:text-sm text-[10px] text-center font-medium uppercase border hover:bg-solar-green-prymary hover:text-white duration-300 ${pathname === props.url ? 'bg-solar-green-prymary border-white text-white' : 'border-solar-green-prymary text-gray-500'}`}
         href={{
           pathname: `${props.url}`,
           query: { depto: `${props.depto}` },

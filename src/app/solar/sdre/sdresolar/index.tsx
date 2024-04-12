@@ -102,7 +102,7 @@ const SDreSolar = () => {
     return ` text-sm text-gray-50 text-center border-x`;
   };
   const subhead = () => {
-    return `bg-solar-green text-gray-700 text-sm text-center border-x`;
+    return `bg-solar-green-prymary text-gray-700 text-sm text-center border-x`;
   };
   const valuehead = () => {
     return `text-sm text-right border-x`;
@@ -140,7 +140,7 @@ const SDreSolar = () => {
   };
 
   return (
-    <div className="w-full bg-solar-blue-dark rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
+    <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
       <BTable classname="">
         <thead>
           <BTr>
@@ -192,7 +192,7 @@ const SDreSolar = () => {
           </BTr>
           <BTr>
             <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()} border-solar-green`}>%</BTd>
+            <BTd classname={`${subhead()} border-solar-green-prymary`}>%</BTd>
             <BTd classname={`${subhead()}`}>Valor</BTd>
             <BTd classname={`${subhead()}`}>%</BTd>
             <BTd classname={`${subhead()}`}>Valor</BTd>
@@ -239,10 +239,11 @@ const SDreSolar = () => {
                     mes: 0,
                     ano: yearSelected - 1,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd
-                  classname={`border-r-4 border-r-solar-green pr-1 ${valuehead} bg-gray-200`}
+                  classname={`border-r-4 border-r-solar-green-prymary pr-1 ${valuehead} bg-gray-200`}
                 >
                   {dreListDataValue({
                     data: dreDataTotalAnterior,
@@ -250,6 +251,7 @@ const SDreSolar = () => {
                     mes: 0,
                     ano: yearSelected - 1,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead} bg-gray-200`}>
@@ -259,6 +261,7 @@ const SDreSolar = () => {
                     mes: 0,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead} bg-gray-200`}>
@@ -268,6 +271,7 @@ const SDreSolar = () => {
                     mes: 0,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -277,6 +281,7 @@ const SDreSolar = () => {
                     mes: 1,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -286,6 +291,7 @@ const SDreSolar = () => {
                     mes: 1,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -295,6 +301,7 @@ const SDreSolar = () => {
                     mes: 2,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -304,6 +311,7 @@ const SDreSolar = () => {
                     mes: 2,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -313,6 +321,7 @@ const SDreSolar = () => {
                     mes: 3,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -322,6 +331,7 @@ const SDreSolar = () => {
                     mes: 3,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -331,6 +341,7 @@ const SDreSolar = () => {
                     mes: 4,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -340,6 +351,7 @@ const SDreSolar = () => {
                     mes: 4,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -349,6 +361,7 @@ const SDreSolar = () => {
                     mes: 5,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -358,6 +371,7 @@ const SDreSolar = () => {
                     mes: 5,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -367,6 +381,7 @@ const SDreSolar = () => {
                     mes: 6,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -376,6 +391,7 @@ const SDreSolar = () => {
                     mes: 6,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -385,6 +401,7 @@ const SDreSolar = () => {
                     mes: 7,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -394,6 +411,7 @@ const SDreSolar = () => {
                     mes: 7,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -403,6 +421,7 @@ const SDreSolar = () => {
                     mes: 8,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -412,6 +431,7 @@ const SDreSolar = () => {
                     mes: 8,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -421,6 +441,7 @@ const SDreSolar = () => {
                     mes: 9,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -430,6 +451,7 @@ const SDreSolar = () => {
                     mes: 9,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -439,6 +461,7 @@ const SDreSolar = () => {
                     mes: 10,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -448,6 +471,7 @@ const SDreSolar = () => {
                     mes: 10,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -457,6 +481,7 @@ const SDreSolar = () => {
                     mes: 11,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -466,6 +491,7 @@ const SDreSolar = () => {
                     mes: 11,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -475,6 +501,7 @@ const SDreSolar = () => {
                     mes: 12,
                     ano: yearSelected,
                     valor: 1,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
                 <BTd classname={`${valuehead}`}>
@@ -484,6 +511,7 @@ const SDreSolar = () => {
                     mes: 12,
                     ano: yearSelected,
                     valor: 0,
+                    color: "text-solar-red-support"
                   })}
                 </BTd>
               </BTr>

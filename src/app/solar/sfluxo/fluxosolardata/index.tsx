@@ -111,12 +111,12 @@ const FluxoSolarData = (props: Props) => {
   );
 
   return (
-    <div className="w-full bg-solar-blue-dark text-white rounded-t-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
+    <div className="w-full bg-solar-blue-primary text-white rounded-t-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
       <div className="font-medium text-left px-2 py-0.5 whitespace-nowrap">
         Fluxo de caixa lojas
       </div>
       <BTable>
-        <BTr classname="flex justify-start text-base bg-solar-green text-gray-100">
+        <BTr classname="flex justify-start text-base bg-solar-green-prymary text-gray-100">
           <BTd classname="flex items-start">
             <div className="w-[206px] ml-1 pl-4 uppercase">Descrição</div>
           </BTd>

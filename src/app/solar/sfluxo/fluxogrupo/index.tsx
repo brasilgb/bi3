@@ -62,7 +62,7 @@ const FluxoGrupo = (props: Props) => {
   };
 
   return (
-    <div className="w-full bg-solar-blue-dark text-white rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
+    <div className="w-full bg-solar-blue-primary text-white rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
       <div className="font-medium text-left px-2 py-0.5 whitespace-nowrap">
         Fluxo de caixa lojas
       </div>

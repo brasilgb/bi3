@@ -122,23 +122,23 @@ const Solar = (props: Props) => {
             icon={<GiPayMoney />}
             title={'Vendas (mês)'}
             value={formatMoney(totais[0]?.VendaAgora)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-green'}
+            iconcolor={'text-solar-green-prymary'}
           />
           <Kpi
             icon={<GiPayMoney />}
             title={'Vendas (dia)'}
             value={formatMoney(totais[0]?.VendaDia)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-green'}
+            iconcolor={'text-solar-green-prymary'}
           />
           <Kpi
             icon={<AiOutlineLineChart />}
             title={'Meta'}
             value={formatMoney(totais[0]?.Meta)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
             iconcolor={'text-solar-yellow-200'}
           />
@@ -146,9 +146,9 @@ const Solar = (props: Props) => {
             icon={<FaMoneyBillTrendUp />}
             title={'Faturamento'}
             value={formatMoney(totais[0]?.Faturamento)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-blue-dark'}
+            iconcolor={'text-solar-blue-primary'}
           />
         </div>
         <div className="grid grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
@@ -182,9 +182,9 @@ const Solar = (props: Props) => {
             icon={<PiChartLineDown />}
             title={'Vencidos (15 > venc <= 180)'}
             value={formatMoney(inadimplencia[0]?.ValorVencido)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-green'}
+            iconcolor={'text-solar-green-prymary'}
             valuerep={formatPercent(inadimplencia[0]?.RepVencido)}
             titlerep="Representa"
           />
@@ -192,9 +192,9 @@ const Solar = (props: Props) => {
             icon={<MdMoneyOff />}
             title={'Perdas efetivas ( venc > 180)'}
             value={formatMoney(inadimplencia[0]?.ValorPerda)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-green'}
+            iconcolor={'text-solar-green-prymary'}
             valuerep={formatPercent(inadimplencia[0]?.RepPerda)}
             titlerep="Representa"
           />
@@ -202,7 +202,7 @@ const Solar = (props: Props) => {
             icon={<TbChartHistogram />}
             title={'JURO (MÊS)'}
             value={formatMoney(fatuTotMesLojas[0]?.JurosSPM)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
             iconcolor={'text-solar-yellow-200'}
             valuerep={formatPercent(fatuTotMesLojas[0]?.RepSemFatu)}
@@ -212,9 +212,9 @@ const Solar = (props: Props) => {
             icon={<FaBoxes />}
             title={'ESTOQUE ATUAL'}
             value={formatMoney(estoque[0]?.EstoqueAss)}
-            textcolor={'text-solar-blue-light'}
+            textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
-            iconcolor={'text-solar-blue-dark'}
+            iconcolor={'text-solar-blue-primary'}
             valuerep={formatPercent(estoque[0]?.RepEstoqueAss)}
             titlerep="Representa"
           />

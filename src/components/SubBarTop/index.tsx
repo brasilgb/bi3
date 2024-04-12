@@ -43,7 +43,7 @@ const SubBarTop = (props: SubBarTopProps) => {
                   <li>
                     <button
                       onClick={() => setYearSelected(anoAtual - 1)}
-                      className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                      className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
                     >
                       {anoAtual - 1}
                     </button>
@@ -51,7 +51,7 @@ const SubBarTop = (props: SubBarTopProps) => {
                   <li>
                     <button
                       onClick={() => setYearSelected(anoAtual)}
-                      className={`${yearSelected === anoAtual ? 'bg-solar-green text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                      className={`${yearSelected === anoAtual ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
                     >
                       {anoAtual}
                     </button>
