@@ -19,7 +19,7 @@ const Header = (props: Props) => {
         <div
           className={`flex items-center ${depto == 'loja' ? 'w-28' : depto == 'naturovos' ? 'w-24' : 'w-36'} p-0.5`}
         >
-          <Link href="/">
+          <Link href={`${depto === 'loja' ? '/' : depto === 'naturovos' ? '/' : 'http://portal.gruposolar.com.br/'}`}>
             <Image
               layout="responsive"
               src={`/bi3/logo/${depto === 'loja' ? 'logo_solar.png' : depto === 'naturovos' ? 'logo_naturovos.png' : 'logo_grupo.png'}`}
