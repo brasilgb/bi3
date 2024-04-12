@@ -11,7 +11,7 @@ const MainMenu = () => {
         <LinkMenu
           url="/"
           depto="grupo"
-          icon={<GrGroup size={18} title="Voltar ao menu Grupo Solar" />}
+          icon={<GrGroup size={20} title="Voltar ao menu Grupo Solar" />}
         />
         <LinkMenu
           url="/solar"
