@@ -3,10 +3,10 @@ import Link from 'next/link';
 import React from 'react';
 import { IoMdClock } from 'react-icons/io';
 import { IoArrowBack, IoArrowForward, IoCalendar } from 'react-icons/io5';
-import DatePicker from '../DatePicker';
 import { useAuthContext } from '@/contexts/AuthContext';
 import moment from 'moment';
 import { usePathname } from 'next/navigation';
+import DatePickerBI3 from "../DatePicker";
 
 interface SubBarTopProps {
   colors: string;
@@ -58,7 +58,7 @@ const SubBarTop = (props: SubBarTopProps) => {
                   </li>
                 </ul>
               ) : (
-                <DatePicker />
+                <DatePickerBI3 />
               )}
             </div>
           </div>

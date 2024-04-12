@@ -12,7 +12,7 @@ import { usePathname } from 'next/navigation';
 
 type Props = {};
 
-const index = (props: Props) => {
+const DatePickerBI3 = (props: Props) => {
   const {
     dataFiltro,
     setDataFiltro,
@@ -111,4 +111,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default DatePickerBI3;

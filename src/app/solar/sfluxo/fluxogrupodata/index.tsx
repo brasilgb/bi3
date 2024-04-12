@@ -152,8 +152,8 @@ const FluxoGrupoData = (props: Props) => {
                   (n1: any) =>
                     removeAcentos(n1.descricao) === removeAcentos(fluxo1)
                 )
-                .map((v1: any) => (
-                  <BTd
+                .map((v1: any, idx:number) => (
+                  <BTd key={idx}
                     classname={`font-bold ${v1.valor > 0 ? 'text-blue-600' : 'text-red-500'}`}
                   >
                     <div className="w-28">{formatMoney(v1.valor)}</div>
@@ -192,8 +192,8 @@ const FluxoGrupoData = (props: Props) => {
                               removeAcentos(n2.descricao) ===
                               removeAcentos(fluxo2)
                           )
-                          .map((v2: any) => (
-                            <BTd
+                          .map((v2: any, idx: number) => (
+                            <BTd key={idx}
                               classname={`font-bold ${v2.valor > 0 ? 'text-blue-500' : 'text-red-500'}`}
                             >
                               <div className="w-28 text-sm">
@@ -225,8 +225,9 @@ const FluxoGrupoData = (props: Props) => {
                                         removeAcentos(n3.descricao) ===
                                         removeAcentos(fluxo3)
                                     )
-                                    .map((v3: any) => (
+                                    .map((v3: any, idx: number) => (
                                       <BTd
+                                      key={idx}
                                         classname={`font-bold ${v3.valor > 0 ? 'text-sky-600' : 'text-red-500'}`}
                                       >
                                         <div className="w-28 text-sm">
