@@ -94,8 +94,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno1
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   <span>{Math.round(producao.consumocx)}</span>{' '}
                   <span>({Math.round(producao.percMeta)}%)</span>
                 </td>
@@ -110,8 +110,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno1
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   {Math.round(producao.consumohr)}
                 </td>
               ))
@@ -156,8 +156,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno2
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   {Math.round(producao.consumocx)} (
                   {Math.round(producao.percMeta)}%)
                 </td>
@@ -173,8 +173,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno2
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   {Math.round(producao.consumohr)}
                 </td>
               ))
@@ -218,8 +218,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno3
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   {Math.round(producao.consumocx)} (
                   {Math.round(producao.percMeta)}%)
                 </td>
@@ -233,8 +233,8 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           {dateDistinct.map((dt: any) =>
             producaoTurno3
               .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any) => (
-                <td className="text-left">
+              .map((producao: any, idx:number) => (
+                <td key={idx} className="text-left">
                   {Math.round(producao.consumohr)}
                 </td>
               ))

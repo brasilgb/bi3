@@ -32,7 +32,7 @@ const NResAssoc = ({ grupo }: GrupoProps) => {
         });
     }
     getNFatuGrupo();
-  }, [dataFiltro]);
+  }, [dataFiltro,grupo]);
 
   return (
     <div className="w-full animate__animated animate__fadeIn">

@@ -34,7 +34,7 @@ const NResGrupo = ({ setor }: GrupoProps) => {
                 });
         }
         getNFatuGrupo();
-    }, [dataFiltro]);
+    }, [dataFiltro,setor]);
 
     const handleAccordionClick = (index: any) => {
         if (index !== openAccordion) {
