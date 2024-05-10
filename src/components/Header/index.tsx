@@ -5,15 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const searchParams = useSearchParams();
   const depto = searchParams.get('depto');
 
   return (
     <header
-      className={`${depto === 'loja' ? 'bg-solar-blue-primary' : depto === 'naturovos' ? 'bg-solar-yellow-200' : 'bg-solar-blue-secundary'} px-2`}
+      className={`${depto === 'loja' ? 'bg-solar-blue-primary' : depto === 'naturovos' ? 'bg-solar-orange-prymary' : 'bg-solar-blue-secundary'} px-2`}
     >
       <div className="container py-1 mx-auto flex items-center justify-between h-16">
         <div

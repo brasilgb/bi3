@@ -1,7 +1,7 @@
 'use client';
 import Progress from '@/components/Charts/Progress';
 import { Kpi } from '@/components/Kpis';
-import MainMenu from '@/components/MainMenu';
+import MainMenuSolar from "@/components/MainMenu/solar";
 import SubBarTop from '@/components/SubBarTop';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -106,6 +106,11 @@ const Solar = (props: Props) => {
     if (value > meta) return 'text-emerald-500';
   };
 
+
+
+  const numrange = Array.from(Array(85).keys()).map(i => 235 + i);
+
+
   return (
     <main className="animate__animated animate__fadeIn">
       <SubBarTop
@@ -115,8 +120,8 @@ const Solar = (props: Props) => {
         depto="loja"
         dtatu={dataAtualizacao}
       />
-      <div className="container m-auto md:px-0 px-2">
-        <MainMenu />
+      <div className="container m-auto md:px-0 px-1">
+        <MainMenuSolar />
         <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 mt-4">
           <Kpi
             icon={<GiPayMoney />}
@@ -219,7 +224,19 @@ const Solar = (props: Props) => {
             titlerep="Representa"
           />
         </div>
+
+        {/* <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="bg-gray-50 rounded shadow-sm grid grid-cols-6 gap-2 text-center p-2">
+            {numrange.map((range: any, idx: number) => (
+              <div className="bg-gray-100 text-sm font-medium text-gray-600 rounded shadow-sm border border-white py-1">
+                {("000000" + range).slice(-6)}
+              </div>
+            ))}
+          </div>
+          <div className="bg-gray-50 rounded shadow-sm">ok</div>
+        </div> */}
       </div>
+
     </main>
   );
 };

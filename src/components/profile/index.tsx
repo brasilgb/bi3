@@ -2,12 +2,17 @@
 import { useAuthContext } from '@/contexts/AuthContext';
 // import { useAuthContext } from "@/contexts/AuthContext";
 import Link from 'next/link';
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from 'react';
 import { IoMdUnlock } from 'react-icons/io';
 import { IoExit, IoImage, IoPerson } from 'react-icons/io5';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Profile = () => {
+  const searchParams = useSearchParams();
+  const depto = searchParams.get('depto');
+  console.log(depto);
+
   const { signOut, user } = useAuthContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -23,12 +28,12 @@ const Profile = () => {
           className="flex items-center justify-between px-2"
           onClick={toggle}
         >
-          <div className="text-gray-700">
-            <IoPerson color="#F6F5FA" size={20} />
+          <div className={`${depto === 'naturovos' ? 'text-gray-800' : 'text-solar-gray-light'}`}>
+            <IoPerson size={20} />
           </div>
-          <div className="text-gray-700">
+          <div className={`${depto === 'naturovos' ? 'text-gray-800' : 'text-solar-gray-light'}`}>
             <MdOutlineKeyboardArrowDown
-              color="#F6F5FA"
+
               size={20}
               className={`duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
             />

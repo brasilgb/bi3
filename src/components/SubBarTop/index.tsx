@@ -38,8 +38,8 @@ const SubBarTop = (props: SubBarTopProps) => {
           <div className={`${props.colors}`}>
             <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
               <IoCalendar size={18} />
-              {pathname === '/solar/sdre' ? (
-                <ul className="flex items-center justify-center gap-2 text-sm py-0.5 px-1">
+              {pathname === '/solar/sdre' || pathname == '/naturovos/ndre' ? (
+                <ul className="flex items-center justify-center gap-2 md:text-sm text-[12px] md:py-0.5 py-1 px-1">
                   <li>
                     <button
                       onClick={() => setYearSelected(anoAtual - 1)}
@@ -65,7 +65,7 @@ const SubBarTop = (props: SubBarTopProps) => {
         </div>
         <div>
           <div className={`${props.colors} font-medium`}>
-            <div className="flex items-center justify-center border rounded-md px-1 py-1 text-xs gap-3 text-gray-400">
+            <div className="flex items-center justify-center border rounded-md px-1 py-1 md:text-xs  text-[10px] gap-3 text-gray-400">
               <IoMdClock size={18} />
               <span>{props.dtatu}</span>
             </div>

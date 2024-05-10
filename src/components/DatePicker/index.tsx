@@ -84,13 +84,13 @@ const DatePickerBI3 = (props: Props) => {
   const pathname = usePathname();
   return (
     <div className="">
-      {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos' ? (
+      {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos' || pathname === '/naturovos/nfluxo' || pathname === '/naturovos/nproducao' ? (
         <DatePicker
           value={selectedRange}
           onChange={setSelectedRange}
           inputPlaceholder={`${moment(dataFiltro).format('DD/MM/YYYY')}`} // placeholder
           formatInputText={formatInputRange} // format value
-          inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium !text-xs !px-1" // custom class
+          inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium md:!text-xs !text-[10px] !px-1" // custom class
           calendarClassName="responsive-calendar"
           shouldHighlightWeekends
           locale={CustomLocale}
@@ -101,7 +101,7 @@ const DatePickerBI3 = (props: Props) => {
           onChange={setSelectedDay}
           inputPlaceholder={`${moment(dataFiltro).format('DD/MM/YYYY')}`} // placeholder
           formatInputText={formatInputValue} // format value
-          inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium !text-xs !px-0" // custom class
+          inputClassName="!border-0 outline-none !bg-transparent !text-gray-400 !font-medium md:!text-xs !text-[10px] !px-0" // custom class
           calendarClassName="responsive-calendar"
           shouldHighlightWeekends
           locale={CustomLocale}

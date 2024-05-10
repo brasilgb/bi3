@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { IconContext } from "react-icons";
+import { IoTime } from "react-icons/io5";
 
-interface KpiTesteProps {
+interface KpiProps {
   icon: any;
   title: string;
   value: string;
@@ -11,7 +13,7 @@ interface KpiTesteProps {
   iconcolor: string;
 }
 
-export const Kpi = (props: KpiTesteProps) => {
+export const Kpi = (props: KpiProps) => {
   return (
     <div className="flex flex-col bg-white rounded-md shadow-sm">
       <div className="flex items-center justify-between p-4">
@@ -42,5 +44,60 @@ export const Kpi = (props: KpiTesteProps) => {
         </div>
       )}
     </div>
+  );
+};
+
+interface KpiNaturProps {
+  title: string;
+  value: string;
+  valColor?: any;
+  titleColor?: string;
+  rotulo?: string;
+  padding?: string;
+  valorStyle?: string;
+  titleStyle?: string;
+  rotuloStyle?: string;
+  kpiStyle?: string;
+  realTime?: any;
+}
+
+export const KpiNatur = (props: KpiNaturProps) => {
+  return (
+    <Fragment>
+      <div className="relative">
+        <div
+          className={`${props.kpiStyle} flex flex-col items-center justify-center bg-gray-50 border border-gray-200 rounded-md py-6`}
+        >
+          {props.realTime && (
+            <div className="absolute top-2 left-2">
+              <IconContext.Provider
+                value={{ className: 'text-gray-500 cursor-pointer text-xl' }}
+              >
+                <div>
+                  <IoTime title="Dados carregados a cada 10 min" />
+                </div>
+              </IconContext.Provider>
+            </div>
+          )}
+          <div className="">
+            <h1 className={`${props.titleStyle} pb-2`}>{props.title}</h1>
+          </div>
+          <div className="">
+            <h1
+              className={`${props.rotuloStyle} drop-shadow-md font-semibold text-base md:text-xl text-gray-500`}
+            >
+              {props.rotulo}
+            </h1>
+          </div>
+          <div className="">
+            <h1
+              className={`${props.valorStyle} drop-shadow-md font-semibold text-base md:text-3xl`}
+            >
+              {props.value}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </Fragment>
   );
 };

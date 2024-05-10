@@ -1,6 +1,5 @@
 'use client';
 import ButtonAnalise from '@/components/ButtonAnalise';
-import MainMenu from '@/components/MainMenu';
 import SubBarTop from '@/components/SubBarTop';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -9,6 +8,7 @@ import SAssociacao from './sassociacao';
 import birel from '@/services/birel';
 import moment from 'moment';
 import { useAuthContext } from '@/contexts/AuthContext';
+import MainMenuSolar from "@/components/MainMenu/solar";
 
 type Props = {};
 
@@ -83,10 +83,10 @@ const SResumo = (props: Props) => {
         depto="loja"
         dtatu={dataAtualizacao}
       />
-      <div className="container m-auto md:px-0 px-2">
-        <MainMenu />
+      <div className="container m-auto md:px-0 px-1">
+        <MainMenuSolar />
       </div>
-      <div className="container m-auto">
+      <div className="container m-auto md:px-0 px-1">
         <div className="bg-white mt-2 rounded-md shadow-sm p-2">
           <div className="flex items-center justify-start md:gap-4 gap-2">
             <ButtonAnalise

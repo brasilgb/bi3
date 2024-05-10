@@ -1,15 +1,14 @@
 'use client';
 import ButtonAnalise from '@/components/ButtonAnalise';
-import MainMenu from '@/components/MainMenu';
 import SubBarTop from '@/components/SubBarTop';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SProduto from './sproduto';
 import SInstituicao from './sinstituicao';
 import STInstituicao from './stinstituicao';
 import STProduto from './stproduto';
 import moment from 'moment';
-import birel from '@/services/birel';
 import { useAuthContext } from '@/contexts/AuthContext';
+import MainMenuSolar from "@/components/MainMenu/solar";
 
 const SEmprestimos = () => {
   const [analise, setAnalise] = useState<string>('instituicao');
@@ -27,10 +26,10 @@ const SEmprestimos = () => {
         depto="loja"
         dtatu={dataAtualizacao}
       />
-      <div className="container m-auto md:px-0 px-2">
-        <MainMenu />
+      <div className="container m-auto md:px-0 px-1">
+        <MainMenuSolar />
       </div>
-      <div className="container m-auto">
+      <div className="container m-auto md:px-0 px-1">
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
           <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
             <ButtonAnalise

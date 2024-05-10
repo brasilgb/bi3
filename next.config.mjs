@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   basePath: '/bi3',
   assetPrefix: '/bi3',

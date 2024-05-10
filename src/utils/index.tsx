@@ -16,3 +16,8 @@ export const formatPercent = (value: number) => {
   const ajusted = isNaN(value) ? 0 : value;
   return (ajusted * 100).toFixed(2);
 };
+
+export const formatNumber = (number: number) => {
+const numeral = Math.round(number);
+    return numeral.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}

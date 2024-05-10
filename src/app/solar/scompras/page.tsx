@@ -1,6 +1,5 @@
 'use client';
 import ButtonAnalise from '@/components/ButtonAnalise';
-import MainMenu from '@/components/MainMenu';
 import SubBarTop from '@/components/SubBarTop';
 import React, { useEffect, useState } from 'react';
 import SCompDiario from './scompdiario';
@@ -10,6 +9,7 @@ import SComPerformanceMes from './scomperformancemes';
 import birel from '@/services/birel';
 import moment from 'moment';
 import { useAuthContext } from '@/contexts/AuthContext';
+import MainMenuSolar from "@/components/MainMenu/solar";
 
 type Props = {};
 
@@ -43,10 +43,10 @@ const SCompras = (props: Props) => {
         depto="loja"
         dtatu={dataAtualizacao}
       />
-      <div className="container m-auto md:px-0 px-2">
-        <MainMenu />
+      <div className="container m-auto md:px-0 px-1">
+        <MainMenuSolar />
       </div>
-      <div className="container m-auto">
+      <div className="container m-auto md:px-0 px-1">
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
           <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
             <ButtonAnalise
