@@ -37,8 +37,7 @@ const DatePickerBI3 = (props: Props) => {
 
   const formatInputValue = () => {
     if (!selectedDay) return '';
-    return moment(selectedDay).format('DD/MM/YYYY');
-    // return `${selectedDay.day + '/' + selectedDay.month + '/' + selectedDay.year}`;
+    return `${('0' + selectedDay.day).slice(-2) + '/' + ('0' + selectedDay.month).slice(-2) + '/' + selectedDay.year}`;
   };
 
   const formatInputRange = () => {
