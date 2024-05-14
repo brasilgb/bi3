@@ -12,7 +12,6 @@ import MainMenuSolar from "@/components/MainMenu/solar";
 
 const SEmprestimos = () => {
   const [analise, setAnalise] = useState<string>('instituicao');
-  const { dataInicial, dataFinal } = useAuthContext();
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );

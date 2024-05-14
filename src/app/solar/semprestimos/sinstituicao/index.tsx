@@ -10,10 +10,6 @@ type Props = {};
 const SInstituicao = (props: Props) => {
   const { dataInicial, dataFinal } = useAuthContext();
   const [lEmprestimos, setLInstituicao] = useState([]);
-  console.log(
-    moment(dataInicial).format('YYYYMMDD'),
-    moment(dataFinal).format('YYYYMMDD')
-  );
 
   // Extração de dados resumos filiais
   useEffect(() => {

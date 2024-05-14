@@ -11,7 +11,6 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 const Profile = () => {
   const searchParams = useSearchParams();
   const depto = searchParams.get('depto');
-  console.log(depto);
 
   const { signOut, user } = useAuthContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);

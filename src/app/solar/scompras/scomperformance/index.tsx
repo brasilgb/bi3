@@ -28,7 +28,6 @@ const SComPerformance = (props: Props) => {
     getLComGrafico();
   }, [dataFiltro]);
 
-  console.log(lComGrafico);
 
   return (
     <div className="mt-4 animate__animated animate__fadeIn">

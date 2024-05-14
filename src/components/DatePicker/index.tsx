@@ -10,28 +10,27 @@ import { CustomLocale } from './LocaleCalendar';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { usePathname } from 'next/navigation';
 
-type Props = {};
-
-const DatePickerBI3 = (props: Props) => {
+const DatePickerBI3 = () => {
   const {
     dataFiltro,
-    setDataFiltro,
+    setDataFiltro, 
     setDataInicial,
     dataInicial,
     setDataFinal,
     dataFinal,
   } = useAuthContext();
+
   const [selectedDay, setSelectedDay] = useState<DayValue>(null);
   const [selectedRange, setSelectedRange] = useState<DayRange>({
     from: {
-      year: parseInt(moment().format('YYYY')),
-      month: parseInt(moment().format('MM')),
-      day: parseInt(moment().format('DD')),
+      year: parseInt(moment(dataInicial).format('YYYY')),
+      month: parseInt(moment(dataInicial).format('MM')),
+      day: parseInt(moment(dataInicial).format('DD')),
     },
     to: {
-      year: parseInt(moment().format('YYYY')),
-      month: parseInt(moment().format('MM')),
-      day: parseInt(moment().format('DD')),
+      year: parseInt(moment(dataFinal).format('YYYY')),
+      month: parseInt(moment(dataFinal).format('MM')),
+      day: parseInt(moment(dataFinal).format('DD')),
     },
   });
 
@@ -80,6 +79,7 @@ const DatePickerBI3 = (props: Props) => {
       );
     }
   }, [selectedDay, setDataFiltro]);
+
   const pathname = usePathname();
   return (
     <div className="">

@@ -67,6 +67,14 @@ const FluxoSolar = (props: Props) => {
         Fluxo de caixa lojas
       </div>
       <BTable>
+      <BTr classname="flex justify-between text-base bg-solar-green-prymary text-gray-100">
+          <BTd classname="flex items-start">
+            <div className="w-[206px] ml-1 pl-4 uppercase">Descrição</div>
+          </BTd>
+            <BTd classname="flex items-end">
+              <div className="">{moment(dataInicial).format('DD/MM/YYYY')} - {moment(dataFinal).format('DD/MM/YYYY')}</div>
+            </BTd>
+        </BTr>
         {fluxoDataParcialLojas
           .filter((n1: any) => n1.nivel === 1)
           .sort((a: any, b: any) => (a.ordem > b.ordem ? 1 : -1))
