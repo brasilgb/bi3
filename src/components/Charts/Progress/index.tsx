@@ -32,13 +32,18 @@ const Progress = ({
   const options = {
     chart: {
       type: 'pie',
-      height: 200,
+      height: `${sizeWindow > 1900 ? 180 : 150}`,
+    },
+    plotOptions: {
+        pie: {
+            size:`${sizeWindow > 1900 ? '120%' : '140%'}`,
+        }
     },
     title: {
       text: '',
     },
     subtitle: {
-      text: `<div style='font-size: ${sizeWindow > 1900 ? '30px' : '15px'}; font-weight: bold; color: ${colorText}'>${value}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span>`,
+      text: `<div style='font-size: ${sizeWindow > 1900 ? '22px' : '12px'}; font-weight: bold; color: ${colorText}'>${value}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span>`,
       align: 'center',
       verticalAlign: 'middle',
       style: {
@@ -71,9 +76,7 @@ const Progress = ({
 
   return (
     <Fragment>
-      <div className="w-full">
         <HighchartsReact highcharts={Highcharts} options={options} />
-      </div>
     </Fragment>
   );
 };

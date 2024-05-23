@@ -9,12 +9,12 @@ const MainMenuSolar
   const searchParams = useSearchParams();
   const depto = searchParams.get('depto');
   return (
-    <div className="bg-white p-2 mt-4 rounded-md shadow-sm">
+    <div className="bg-white md:p-2 px-2 mt-4 rounded-md shadow-sm">
       <ul className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
         <SLinkMenu
           url="/"
           depto="grupo"
-          icon={<GrGroup size={20} title="Voltar ao menu Grupo Solar" />}
+          icon={<GrGroup title="Voltar ao menu Grupo Solar" />}
         />
         <SLinkMenu
           url="/solar"

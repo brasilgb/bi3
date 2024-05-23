@@ -1,16 +1,17 @@
 import React from 'react';
-import { IoHome } from 'react-icons/io5';
+import { IoHome, IoReload } from 'react-icons/io5';
 import { GrGroup } from 'react-icons/gr';
 import NLinkMenu from "./NLinkMenu";
 
 const MainMenuNaturovos = () => {
+
   return (
-    <div className="bg-white p-2 mt-4 rounded-md shadow-sm">
+    <div className="bg-white md:p-2 px-2 mt-4 rounded-md shadow-sm">
       <ul className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
         <NLinkMenu
           url="/"
           depto="grupo"
-          icon={<GrGroup size={20} title="Voltar ao menu Grupo Solar" />}
+          icon={<GrGroup title="Voltar ao menu Grupo Solar" />}
         />
         <NLinkMenu
           url="/naturovos"

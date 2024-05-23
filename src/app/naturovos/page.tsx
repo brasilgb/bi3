@@ -86,7 +86,7 @@ const Naturovos = () => {
           />
         </div>
         <div className="grid grid-cols-2 md:gap-4 gap-2 md:mt-4 mt-2">
-          <div className="p-0.5 bg-white rounded-md shadow-sm">
+          <div className="p-4 bg-white rounded-md shadow-sm">
             <Progress
               title="Margem"
               value={formatPercent(totais[0]?.Margem)}
@@ -94,7 +94,7 @@ const Naturovos = () => {
               colorText="#F99F1E"
             />
           </div>
-          <div className="p-0.5 bg-white rounded-md shadow-sm">
+          <div className="p-4 bg-white rounded-md shadow-sm">
             <Progress
               title="Projeção"
               value={formatPercent(totais[0]?.Projecao)}
