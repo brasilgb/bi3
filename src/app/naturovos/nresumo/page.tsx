@@ -104,7 +104,7 @@ const NResumo = () => {
       </div>
       <div className="container m-auto md:px-0 px-1">
         <div className="bg-white mt-2 rounded-md shadow-sm p-2">
-          <div className="flex items-center justify-start md:gap-4 gap-2">
+          <div className="flex items-center justify-start md:gap-4 gap-2 overflow-x-auto">
             <ButtonAnaliseNaturovos
               title={'Filiais'}
               onclick={() => setAnalise('filiais')}
@@ -120,7 +120,7 @@ const NResumo = () => {
               onclick={() => setAnalise('exportacao')}
               active={analise}
             />
-          </div>
+          </div> 
         </div>
         <div className="mt-2">
           {analise === 'filiais' && (

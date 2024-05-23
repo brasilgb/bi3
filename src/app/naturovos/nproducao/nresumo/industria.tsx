@@ -64,30 +64,30 @@ const Industria = ({ data }: any) => {
           <div className="flex items-center justify-between w-full py-2">
             <span className="flex items-center justify-center bg-green-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-2">HJ</span>
             <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{formatNumber(data?.consumo)}/{formatNumber((data?.metaSemanal / 5))}</div>
-            <span className="flex-1 font-normal text-center px-2">-</span>
-            <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{((data?.consumo / (data?.metaSemanal / 5)) * 100).toFixed(2)}%</div>
+            <span className="flex-none font-normal text-center px-2">-</span>
+            <div className="flex-none text-blue-500 text-base md:text-xl font-semibold">{((data?.consumo / (data?.metaSemanal / 5)) * 100).toFixed(2)}%</div>
           </div>
           <div className="flex items-center justify-between w-full py-2">
             <span className="flex items-center justify-center bg-red-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-2">ON</span>
             <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{formatNumber(data?.consumoOntem)}/{formatNumber((data?.metaSemanal / 5))}</div>
-            <span className="flex-1 font-normal text-center px-2">-</span>
-            <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{((data?.consumoOntem / (data?.metaSemanal / 5)) * 100).toFixed(2)}%</div>
+            <span className="flex-none font-normal text-center px-2">-</span>
+            <div className="flex-none text-blue-500 text-base md:text-xl font-semibold">{((data?.consumoOntem / (data?.metaSemanal / 5)) * 100).toFixed(2)}%</div>
           </div>
         </div>
 
         <div className="flex flex-col items-start justify-start bg-gray-50 border border-gray-200 rounded-md p-1">
           <h1 className="text-gray-500 text-base md:text-lg font-semibold border-b w-full text-center">Quebra semana cx/h</h1>
           <div className="flex items-center justify-between w-full py-2">
-            <span className="flex items-center justify-center bg-green-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-2">AT</span>
+            <div className="flex items-center justify-center bg-green-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-2">AT</div>
             <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{formatNumber(data?.consumoSemanal)}/{formatNumber(data?.metaSemanal)}</div>
-            <span className="flex-1 font-normal text-center px-2">-</span>
-            <div className="flex-1 text-blue-500 text-base md:text-xl font-semibold">{data?.percSemanal}%</div>
+            <div className="flex-none font-normal text-center px-2">-</div>
+            <div className="flex-none text-blue-500 text-base md:text-xl font-semibold">{data?.percSemanal}%</div>
           </div>
           <div className="flex items-center justify-between w-full py-2">
-            <span className="flex items-center justify-center bg-red-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-1">AN</span>
-            <div className="flex-1 text-blue-500 text-sm md:text-lg font-semibold">{formatNumber(data?.consumoSemanaAnt)}/{formatNumber(data?.metaSemanaAnt)}</div>
-            <span className="flex-1 font-normal text-center px-2">-</span>
-            <div className="flex-1 text-blue-500 text-sm md:text-lg font-semibold">{data?.percSemanaAnt}%</div>
+            <div className="flex items-center justify-center bg-red-500 rounded-full w-6 h-6 text-sm text-white font-bold mr-2">AN</div>
+            <div className="flex-1 text-blue-500 text-sm md:text-xl font-semibold">{formatNumber(data?.consumoSemanaAnt)}/{formatNumber(data?.metaSemanaAnt)}</div>
+            <div className="flex-none font-normal text-center px-2">-</div>
+            <div className="flex-none text-blue-500 text-sm md:text-xl font-semibold">{data?.percSemanaAnt}%</div>
           </div>
         </div>
 
