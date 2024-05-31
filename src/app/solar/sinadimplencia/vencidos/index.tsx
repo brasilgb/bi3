@@ -54,7 +54,7 @@ const Vencidos = (props: Props) => {
           <BTr classname="bg-blue-50 text-gray-600 font-bold">
             <BTd>Total</BTd>
             <BTd>{formatMoney(vencidosTotais[0]?.ValorVencido)}</BTd>
-            <BTd>{parseFloat(vencidosTotais[0]?.RepVencido).toFixed(2)}%</BTd>
+            <BTd>{(parseFloat(vencidosTotais[0]?.RepVencido) * 100).toFixed(2)}%</BTd>
           </BTr>
           {vencidos
             .sort((a: any, b: any) =>
