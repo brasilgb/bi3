@@ -26,6 +26,7 @@ const LFatCombination = ({ data }: Props) => {
   const meta = data.map((value: any) => value.Meta);
   const vendas = data.map((value: any) => value.Vendas);
 
+  console.log('margem:', margem,'valmeta:', meta,'vendas:', vendas);
   Highcharts.setOptions({
     lang: {
       decimalPoint: ',',

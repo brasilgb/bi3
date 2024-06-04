@@ -23,7 +23,7 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
   const dia = data.map((value: any) => value.Dia);
   const MesAtual = data.map((value: any) => value.MesAtual);
   const MesAnterior = data.map((value: any) => value.MesAnterior);
-  const AnoMesAtual = data.map((value: any) => value.AnoMesAtual);
+  const AnoMesAtual = data.sort((a:any, b:any) => (a.AnoMesAtual > b.AnoMesAtual ? 1 : -1 )).map((value: any) => value.AnoMesAtual);
 
   Highcharts.setOptions({
     lang: {
@@ -31,7 +31,6 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
       thousandsSep: '.',
     },
   });
-
   const options = {
     chart: {
       marginRight: 0,
@@ -128,7 +127,7 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
     series: [
       {
         name: totais.map((t: any) => t.RotuloGrafMesAnoAtual),
-        type: 'spline',
+        // type: 'spline',
         yAxis: 1,
         data: MesAtual,
         color: '#00BFFF',
@@ -140,7 +139,7 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
       },
       {
         name: totais.map((t: any) => t.RotuloGrafMesAnterAnoAtual),
-        type: 'spline',
+        // type: 'spline',
         yAxis: 1,
         data: MesAnterior,
         color: '#F99F1E',
@@ -155,7 +154,7 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
       },
       {
         name: totais.map((t: any) => t.RotuloGrafAnoAnter),
-        type: 'spline',
+        // type: 'spline',
         yAxis: 1,
         data: AnoMesAtual,
         color: '#f9371e',

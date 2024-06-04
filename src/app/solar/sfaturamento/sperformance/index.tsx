@@ -50,6 +50,7 @@ const SPerformance = (props: Props) => {
     }
     getLFatuTotLojas();
   }, [dataFiltro]);
+// console.log(lGraficoLojas);
 
   return (
     <>

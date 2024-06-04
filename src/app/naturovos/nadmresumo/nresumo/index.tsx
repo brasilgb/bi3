@@ -105,7 +105,7 @@ const NResumo = () => {
                   <BTd>{grupo.Grupo}</BTd>
                   <BTd>{formatMoney(grupo?.ValorMesAtual)}</BTd>
                   <BTd>{(grupo?.RepValorMesAnterior * 100).toFixed(2)}%</BTd>
-                  <BTd>{isNaN(grupo?.RepValorAnoAnterior) ? 0 : (grupo?.RepValorAnoAnterior * 100).toFixed(2)}%</BTd>
+                  <BTd>{(grupo?.RepValoranoAnterior * 100).toFixed(2)}%</BTd>
                   <BTd>{grupo?.QtdMesAtual.toFixed()}</BTd>
                   <BTd>{(grupo?.RepQtdMesAnterior * 100).toFixed(2)}%</BTd>
                   <BTd>{(grupo?.RepQtdAnoAnterior * 100).toFixed(2)}%</BTd>

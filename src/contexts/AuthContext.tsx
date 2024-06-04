@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           const exists = bidata.some((val: any) => {
             return val.Ano == moment().format('YYYY');
           });
-
           if (!exists) {
             setYearExists(exists);
             setYearSelected(moment().add(-1, 'y').format('YYYY'));

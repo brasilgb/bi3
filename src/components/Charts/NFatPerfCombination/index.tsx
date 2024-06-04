@@ -1,12 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { Anybody } from "next/font/google";
 
 type Props = {
   data: any;
 };
 
 const NFatPerfCombination = ({ data }: Props) => {
+  console.log('data');
+  
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const updateDimensions = () => {
@@ -21,7 +24,7 @@ const NFatPerfCombination = ({ data }: Props) => {
   const colors = Highcharts.getOptions().colors;
   const diasemana = data.map((value: any) => value.DiaSemana);
   const margem = data.map((value: any) => value.Margem * 100);
-  const vendas = data.map((value: any) => value.Vendas);
+  const vendas = data.sort((a: any, b: any) => (a.Vendas > b.Vendas ? 1 : -1)).map((value: any) => value.Vendas);
 
   Highcharts.setOptions({
     lang: {

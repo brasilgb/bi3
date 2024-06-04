@@ -18,9 +18,8 @@ const LComBar = ({ data }: Props) => {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
   const colors = Highcharts.getOptions().colors;
-  const diasemana = data.map((value: any) => value.DiaSemana);
+  const diasemana = data.sort((a: any, b: any) => (a.DiaSemana > b.DiaSemana ? 1 : -1)).map((value: any) => value.DiaSemana);
   const compras = data.map((value: any) => value.Compras);
-  const semanames = data.map((value: any) => value.SemanaMes);
 
   Highcharts.setOptions({
     lang: {
