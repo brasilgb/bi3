@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   //   };
   //   setStorage();
   // }, []);
-  
+
   useEffect(() => {
     const loadStorage = async () => {
       const recoveredUser = localStorage.getItem('portal_user');
