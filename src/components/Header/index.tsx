@@ -1,15 +1,15 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Profile from '../profile';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { IoArrowBack } from "react-icons/io5";
-import { useAuthContext } from "@/contexts/AuthContext";
 
 const Header = () => {
-  const { user } = useAuthContext();
-  const apps = user.folders.length;
+  let stringdata: any = localStorage.getItem('portal_user');
+  const jsondata = JSON.parse(stringdata);
+  const apps = jsondata?.folders?.length;
 
   const searchParams = useSearchParams();
   const depto = searchParams.get('depto');
