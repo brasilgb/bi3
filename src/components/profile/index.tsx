@@ -39,9 +39,9 @@ const Profile = () => {
           </div>
         </button>
         <div
-          className={`absolute top-11 right-0 z-30 w-[350px] flex flex-col py-4 bg-gray-50 rounded-md shadow-lg border border-white ${transClass}`}
+          className={`md:absolute fixed md:top-11 top-[68px] left-1 right-1 md:left-auto z-[101] md:w-[350px] flex flex-col py-4 bg-gray-50 rounded-md shadow-lg border border-white ${transClass}`}
         >
-          <span className="text-sm text-gray-600 px-4 pb-3 flex items-center">
+          <span className="text-sm text-gray-600 px-4 pb-3 flex items-center ">
             <IoPerson color="#6d6a6a" size={20} />
             <span className="ml-1">{user?.userName}</span>
           </span>

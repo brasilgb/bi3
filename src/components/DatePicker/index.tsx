@@ -13,7 +13,7 @@ import { usePathname } from 'next/navigation';
 const DatePickerBI3 = () => {
   const {
     dataFiltro,
-    setDataFiltro, 
+    setDataFiltro,
     setDataInicial,
     dataInicial,
     setDataFinal,
@@ -49,20 +49,20 @@ const DatePickerBI3 = () => {
       setDataInicial(
         moment(
           selectedRange.from?.year +
-            '-' +
-            selectedRange.from?.month +
-            '-' +
-            selectedRange.from?.day,
+          '-' +
+          selectedRange.from?.month +
+          '-' +
+          selectedRange.from?.day,
           'YYYY-MM-DD'
         ).toDate()
       );
       setDataFinal(
         moment(
           selectedRange.to?.year +
-            '-' +
-            selectedRange.to?.month +
-            '-' +
-            selectedRange.to?.day,
+          '-' +
+          selectedRange.to?.month +
+          '-' +
+          selectedRange.to?.day,
           'YYYY-MM-DD'
         ).toDate()
       );
@@ -82,7 +82,7 @@ const DatePickerBI3 = () => {
 
   const pathname = usePathname();
   return (
-    <div className="">
+    <>
       {pathname === '/solar/sfluxo' || pathname === '/solar/semprestimos' || pathname === '/naturovos/nfluxo' || pathname === '/naturovos/nproducao' ? (
         <DatePicker
           value={selectedRange}
@@ -106,7 +106,7 @@ const DatePickerBI3 = () => {
           locale={CustomLocale}
         />
       )}
-    </div>
+    </>
   );
 };
 
