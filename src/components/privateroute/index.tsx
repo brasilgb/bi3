@@ -13,12 +13,13 @@ interface PrivateRouteProps {
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const router = useRouter();
   const isUserAutenticated = checkUserAuthenticated();
+  const checkAccess = checkUserUrlAccess();
 
   useEffect(() => {
     if (!isUserAutenticated) {
       router.push(APP_ROUTES.public.login);
     }
-  }, [isUserAutenticated, router]);
+  }, [isUserAutenticated, checkAccess, router]);
 
   return (
     <>

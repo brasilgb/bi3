@@ -5,9 +5,11 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { AuthProvider } from '@/contexts/AuthContext';
 import PrivateRoute from '@/components/privateroute';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 import { checkIsPublicRoute } from '@/functions/check-is-public-route';
 import 'animate.css';
+import { useLayoutEffect } from "react";
+import { checkUserUrlAccess } from "@/functions/check-user-url-access";
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -23,6 +25,13 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isPublicPage = checkIsPublicRoute(pathname!);
+
+  useLayoutEffect(() => {
+    const isAuth = checkUserUrlAccess();
+    if(!isAuth){
+      redirect("/not-found")
+    }
+  }, []);
 
   return (
     <html lang="en">
