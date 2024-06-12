@@ -26,12 +26,12 @@ export default function RootLayout({
   const pathname = usePathname();
   const isPublicPage = checkIsPublicRoute(pathname!);
 
-  useLayoutEffect(() => {
-    const isAuth = checkUserUrlAccess();
-    if(!isAuth){
-      redirect("/not-found")
-    }
-  }, []);
+  // useLayoutEffect(() => {
+  //   const isAuth = checkUserUrlAccess();
+  //   if(!isAuth){
+  //     redirect("/not-found")
+  //   }
+  // }, []);
 
   return (
     <html lang="en">

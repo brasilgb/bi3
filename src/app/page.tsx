@@ -1,7 +1,5 @@
 import ButtonHome from '@/components/ButtonHome';
-import Link from "next/link";
 import React from 'react';
-import { IoArrowBack } from "react-icons/io5";
 
 type Props = {};
 

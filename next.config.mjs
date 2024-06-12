@@ -12,6 +12,15 @@ const nextConfig = {
     }
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/acesso-negado',
+        destination: '/acesso-negado',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
