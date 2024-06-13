@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { IoArrowBack } from "react-icons/io5";
 
 const Header = () => {
-  let stringdata: any = localStorage.getItem('portal_user');
+  let stringdata: any = localStorage.getItem('portal_access');
   const jsondata = JSON.parse(stringdata);
   const apps = jsondata?.folders?.length;
 
