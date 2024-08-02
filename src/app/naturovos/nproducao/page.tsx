@@ -7,6 +7,7 @@ import MainMenuNaturovos from "@/components/MainMenu/naturovos";
 import ButtonAnaliseNaturovos from "@/components/ButtonAnaliseNaturovos";
 import NResumo from "./nresumo";
 import NLoaderIndustria from "./nloader/industria";
+import NDescarte from "./ndescarte";
 
 const NProducao = () => {
 
@@ -45,7 +46,7 @@ const NProducao = () => {
       </div>
       <div className="container m-auto md:px-0 px-1">
         <div className="bg-white mt-2 rounded-md shadow-sm p-2">
-          <div className="flex items-center justify-start md:gap-4 gap-2">
+          <div className="flex items-center justify-start md:gap-4 gap-2 overflow-x-auto">
             <ButtonAnaliseNaturovos
               title={'Resumo'}
               onclick={() => setAnalise('resumo')}
@@ -56,6 +57,11 @@ const NProducao = () => {
               onclick={() => setAnalise('loaderindustria')}
               active={analise}
             />
+            <ButtonAnaliseNaturovos
+              title={'Descarte'}
+              onclick={() => setAnalise('descarte')}
+              active={analise}
+            />
           </div>
         </div>
         <div className="mt-2">
@@ -64,6 +70,9 @@ const NProducao = () => {
           )}
           {analise === 'loaderindustria' && (
             <NLoaderIndustria />
+          )}
+          {analise === 'descarte' && (
+            <NDescarte />
           )}
         </div>
       </div>

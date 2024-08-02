@@ -5,12 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { IoArrowBack } from "react-icons/io5";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 const Header = () => {
-  let stringdata: any = localStorage.getItem('portal_access');
-  const jsondata = JSON.parse(stringdata);
-  const apps = jsondata?.folders?.length;
-
+  const { user } = useAuthContext();
   const searchParams = useSearchParams();
   const depto = searchParams.get('depto');
 
@@ -18,7 +16,7 @@ const Header = () => {
     <header
       className={`${depto === 'loja' ? 'bg-solar-blue-primary' : depto === 'naturovos' ? 'bg-solar-orange-prymary' : 'bg-solar-blue-secundary'} px-2 flex items-center`}
     >
-      {apps > 1 &&
+      {user?.supervisor &&
         <div className="flex-none flex items-center justify-left mr-2">
           <Link
             href="http://portal.gruposolar.com.br"

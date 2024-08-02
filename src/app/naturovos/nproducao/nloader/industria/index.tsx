@@ -52,231 +52,30 @@ const NLoaderIndustria = ({ totais, data }: any) => {
 
   return (
     <div className="animate__animated animate__fadeIn">
-    <div className="bg-white my-4 rounded-md p-2 relative overflow-auto">
-      <table className="w-full text-gray-700 ">
-        <thead>
-          <tr className="bg-slate-200">
-            <th className="text-center bg-gray-200">
-              <div className="!w-20">Turnos</div>
-            </th>
-            <th>
-              <div className="text-left !w-24 pl-1">Descrição</div>
-            </th>
-
-            {dateDistinct.map((producao: any, index: any) => (
-              <th key={index}>
-                <div className="text-left !w-24">{producao}</div>
+      <div className="bg-white my-4 rounded-md p-2 relative overflow-auto">
+        <table className="w-full text-gray-700 ">
+          <thead>
+            <tr className="bg-slate-200">
+              <th className="text-center bg-gray-200">
+                <div className="!w-20">Turnos</div>
               </th>
-            ))}
-          </tr>
-        </thead>
+              <th>
+                <div className="text-left !w-24 pl-1">Descrição</div>
+              </th>
 
-        <tr>
-          <td rowSpan={3} className="text-center">
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-gray-500 font-bold text-3xl">A</span>
-              <span className="text-gray-500 text-xs">02:18</span>
-              <span className="text-gray-500 text-xs">
-                {producaoTurno1
-                  .map((producao: any) => producao.horfin)
-                  .filter(
-                    (value: any, index: any, array: any) =>
-                      array.indexOf(value) === index
-                  )}
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-blue-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. cx
-          </td>
-          {dateDistinct.map((dt: any) =>
-            producaoTurno1
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  <span>{Math.round(producao.consumocx)}</span>{' '}
-                  <span>({Math.round(producao.percMeta)}%)</span>
-                </td>
-              ))
-          )}
-        </tr>
-        <tr className="bg-yellow-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. Hr
-          </td>
+              {dateDistinct.map((producao: any, index: any) => (
+                <th key={index}>
+                  <div className="text-left !w-24">{producao}</div>
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-          {dateDistinct.map((dt: any) =>
-            producaoTurno1
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  {Math.round(producao.consumohr)}
-                </td>
-              ))
-          )}
-        </tr>
-
-        <tr>
-          <td
-            colSpan={dateDistinct.length + 2}
-            className="bg-gray-200 py-1 w-full"
-          ></td>
-        </tr>
-
-        <tr>
-          <td rowSpan={3} className="text-center">
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-gray-500 font-bold text-3xl">B</span>
-              <span className="text-gray-500 text-xs">
-                {producaoTurno2
-                  .map((producao: any) => producao.horini)
-                  .filter(
-                    (value: any, index: any, array: any) =>
-                      array.indexOf(value) === index
-                  )}
-              </span>
-              <span className="text-gray-500 text-xs">
-                {producaoTurno2
-                  .map((producao: any) => producao.horfin)
-                  .filter(
-                    (value: any, index: any, array: any) =>
-                      array.indexOf(value) === index
-                  )}
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-blue-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. cx
-          </td>
-
-          {dateDistinct.map((dt: any) =>
-            producaoTurno2
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  {Math.round(producao.consumocx)} (
-                  {Math.round(producao.percMeta)}%)
-                </td>
-              ))
-          )}
-        </tr>
-
-        <tr className="bg-yellow-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. Hr
-          </td>
-
-          {dateDistinct.map((dt: any) =>
-            producaoTurno2
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  {Math.round(producao.consumohr)}
-                </td>
-              ))
-          )}
-        </tr>
-
-        <tr>
-          <td
-            colSpan={dateDistinct.length + 2}
-            className="bg-gray-200 py-1"
-          ></td>
-        </tr>
-
-        <tr>
-          <td rowSpan={3} className="text-center">
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-gray-500 font-bold text-3xl">C</span>
-              <span className="text-gray-500 text-xs">
-                {producaoTurno3
-                  .map((producao: any) => producao.horini)
-                  .filter(
-                    (value: any, index: any, array: any) =>
-                      array.indexOf(value) === index
-                  )}
-              </span>
-              <span className="text-gray-500 text-xs">
-                {producaoTurno3
-                  .map((producao: any) => producao.horfin)
-                  .filter(
-                    (value: any, index: any, array: any) =>
-                      array.indexOf(value) === index
-                  )}
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr className="bg-blue-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. cx
-          </td>
-          {dateDistinct.map((dt: any) =>
-            producaoTurno3
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  {Math.round(producao.consumocx)} (
-                  {Math.round(producao.percMeta)}%)
-                </td>
-              ))
-          )}
-        </tr>
-        <tr className="bg-yellow-50">
-          <td className="text-left text-gray-700 font-normal pl-1">
-            Cons. Hr
-          </td>
-          {dateDistinct.map((dt: any) =>
-            producaoTurno3
-              .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
-              .map((producao: any, idx:number) => (
-                <td key={idx} className="text-left">
-                  {Math.round(producao.consumohr)}
-                </td>
-              ))
-          )}
-        </tr>
-      </table>
-    </div>
-
-    <div className="bg-white my-4 rounded-md p-2 relative overflow-auto">
-      <table className="w-full text-gray-700 ">
-        <thead>
-          <tr className="bg-slate-200">
-            <th>
-              <div className="!w-24 mx-auto">Turnos</div>
-            </th>
-            <th>
-              <div className="!w-24 text-center mx-auto">Meta diária</div>
-            </th>
-            <th>
-              <div className="!w-24 text-center mx-auto">
-                Meta período
-              </div>
-            </th>
-            <th>
-              <div className="!w-32 text-center mx-auto">
-                Consumo período
-              </div>
-            </th>
-            <th>%</th>
-          </tr>
-        </thead>
-        <tbody>
           <tr>
-            <td>
+            <td rowSpan={3} className="text-center">
               <div className="flex flex-col items-center justify-center">
-                <span className="text-gray-500 font-bold text-3xl">
-                  A
-                </span>
-                <span className="text-gray-500 text-xs">
-                  02:18
-                  {/* {producaoTurno1.map((producao: any) => (producao.horini)).filter((value: any, index: any, array: any) => array.indexOf(value) === index)} */}
-                </span>
+                <span className="text-gray-500 font-bold text-3xl">A</span>
+                <span className="text-gray-500 text-xs">02:18</span>
                 <span className="text-gray-500 text-xs">
                   {producaoTurno1
                     .map((producao: any) => producao.horfin)
@@ -287,37 +86,49 @@ const NLoaderIndustria = ({ totais, data }: any) => {
                 </span>
               </div>
             </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t1: any) => t1.turno === 1)
-                .map((turno: any) => turno.metaDiaria)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t1: any) => t1.turno === 1)
-                .map((turno: any) => turno.metacx)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t1: any) => t1.turno === 1)
-                .map((turno: any) => Math.round(turno.consumocx))}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t1: any) => t1.turno === 1)
-                .map((turno: any) => Math.round(turno.percMeta))}
-              %
-            </td>
           </tr>
-          <tr>
-            <td colSpan={6} className="bg-gray-200 py-1"></td>
+          <tr className="bg-blue-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. cx
+            </td>
+            {dateDistinct.map((dt: any) =>
+              producaoTurno1
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    <span>{Math.round(producao.consumocx)}</span>{' '}
+                    <span>({Math.round(producao.percMeta)}%)</span>
+                  </td>
+                ))
+            )}
           </tr>
+          <tr className="bg-yellow-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. Hr
+            </td>
+
+            {dateDistinct.map((dt: any) =>
+              producaoTurno1
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    {Math.round(producao.consumohr)}
+                  </td>
+                ))
+            )}
+          </tr>
+
           <tr>
-            <td>
+            <td
+              colSpan={dateDistinct.length + 2}
+              className="bg-gray-200 py-1 w-full"
+            ></td>
+          </tr>
+
+          <tr>
+            <td rowSpan={3} className="text-center">
               <div className="flex flex-col items-center justify-center">
-                <span className="text-gray-500 font-bold text-3xl">
-                  B
-                </span>
+                <span className="text-gray-500 font-bold text-3xl">B</span>
                 <span className="text-gray-500 text-xs">
                   {producaoTurno2
                     .map((producao: any) => producao.horini)
@@ -336,37 +147,51 @@ const NLoaderIndustria = ({ totais, data }: any) => {
                 </span>
               </div>
             </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t2: any) => t2.turno === 2)
-                .map((turno: any) => turno.metaDiaria)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t2: any) => t2.turno === 2)
-                .map((turno: any) => turno.metacx)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t2: any) => t2.turno === 2)
-                .map((turno: any) => Math.round(turno.consumocx))}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t2: any) => t2.turno === 2)
-                .map((turno: any) => Math.round(turno.percMeta))}
-              %
-            </td>
           </tr>
-          <tr>
-            <td colSpan={6} className="bg-gray-200 py-1"></td>
+          <tr className="bg-blue-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. cx
+            </td>
+
+            {dateDistinct.map((dt: any) =>
+              producaoTurno2
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    {Math.round(producao.consumocx)} (
+                    {Math.round(producao.percMeta)}%)
+                  </td>
+                ))
+            )}
           </tr>
+
+          <tr className="bg-yellow-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. Hr
+            </td>
+
+            {dateDistinct.map((dt: any) =>
+              producaoTurno2
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    {Math.round(producao.consumohr)}
+                  </td>
+                ))
+            )}
+          </tr>
+
           <tr>
-            <td>
+            <td
+              colSpan={dateDistinct.length + 2}
+              className="bg-gray-200 py-1"
+            ></td>
+          </tr>
+
+          <tr>
+            <td rowSpan={3} className="text-center">
               <div className="flex flex-col items-center justify-center">
-                <span className="text-gray-500 font-bold text-3xl">
-                  C
-                </span>
+                <span className="text-gray-500 font-bold text-3xl">C</span>
                 <span className="text-gray-500 text-xs">
                   {producaoTurno3
                     .map((producao: any) => producao.horini)
@@ -385,32 +210,207 @@ const NLoaderIndustria = ({ totais, data }: any) => {
                 </span>
               </div>
             </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t3: any) => t3.turno === 3)
-                .map((turno: any) => turno.metaDiaria)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t3: any) => t3.turno === 3)
-                .map((turno: any) => turno.metacx)}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t3: any) => t3.turno === 3)
-                .map((turno: any) => Math.round(turno.consumocx))}
-            </td>
-            <td className="text-center">
-              {producaoTurnos
-                .filter((t3: any) => t3.turno === 3)
-                .map((turno: any) => Math.round(turno.percMeta))}
-              %
-            </td>
           </tr>
-        </tbody>
-      </table>
+          <tr className="bg-blue-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. cx
+            </td>
+            {dateDistinct.map((dt: any) =>
+              producaoTurno3
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    {Math.round(producao.consumocx)} (
+                    {Math.round(producao.percMeta)}%)
+                  </td>
+                ))
+            )}
+          </tr>
+          <tr className="bg-yellow-50">
+            <td className="text-left text-gray-700 font-normal pl-1">
+              Cons. Hr
+            </td>
+            {dateDistinct.map((dt: any) =>
+              producaoTurno3
+                .filter((val: any) => dateToInt(val.data) === dateToInt(dt))
+                .map((producao: any, idx: number) => (
+                  <td key={idx} className="text-left">
+                    {Math.round(producao.consumohr)}
+                  </td>
+                ))
+            )}
+          </tr>
+        </table>
+      </div>
+
+      <div className="bg-white my-4 rounded-md p-2 relative overflow-auto">
+        <table className="w-full text-gray-700 ">
+          <thead>
+            <tr className="bg-slate-200">
+              <th>
+                <div className="!w-24 mx-auto">Turnos</div>
+              </th>
+              <th>
+                <div className="!w-24 text-center mx-auto">Meta diária</div>
+              </th>
+              <th>
+                <div className="!w-24 text-center mx-auto">
+                  Meta período
+                </div>
+              </th>
+              <th>
+                <div className="!w-32 text-center mx-auto">
+                  Consumo período
+                </div>
+              </th>
+              <th>%</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div className="flex flex-col items-center justify-center">
+                  <span className="text-gray-500 font-bold text-3xl">
+                    A
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    02:18
+                    {/* {producaoTurno1.map((producao: any) => (producao.horini)).filter((value: any, index: any, array: any) => array.indexOf(value) === index)} */}
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {producaoTurno1
+                      .map((producao: any) => producao.horfin)
+                      .filter(
+                        (value: any, index: any, array: any) =>
+                          array.indexOf(value) === index
+                      )}
+                  </span>
+                </div>
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t1: any) => t1.turno === 1)
+                  .map((turno: any) => turno.metaDiaria)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t1: any) => t1.turno === 1)
+                  .map((turno: any) => turno.metacx)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t1: any) => t1.turno === 1)
+                  .map((turno: any) => Math.round(turno.consumocx))}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t1: any) => t1.turno === 1)
+                  .map((turno: any) => Math.round(turno.percMeta))}
+                %
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={6} className="bg-gray-200 py-1"></td>
+            </tr>
+            <tr>
+              <td>
+                <div className="flex flex-col items-center justify-center">
+                  <span className="text-gray-500 font-bold text-3xl">
+                    B
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {producaoTurno2
+                      .map((producao: any) => producao.horini)
+                      .filter(
+                        (value: any, index: any, array: any) =>
+                          array.indexOf(value) === index
+                      )}
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {producaoTurno2
+                      .map((producao: any) => producao.horfin)
+                      .filter(
+                        (value: any, index: any, array: any) =>
+                          array.indexOf(value) === index
+                      )}
+                  </span>
+                </div>
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t2: any) => t2.turno === 2)
+                  .map((turno: any) => turno.metaDiaria)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t2: any) => t2.turno === 2)
+                  .map((turno: any) => turno.metacx)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t2: any) => t2.turno === 2)
+                  .map((turno: any) => Math.round(turno.consumocx))}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t2: any) => t2.turno === 2)
+                  .map((turno: any) => Math.round(turno.percMeta))}
+                %
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={6} className="bg-gray-200 py-1"></td>
+            </tr>
+            <tr>
+              <td>
+                <div className="flex flex-col items-center justify-center">
+                  <span className="text-gray-500 font-bold text-3xl">
+                    C
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {producaoTurno3
+                      .map((producao: any) => producao.horini)
+                      .filter(
+                        (value: any, index: any, array: any) =>
+                          array.indexOf(value) === index
+                      )}
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {producaoTurno3
+                      .map((producao: any) => producao.horfin)
+                      .filter(
+                        (value: any, index: any, array: any) =>
+                          array.indexOf(value) === index
+                      )}
+                  </span>
+                </div>
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t3: any) => t3.turno === 3)
+                  .map((turno: any) => turno.metaDiaria)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t3: any) => t3.turno === 3)
+                  .map((turno: any) => turno.metacx)}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t3: any) => t3.turno === 3)
+                  .map((turno: any) => Math.round(turno.consumocx))}
+              </td>
+              <td className="text-center">
+                {producaoTurnos
+                  .filter((t3: any) => t3.turno === 3)
+                  .map((turno: any) => Math.round(turno.percMeta))}
+                %
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
   );
 };
 
