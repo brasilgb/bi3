@@ -44,7 +44,7 @@ const NDescarte = (props: Props) => {
 
     return (
         <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
-            <BTable classname="text-gray-800 !table-fixed">
+            <BTable classname="text-gray-800">
                 <thead>
                     <BTr classname="">
                         <BTh>Data</BTh>
