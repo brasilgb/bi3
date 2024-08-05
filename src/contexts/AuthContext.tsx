@@ -54,80 +54,80 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     getYearSelected();
   }, []);
 
-  // useEffect(() => {
-  //       const setStorage = () => {
-  //           const userData = {
-  //               "success": true,
-  //               "userCode": 7023,
-  //               "userName": "ANDERSON ROGERIO B RODRIGUES",
-  //               "firstAccess": false,
-  //               "admUser": 1,
-  //               "userSAS": "ANDERSONR",
-  //               "userSIG": "storage07",
-  //               "connectionsAllowed": 2,
-  //               "userKey": "21DFBF1A27A3B0CC3DDF95764BA97EDF750F840D12AEFADF1C5B153E0523EFFB484BC7623B29CDF7A387022675C1A4A6A9108BFF7B3E0B8D49220B04751B62F71A50EDFA3231C18671A78E2F6E8E124D",
-  //               "granja": 0,
-  //               "admGranja": false,
-  //               "filial": 0,
-  //               "gerente": false,
-  //               "supervisor": true,
-  //               "programs": [
-  //                   {
-  //                       "code": 2866,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2868,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2874,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2878,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2890,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2928,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2939,
-  //                       "acesso": false
-  //                   },
-  //                   {
-  //                       "code": 2945,
-  //                       "acesso": true
-  //                   },
-  //                   {
-  //                       "code": 2951,
-  //                       "acesso": true
-  //                   }
-  //               ],
-  //               "folders": [
-  //                   {
-  //                       "path": "bi3"
-  //                   },
-  //                   {
-  //                       "path": "ecommerce"
-  //                   },
-  //                   {
-  //                       "path": "gerencial"
-  //                   },
-  //                   {
-  //                       "path": "assinatura"
-  //                   }
-  //               ]
-  //           };
-  //           setCookie('portal_access', JSON.stringify(userData));
-  //       };
-  //       setStorage();
-  //   }, []);
+  useEffect(() => {
+        const setStorage = () => {
+            const userData = {
+                "success": true,
+                "userCode": 7023,
+                "userName": "ANDERSON ROGERIO B RODRIGUES",
+                "firstAccess": false,
+                "admUser": 1,
+                "userSAS": "ANDERSONR",
+                "userSIG": "storage07",
+                "connectionsAllowed": 2,
+                "userKey": "21DFBF1A27A3B0CC3DDF95764BA97EDF750F840D12AEFADF1C5B153E0523EFFB484BC7623B29CDF7A387022675C1A4A6A9108BFF7B3E0B8D49220B04751B62F71A50EDFA3231C18671A78E2F6E8E124D",
+                "granja": 0,
+                "admGranja": false,
+                "filial": 0,
+                "gerente": false,
+                "supervisor": true,
+                "programs": [
+                    {
+                        "code": 2866,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2868,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2874,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2878,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2890,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2928,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2939,
+                        "acesso": false
+                    },
+                    {
+                        "code": 2945,
+                        "acesso": true
+                    },
+                    {
+                        "code": 2951,
+                        "acesso": true
+                    }
+                ],
+                "folders": [
+                    {
+                        "path": "bi3"
+                    },
+                    {
+                        "path": "ecommerce"
+                    },
+                    {
+                        "path": "gerencial"
+                    },
+                    {
+                        "path": "assinatura"
+                    }
+                ]
+            };
+            setCookie('portal_access', JSON.stringify(userData));
+        };
+        setStorage();
+    }, []);
 
   useEffect(() => {
     const cookieAccess = async () => {
