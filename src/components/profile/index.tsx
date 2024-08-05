@@ -48,7 +48,8 @@ const Profile = () => {
           <span className="w-full border-b border-gray-200"></span>
           <Link
             className="text-gray-600 hover:text-gray-400 px-4 pt-2 flex items-center"
-            href={`https://portal.gruposolar.com.br/changepassword?firstAccess=false&code=${user?.userCode}`}
+            href={`/changepassword?firstAccess=false&code=${user?.userCode}`}
+            onClick={() => setIsOpen(false)}
           >
             <IoKey color="#6d6a6a" size={20} />
             <span className="ml-1">Alterar minha senha</span>
