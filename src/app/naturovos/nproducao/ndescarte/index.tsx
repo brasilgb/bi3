@@ -37,8 +37,8 @@ const NDescarte = (props: Props) => {
     }
 
     const notDecimalPlaces = (value: any) => {
-        return (value).toFixed();
-    };
+        return (value).toFixed()
+    }
 
     return (
         <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
@@ -60,7 +60,8 @@ const NDescarte = (props: Props) => {
                 </thead>
                 <tbody>
                     {descarte?.filter((fil: any) => (fil.codFor == '99999999')).map((tot: any, idx: number) => (
-                        <BTr classname="text-right bg-gray-100 uppercase font-semibold text-gray-600">
+                        <BTr  key={idx}
+                        classname="text-right bg-gray-100 uppercase font-semibold text-gray-600">
                             <BTd colspan={4} classname="bg-gray-800 text-left text-gray-50">Total</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdEst)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.pesoKg)}</BTd>
