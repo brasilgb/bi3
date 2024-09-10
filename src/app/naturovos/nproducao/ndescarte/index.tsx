@@ -36,10 +36,8 @@ const NDescarte = (props: Props) => {
         return `${strval.substr(6, 2)}/${strval.substr(4, 2)}/${strval.substr(0, 4)}`
     }
 
-    const totalCols = (value: any) => {
-        descarte?.reduce((tot: any, val: any) => {
-            return (tot + val.value);
-        }, 0)
+    const notDecimalPlaces = (value: any) => {
+        return (value).toFixed();
     };
 
     return (
@@ -47,74 +45,46 @@ const NDescarte = (props: Props) => {
             <BTable classname="text-gray-800">
                 <thead>
                     <BTr classname="">
-                        <BTh>Data</BTh>
                         <BTh classname="w-20">Cód. Forn.</BTh>
                         <BTh classname="w-96">Nome Forn.</BTh>
                         <BTh>Tipo ovo</BTh>
                         <BTh classname="w-40">Desc. ovo</BTh>
-                        <BTh>Caixas Proc.</BTh>
-                        <BTh>Peso Proc.</BTh>
-                        <BTh>Desc. Screw</BTh>
-                        <BTh>Desc. Alim.</BTh>
-                        <BTh>Desc. Ovosc.</BTh>
-                        <BTh>Rec. Ovosc.</BTh>
-                        <BTh>Descarte %</BTh>
+                        <BTh classname="text-right">Caixas Proc.</BTh>
+                        <BTh classname="text-right">Peso Proc.</BTh>
+                        <BTh classname="text-right">Desc. Screw</BTh>
+                        <BTh classname="text-right">Desc. Alim.</BTh>
+                        <BTh classname="text-right">Desc. Ovosc.</BTh>
+                        <BTh classname="text-right">Rec. Ovosc.</BTh>
+                        <BTh classname="text-right">Descarte %</BTh>
                     </BTr>
                 </thead>
                 <tbody>
-                    <BTr classname="bg-gray-100 uppercase font-semibold text-gray-600">
-                        <BTd colspan={5} classname="bg-gray-800 text-left text-gray-50">Total</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.qtdest) ? 0 : tot + val.qtdest;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.pesoKg) ? 0 : tot + val.pesoKg;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.qtdcen) ? 0 : tot + val.qtdcen;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.qtdali) ? 0 : tot + val.qtdali;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.qtdOvod) ? 0 : tot + val.qtdOvod;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.qtdOvo) ? 0 : tot + val.qtdOvo;
-                            }, 0).toFixed()
-                        }</BTd>
-                        <BTd>{
-                            descarte?.reduce((tot: any, val: any) => {
-                                return isNaN(tot + val.percDes) ? 0 : parseFloat(tot + val.percDes);
-                            }, 0).toFixed(2)
-                        }</BTd>
-                    </BTr>
-                    {descarte?.map((desc: any, idx: number) => (
+                    {descarte?.filter((fil: any) => (fil.codFor == '99999999')).map((tot: any, idx: number) => (
+                        <BTr classname="text-right bg-gray-100 uppercase font-semibold text-gray-600">
+                            <BTd colspan={4} classname="bg-gray-800 text-left text-gray-50">Total</BTd>
+                            <BTd>{notDecimalPlaces(tot?.qtdEst)}</BTd>
+                            <BTd>{notDecimalPlaces(tot?.pesoKg)}</BTd>
+                            <BTd>{notDecimalPlaces(tot?.qtdCen)}</BTd>
+                            <BTd>{notDecimalPlaces(tot?.qtdAli)}</BTd>
+                            <BTd>{notDecimalPlaces(tot?.qtdOvod)}</BTd>
+                            <BTd>{notDecimalPlaces(tot?.qtdOvo)}</BTd>
+                            <BTd>{notDecimalPlaces((tot?.percDes) * 100)}</BTd>
+                        </BTr>
+                    ))}
+                    {descarte?.filter((fil: any) => (fil.codFor != '99999999')).map((desc: any, idx: number) => (
                         <BTr key={idx}
                             classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}>
-                            <BTd>{intToDate(desc.datPro)}</BTd>
                             <BTd>{(desc.codFor)}</BTd>
                             <BTd>{(desc.nomFor)}</BTd>
                             <BTd classname="text-center">{(desc.tipOvo)}</BTd>
                             <BTd>{(desc.desOvo)}</BTd>
-                            <BTd>{(isNaN(desc.qtdest) ? 0 : desc.qtdest).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.pesoKg) ? 0 : desc.pesoKg).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.qtdcen) ? 0 : desc.qtdcen).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.qtdali) ? 0 : desc.qtdali).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.qtdOvod) ? 0 : desc.qtdOvod).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.qtdOvo) ? 0 : desc.qtdOvo).toFixed()}</BTd>
-                            <BTd>{(isNaN(desc.percDes) ? 0 : desc.percDes).toFixed(2)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdEst) ? 0 : desc.qtdEst)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.pesoKg) ? 0 : desc.pesoKg)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdCen) ? 0 : desc.qtdCen)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdAli) ? 0 : desc.qtdAli)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvod) ? 0 : desc.qtdOvod)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvo) ? 0 : desc.qtdOvo)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces((isNaN(desc.percDes) ? 0 : desc.percDes) * 100)}</BTd>
                         </BTr>
                     ))}
                 </tbody>
