@@ -31,13 +31,8 @@ const NDescarte = (props: Props) => {
         getResumoProducao();
     }, [dataInicial, dataFinal]);
 
-    const intToDate = (value: any) => {
-        let strval = value.toString();
-        return `${strval.substr(6, 2)}/${strval.substr(4, 2)}/${strval.substr(0, 4)}`
-    }
-
     const notDecimalPlaces = (value: any) => {
-        return (value).toFixed()
+        return (value)?.toFixed()
     }
 
     return (
