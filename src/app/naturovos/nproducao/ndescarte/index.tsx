@@ -11,6 +11,7 @@ type Props = {}
 const NDescarte = (props: Props) => {
     const { dataInicial, dataFinal } = useAuthContext();
     const [descarte, setDescarte] = useState<any>([]);
+    console.log(moment(dataInicial).format('YYYYMMDD'), moment(dataFinal).format('YYYYMMDD'));
 
     useEffect(() => {
         const getResumoProducao = async () => {
@@ -30,6 +31,7 @@ const NDescarte = (props: Props) => {
         };
         getResumoProducao();
     }, [dataInicial, dataFinal]);
+    console.log(descarte);
 
     const notDecimalPlaces = (value: any) => {
         return (value)?.toFixed()
@@ -55,8 +57,8 @@ const NDescarte = (props: Props) => {
                 </thead>
                 <tbody>
                     {descarte?.filter((fil: any) => (fil.codFor == '99999999')).map((tot: any, idx: number) => (
-                        <BTr  key={idx}
-                        classname="text-right bg-gray-100 uppercase font-semibold text-gray-600">
+                        <BTr key={idx}
+                            classname="text-right bg-gray-100 uppercase font-semibold text-gray-600">
                             <BTd colspan={4} classname="bg-gray-800 text-left text-gray-50">Total</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdEst)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.pesoKg)}</BTd>
@@ -64,7 +66,7 @@ const NDescarte = (props: Props) => {
                             <BTd>{notDecimalPlaces(tot?.qtdAli)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdOvod)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdOvo)}</BTd>
-                            <BTd>{notDecimalPlaces((tot?.percDes) * 100)}</BTd>
+                            <BTd>{notDecimalPlaces((tot?.percDes))}</BTd>
                         </BTr>
                     ))}
                     {descarte?.filter((fil: any) => (fil.codFor != '99999999')).map((desc: any, idx: number) => (
@@ -80,7 +82,7 @@ const NDescarte = (props: Props) => {
                             <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdAli) ? 0 : desc.qtdAli)}</BTd>
                             <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvod) ? 0 : desc.qtdOvod)}</BTd>
                             <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvo) ? 0 : desc.qtdOvo)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces((isNaN(desc.percDes) ? 0 : desc.percDes) * 100)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces((isNaN(desc.percDes) ? 0 : desc.percDes))}</BTd>
                         </BTr>
                     ))}
                 </tbody>
