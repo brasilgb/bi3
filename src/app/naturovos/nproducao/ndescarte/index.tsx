@@ -76,13 +76,13 @@ const NDescarte = (props: Props) => {
                             <BTd>{(desc.nomFor)}</BTd>
                             <BTd classname="text-center">{(desc.tipOvo)}</BTd>
                             <BTd>{(desc.desOvo)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdEst) ? 0 : desc.qtdEst)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.pesoKg) ? 0 : desc.pesoKg)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdCen) ? 0 : desc.qtdCen)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdAli) ? 0 : desc.qtdAli)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvod) ? 0 : desc.qtdOvod)}</BTd>
-                            <BTd classname="text-right">{notDecimalPlaces(isNaN(desc.qtdOvo) ? 0 : desc.qtdOvo)}</BTd>
-                            <BTd classname="text-right">{(isNaN(desc.percDes) ? 0 : desc.percDes)?.toFixed(2)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.qtdEst)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.pesoKg)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.qtdCen)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.qtdAli)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.qtdOvod)}</BTd>
+                            <BTd classname="text-right">{notDecimalPlaces(desc.qtdOvo)}</BTd>
+                            <BTd classname="text-right">{(desc.percDes)?.toFixed(2)}</BTd>
                         </BTr>
                     ))}
                 </tbody>
