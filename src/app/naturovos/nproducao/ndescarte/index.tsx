@@ -66,7 +66,7 @@ const NDescarte = (props: Props) => {
                             <BTd>{notDecimalPlaces(tot?.qtdAli)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdOvod)}</BTd>
                             <BTd>{notDecimalPlaces(tot?.qtdOvo)}</BTd>
-                            <BTd>{(tot?.percDes)?.toFixed()}</BTd>
+                            <BTd>{(tot?.percDes)?.toFixed(2)}</BTd>
                         </BTr>
                     ))}
                     {descarte?.filter((fil: any) => (fil.codFor != '99999999')).map((desc: any, idx: number) => (
