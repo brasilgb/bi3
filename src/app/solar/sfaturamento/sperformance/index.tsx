@@ -17,15 +17,16 @@ const SPerformance = (props: Props) => {
   // Extração de dados resumos filiais
   useEffect(() => {
     async function getLGraficoLojas() {
-      await birel
-        .post('(LOJ_FAT_GRAFEVO)', {
+      await birel.post('(LOJ_FAT_GRAFEVO)', {
           datalojgrafevo: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          const sortGraf = results.data.bi008.bidata.sort((a: any, b: any) =>
-            a.DiaSemana < b.DiaSemana ? 1 : -1
-          );
-          setLGraficoLojas(sortGraf);
+          
+          
+          // const sortGraf = results.data.bi008.bidata.sort((a: any, b: any) =>
+          //   a.DiaSemana < b.DiaSemana ? 1 : -1
+          // );
+          // setLGraficoLojas(sortGraf);
         })
         .catch(err => {
           console.log(err);

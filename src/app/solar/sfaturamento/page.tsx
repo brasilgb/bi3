@@ -34,6 +34,7 @@ const SFaturamento = (props: Props) => {
     }
     getLFatuTotLojas();
   }, [dataFiltro]);
+  
   return (
     <main>
       <SubBarTop

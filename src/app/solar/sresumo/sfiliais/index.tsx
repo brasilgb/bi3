@@ -37,7 +37,7 @@ const SFiliais = ({ totais, data }: any) => {
                 <BTd>{filial.Filial}</BTd>
                 <BTd>{formatMoney(filial.Faturamento)}</BTd>
                 <BTd>{(filial.RepFaturamento * 100).toFixed(2)}%</BTd>
-                <BTd>{(filial.Projecao * 100).toFixed(2)}%</BTd>
+                <BTd>{(filial.Projecao).toFixed(2)}%</BTd>
                 <BTd>{(filial.Margem * 100).toFixed(2)}%</BTd>
                 <BTd>{(filial.MetaAlcancada * 100).toFixed(2)}%</BTd>
               </BTr>
