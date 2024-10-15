@@ -59,7 +59,7 @@ const Solar = (props: Props) => {
         .catch(err => {
           console.log(err);
         });
-    }
+    }       
     getTotais();
   }, [dataFiltro]);
 
@@ -156,6 +156,7 @@ const Solar = (props: Props) => {
             iconcolor={'text-solar-blue-primary'}
           />
         </div>
+
         <div className="grid grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
@@ -165,6 +166,7 @@ const Solar = (props: Props) => {
               colorText="#019EE3"
             />
           </div>
+          
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
               title="Margem"
@@ -179,6 +181,24 @@ const Solar = (props: Props) => {
               value={formatPercent(totais[0]?.Projecao)}
               colorBar="#A7C414"
               colorText="#A7C414"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:gap-4 gap-2 md:mt-4 mt-2">
+        <div className="p-0.5 bg-white rounded-md shadow-sm">
+            <Progress
+              title="Média/Ano"
+              value={formatPercent(totais[0]?.MargemMediaAno)}
+              colorBar="#019EE3"
+              colorText="#019EE3"
+            />
+          </div>
+          <div className="p-0.5 bg-white rounded-md shadow-sm">
+            <Progress
+              title="Med.Jur/Ano"
+              value={formatPercent(totais[0]?.JurosMedioAno)}
+              colorBar="#019EE3"
+              colorText="#019EE3"
             />
           </div>
         </div>
