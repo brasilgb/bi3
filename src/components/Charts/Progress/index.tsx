@@ -6,6 +6,7 @@ import HighchartsReact from 'highcharts-react-official';
 
 interface ProgressProps {
   title?: string;
+  subtitle?: string;
   value?: any;
   sizetitle?: string;
   sizevalue?: string;
@@ -14,6 +15,7 @@ interface ProgressProps {
 }
 const Progress = ({
   title,
+  subtitle,
   value,
   colorBar,
   colorText,
@@ -43,7 +45,7 @@ const Progress = ({
       text: '',
     },
     subtitle: {
-      text: `<div style='font-size: ${sizeWindow > 1900 ? '22px' : '12px'}; font-weight: bold; color: ${colorText}'>${value}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span>`,
+      text: `<div style='font-size: ${sizeWindow > 1900 ? '22px' : '12px'}; font-weight: bold; color: ${colorText}'>${value}%</div> <span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${title}</span><br/><span style='font-size: ${sizeWindow > 1900 ? '15px' : '10px'}; font-weight: bold;'>${subtitle?subtitle:''}</span>`,
       align: 'center',
       verticalAlign: 'middle',
       style: {

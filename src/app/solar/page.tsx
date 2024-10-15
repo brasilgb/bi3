@@ -187,7 +187,8 @@ const Solar = (props: Props) => {
         <div className="grid grid-cols-2 md:gap-4 gap-2 md:mt-4 mt-2">
         <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
-              title="Med.Marg/Ano"
+              title="Margem Média"
+              subtitle="Período"
               value={formatPercent(totais[0]?.MargemMediaAno)}
               colorBar="#019EE3"
               colorText="#019EE3"
@@ -195,7 +196,8 @@ const Solar = (props: Props) => {
           </div>
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
-              title="Med.Jur/Ano"
+              title="Juro Médio"
+              subtitle="Período"
               value={formatPercent(totais[0]?.JurosMedioAno)}
               colorBar="#019EE3"
               colorText="#019EE3"
