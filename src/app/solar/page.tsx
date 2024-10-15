@@ -187,7 +187,7 @@ const Solar = (props: Props) => {
         <div className="grid grid-cols-2 md:gap-4 gap-2 md:mt-4 mt-2">
         <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
-              title="Média/Ano"
+              title="Med.Marg/Ano"
               value={formatPercent(totais[0]?.MargemMediaAno)}
               colorBar="#019EE3"
               colorText="#019EE3"
