@@ -14,6 +14,7 @@ const SFiliais = ({ totais, data }: any) => {
             <BTh classname="w-20">Projeção</BTh>
             <BTh classname="w-20">Margem</BTh>
             <BTh classname="w-20">Meta</BTh>
+            <BTh classname="w-20">Juros</BTh>
           </BTr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@ const SFiliais = ({ totais, data }: any) => {
             <BTd>{(totais[0]?.Projecao * 100).toFixed(2)}%</BTd>
             <BTd>{(totais[0]?.Margem * 100).toFixed(2)}%</BTd>
             <BTd>{(totais[0]?.MetaAlcancada * 100).toFixed(2)}%</BTd>
+            <BTd>{(totais[0]?.Juros * 100).toFixed(2)}%</BTd>
           </BTr>
           {data
             .sort((a: any, b: any) =>
@@ -40,6 +42,7 @@ const SFiliais = ({ totais, data }: any) => {
                 <BTd>{(filial.Projecao * 100).toFixed(2)}%</BTd>
                 <BTd>{(filial.Margem * 100).toFixed(2)}%</BTd>
                 <BTd>{(filial.MetaAlcancada * 100).toFixed(2)}%</BTd>
+                <BTd>{(filial.Juros * 100).toFixed(2)}%</BTd>
               </BTr>
             ))}
         </tbody>

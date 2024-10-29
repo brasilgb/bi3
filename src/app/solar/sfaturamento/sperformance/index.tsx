@@ -21,12 +21,8 @@ const SPerformance = (props: Props) => {
           datalojgrafevo: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          
-          
-          // const sortGraf = results.data.bi008.bidata.sort((a: any, b: any) =>
-          //   a.DiaSemana < b.DiaSemana ? 1 : -1
-          // );
-          // setLGraficoLojas(sortGraf);
+          const sortGraf = results.data.bi008.bidata;
+          setLGraficoLojas(sortGraf);
         })
         .catch(err => {
           console.log(err);
@@ -51,7 +47,7 @@ const SPerformance = (props: Props) => {
     }
     getLFatuTotLojas();
   }, [dataFiltro]);
-  // console.log(lGraficoLojas);
+ 
 
   return (
     <>
