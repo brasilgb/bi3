@@ -31,7 +31,7 @@ const SInadimplencia = (props: Props) => {
     <main>
       <SubBarTop
         colors="border-gray-200 text-gray-500"
-        back="/solar/sfaturamento"
+        back="/solar/sanalisevenda"
         forwards="/solar/scompras"
         depto="loja"
         dtatu={dataAtualizacao}

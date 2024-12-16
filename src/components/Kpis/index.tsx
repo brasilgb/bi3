@@ -15,7 +15,7 @@ interface KpiProps {
 
 export const Kpi = (props: KpiProps) => {
   return (
-    <div className="flex flex-col bg-white rounded-md shadow-sm">
+    <div className="flex flex-col bg-white rounded-md shadow-sm w-full relative">
       <div className="flex items-center justify-between p-4">
         <div className="flex flex-1 flex-col items-start justify-between">
           <div className="md:text-base text-[10px] text-gray-400 ">
@@ -26,7 +26,7 @@ export const Kpi = (props: KpiProps) => {
           </div>
         </div>
         <div
-          className={`flex items-center justify-center md:text-4xl text-xl ${props.iconcolor}`}
+          className={`flex items-center justify-center md:text-4xl text-xl ${props.iconcolor} absolute top-2 right-2`}
         >
           {props.icon}
         </div>

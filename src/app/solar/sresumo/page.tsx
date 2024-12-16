@@ -20,7 +20,7 @@ const SResumo = (props: Props) => {
   const [lTotais, setLTotais] = useState<any>([]);
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
-  );
+);
 
   // Extração de dados resumos filiais
   useEffect(() => {

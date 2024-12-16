@@ -40,7 +40,7 @@ const SFaturamento = (props: Props) => {
       <SubBarTop
         colors="border-gray-200 text-gray-500"
         back="/solar/sresumo"
-        forwards="/solar/sinadimplencia"
+        forwards="/solar/sanalisevenda"
         depto="loja"
         dtatu={dataAtualizacao}
       />
