@@ -42,7 +42,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, []);
+  }, [dataFiltro]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -60,7 +60,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, []);
+  }, [dataFiltro]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -79,7 +79,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, []);
+  }, [dataFiltro]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -96,7 +96,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, []);
+  }, [dataFiltro]);
 
   const valuesFiliais = (meio: string, filial: string, campo: string) => {
     const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
