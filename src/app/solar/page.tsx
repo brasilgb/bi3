@@ -138,6 +138,8 @@ const Solar = (props: Props) => {
             textcolor={'text-solar-blue-secundary'}
             bgcolor={''}
             iconcolor={'text-solar-green-prymary'}
+            valuemon={formatMoney(totais[0]?.JuroAgora)}
+            titlerep='Juros (dia)'
           />
           <Kpi
             icon={<AiOutlineLineChart />}

@@ -11,6 +11,7 @@ interface KpiProps {
   textcolor: string;
   bgcolor: string;
   iconcolor: string;
+  valuemon?: string;
 }
 
 export const Kpi = (props: KpiProps) => {
@@ -31,7 +32,7 @@ export const Kpi = (props: KpiProps) => {
           {props.icon}
         </div>
       </div>
-      {props.valuerep && (
+      {props.titlerep && (
         <div className="px-4 py-2 border-t border-gray-100 flex items-center">
           <div className="md:text-sm text-xs text-gray-400 flex-1">
             {props.titlerep}
@@ -39,7 +40,7 @@ export const Kpi = (props: KpiProps) => {
           <span
             className={`md:text-xl text-xs font-extrabold ${props.textcolor}  ${props.bgcolor}`}
           >
-            {props.valuerep}%
+            {props.valuerep ? props.valuerep + '%' : props.valuemon}
           </span>
         </div>
       )}
