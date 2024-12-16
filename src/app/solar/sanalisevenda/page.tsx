@@ -60,7 +60,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, setDataAtualizacao]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
