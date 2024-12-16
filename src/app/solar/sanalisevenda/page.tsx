@@ -5,6 +5,7 @@ import { Kpi } from '@/components/Kpis'
 import MainMenuSolar from '@/components/MainMenu/solar'
 import SubBarTop from '@/components/SubBarTop'
 import { BTable, BTd, BTh, BTr } from '@/components/Table'
+import { useAuthContext } from '@/contexts/AuthContext'
 import birel from '@/services/birel'
 import { formatMoney, formatPercent } from '@/utils'
 import moment from 'moment'
@@ -17,9 +18,7 @@ import { TbChartHistogram } from 'react-icons/tb'
 type Props = {}
 
 const SAnaliseVenda = (props: Props) => {
-  const [dataAtualizacao, setDataAtualizacao] = useState<any>(
-    moment().format('DD/MM/YYYY HH:mm:ss')
-  );
+  const { dataFiltro, setDataAtualizacao, dataAtualizacao } = useAuthContext();
 
   const [meioPag, setMeioPag] = useState<any>([]);
   const [meioPagTotal, setMeioPagTotal] = useState<any>([]);
@@ -31,7 +30,7 @@ const SAnaliseVenda = (props: Props) => {
   useEffect(() => {
     const getMeioPag = (async () => {
       await birel.post('(MEIO_PAGAMENTO)', {
-        datachave: 202412
+        datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
           setMeioPag(res.data.bi095.bidata);
@@ -48,10 +47,11 @@ const SAnaliseVenda = (props: Props) => {
   useEffect(() => {
     const getMeioPag = (async () => {
       await birel.post('(MEIO_PAGAMENTO_TOTAL)', {
-        datachave: 202412
+        datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
           setMeioPagTotal(res.data.bi096.bidata);
+          setDataAtualizacao(res.data.bi096.bidata[0].Atualizacao);
         })
         .catch((err) => {
           console.log(err);
@@ -65,7 +65,7 @@ const SAnaliseVenda = (props: Props) => {
   useEffect(() => {
     const getMeioPag = (async () => {
       await birel.post('(MEIO_PAGAMENTO_FILIAL)', {
-        datachave: 202412
+        datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
           setMeioPagFilial(res.data.bi097.bidata);
@@ -84,7 +84,7 @@ const SAnaliseVenda = (props: Props) => {
   useEffect(() => {
     const getMeioPag = (async () => {
       await birel.post('(MEIO_PAGAMENTO_FILIAL_TOTAL)', {
-        datachave: 202412
+        datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
           setMeioPagFilTotal(res.data.bi098.bidata);
