@@ -245,18 +245,6 @@ const SAnaliseVenda = (props: Props) => {
                   <Fragment key={fdx}>
                     <BTd>{formatMoney(valuesFiliais(meio, filial, 'VendaDevolucao'))}</BTd>
                     <BTd>{formatPercent(valuesFiliais(meio, filial, 'PercentVenda'))}%</BTd>
-                    {/* <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
-                    <BTd>{formatMoney(valuesFiliais('Cartão', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('Cartão', filial, 'PercentVenda'))}%</BTd>
-                    <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
-                    <BTd>{formatMoney(valuesFiliais('Crediário', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('Crediário', filial, 'PercentVenda'))}%</BTd>
-                    <BTd>{formatMoney(valuesFiliais('PIX', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('PIX', filial, 'PercentVenda'))}%</BTd>
-                    <BTd>{formatMoney(valuesFiliais('À Vista', filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais('À Vista', filial, 'PercentVenda'))}%</BTd> */}
                   </Fragment>
                 ))}
                 <BTd>{formatMoney(valuesFiliais('Cartão/PIX/Boleto', filial, 'VendaDevolucao'))}</BTd>
