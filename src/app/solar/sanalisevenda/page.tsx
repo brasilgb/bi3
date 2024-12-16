@@ -215,8 +215,8 @@ const SAnaliseVenda = (props: Props) => {
                 <BTh colspan={2} key={mdx} classname='sm:text-base text-xs text-center'>{meio}</BTh>
               ))}
               <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cartão/PIX/Boleto</BTh>
-              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Geral</BTh>
               <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cheque</BTh>
+              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Geral</BTh>
             </BTr>
             <BTr classname='text-gray-700 bg-gray-100 sm:text-base text-xs'>
               <BTh classname='text-center'>Filial</BTh>
