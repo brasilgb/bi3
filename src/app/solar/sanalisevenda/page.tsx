@@ -191,7 +191,7 @@ const SAnaliseVenda = (props: Props) => {
             </thead>
             <tbody>
               {meioPag?.map((mpag: any, bdx: number) => (
-                <BTr classname={`text-gray-500 sm:text-base text-xs ${bdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'}`}>
+                <BTr key={bdx} classname={`text-gray-500 sm:text-base text-xs ${bdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'}`}>
                   <BTd>{mpag?.MeioPagamento}</BTd>
                   <BTd>{formatMoney(mpag?.VendaDevolucao)}</BTd>
                   <BTd>{formatPercent(mpag?.VendasTotal)}%</BTd>
