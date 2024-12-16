@@ -68,9 +68,9 @@ const SAnaliseVenda = (props: Props) => {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
-          setMeioPagFilial(res.data.bi097.bidata);
-          setAllFiliais(res.data.bi097.bidata.map((c: any) => c.NomeFilial).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
-          setAllMeios(res.data.bi097.bidata.map((c: any) => c.MeioPagamento).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
+          setMeioPagFilial(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)));
+          setAllFiliais(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.NomeFilial).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
+          setAllMeios(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.MeioPagamento).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
         })
         .catch((err) => {
           console.log(err);
@@ -99,7 +99,7 @@ const SAnaliseVenda = (props: Props) => {
   }, []);
 
   const valuesFiliais = (meio: string, filial: string, campo: string) => {
-    const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial )).map((vd:any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
+    const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
     return meiofilial;
   }
 
@@ -190,7 +190,7 @@ const SAnaliseVenda = (props: Props) => {
               </BTr>
             </thead>
             <tbody>
-              {meioPag?.map((mpag: any, bdx: number) => (
+              {meioPag?.sort((a: any, b: any) => (a.VendaDevolucao < b.VendaDevolucao ? 1 : -1)).map((mpag: any, bdx: number) => (
                 <BTr key={bdx} classname={`text-gray-500 sm:text-base text-xs ${bdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'}`}>
                   <BTd>{mpag?.MeioPagamento}</BTd>
                   <BTd>{formatMoney(mpag?.VendaDevolucao)}</BTd>
@@ -211,19 +211,28 @@ const SAnaliseVenda = (props: Props) => {
             <BTr classname='text-gray-700 bg-gray-100'>
               <BTh><></></BTh>
               {allMeios?.map((meio: any, mdx: number) => (
-                meio != '-' &&
+                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
                 <BTh colspan={2} key={mdx} classname='sm:text-base text-xs text-center'>{meio}</BTh>
               ))}
+              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cartão/PIX/Boleto</BTh>
+              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Geral</BTh>
+              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cheque</BTh>
             </BTr>
             <BTr classname='text-gray-700 bg-gray-100 sm:text-base text-xs'>
               <BTh classname='text-center'>Filial</BTh>
               {allMeios?.map((meio: any, mdx: number) => (
-                meio != '-' &&
-                <>
-                  <BTh key={mdx} classname='text-sm'>Venda Devolução</BTh>
-                  <BTh key={mdx} classname='text-sm'>% Venda</BTh>
-                </>
+                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                <Fragment key={mdx}>
+                  <BTh classname='text-sm'>Venda Devolução</BTh>
+                  <BTh classname='text-sm'>% Venda</BTh>
+                </Fragment>
               ))}
+              <BTh classname='text-sm'>Venda Devolução</BTh>
+              <BTh classname='text-sm'>% Venda</BTh>
+              <BTh classname='text-sm'>Venda Devolução</BTh>
+              <BTh classname='text-sm'>% Venda</BTh>
+              <BTh classname='text-sm'>Venda Devolução</BTh>
+              <BTh classname='text-sm'>% Venda</BTh>
             </BTr>
           </thead>
           <tbody>
@@ -231,20 +240,31 @@ const SAnaliseVenda = (props: Props) => {
               filial != '-' &&
               <BTr key={fdx} classname={`text-gray-500 text-base ${fdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'} sm:text-base text-xs`}>
                 <BTd>{filial}</BTd>
-                      <BTd>{formatMoney(valuesFiliais('Cartão/PIX/Boleto', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('Cartão/PIX/Boleto', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('Cartão', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('Cartão', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('Crediário', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('Crediário', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('PIX', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('PIX', filial, 'PercentVenda'))}%</BTd>
-                      <BTd>{formatMoney(valuesFiliais('À Vista', filial, 'VendaDevolucao'))}</BTd>
-                      <BTd>{formatPercent(valuesFiliais('À Vista', filial, 'PercentVenda'))}%</BTd>
+                {allMeios?.map((meio: any, fdx: number) => (
+                  meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                  <Fragment key={fdx}>
+                    <BTd>{formatMoney(valuesFiliais(meio, filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais(meio, filial, 'PercentVenda'))}%</BTd>
+                    {/* <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('Cartão', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Cartão', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('Crediário', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Crediário', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('PIX', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('PIX', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('À Vista', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('À Vista', filial, 'PercentVenda'))}%</BTd> */}
+                  </Fragment>
+                ))}
+                <BTd>{formatMoney(valuesFiliais('Cartão/PIX/Boleto', filial, 'VendaDevolucao'))}</BTd>
+                <BTd>{formatPercent(valuesFiliais('Cartão/PIX/Boleto', filial, 'PercentVenda'))}%</BTd>
+                <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
+                <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
+                <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
+                <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
               </BTr>
             ))}
           </tbody>
