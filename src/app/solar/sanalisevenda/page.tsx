@@ -18,7 +18,7 @@ import { TbChartHistogram } from 'react-icons/tb'
 type Props = {}
 
 const SAnaliseVenda = (props: Props) => {
-  const { dataFiltro, setDataAtualizacao, dataAtualizacao } = useAuthContext();
+  const { dataFiltro } = useAuthContext();
 
   const [meioPag, setMeioPag] = useState<any>([]);
   const [meioPagTotal, setMeioPagTotal] = useState<any>([]);
@@ -26,6 +26,9 @@ const SAnaliseVenda = (props: Props) => {
   const [meioPagFilTotal, setMeioPagFilTotal] = useState<any>([]);
   const [allFiliais, setAllFiliais] = useState<any>([]);
   const [allMeios, setAllMeios] = useState<any>([]);
+  const [dataAtualizacao, setDataAtualizacao] = useState<any>(
+      moment().format('DD/MM/YYYY HH:mm:ss')
+    );
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -98,6 +101,7 @@ const SAnaliseVenda = (props: Props) => {
     getMeioPag();
   }, [dataFiltro]);
 
+  console.log(dataAtualizacao);
   const valuesFiliais = (meio: string, filial: string, campo: string) => {
     const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
     return meiofilial;
