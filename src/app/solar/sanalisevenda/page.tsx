@@ -27,8 +27,8 @@ const SAnaliseVenda = (props: Props) => {
   const [allFiliais, setAllFiliais] = useState<any>([]);
   const [allMeios, setAllMeios] = useState<any>([]);
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
-      moment().format('DD/MM/YYYY HH:mm:ss')
-    );
+    moment().format('DD/MM/YYYY HH:mm:ss')
+  );
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -36,7 +36,8 @@ const SAnaliseVenda = (props: Props) => {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
-          setMeioPag(res.data.bi095.bidata);
+          const dataon = res.data.bi095.bidata
+          setMeioPag(dataon ? dataon : []);
         })
         .catch((err) => {
           console.log(err);
@@ -53,7 +54,8 @@ const SAnaliseVenda = (props: Props) => {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
-          setMeioPagTotal(res.data.bi096.bidata);
+          const dataon = res.data.bi096.bidata;
+          setMeioPagTotal(dataon ? dataon : []);
           setDataAtualizacao(res.data.bi096.bidata[0].Atualizacao);
         })
         .catch((err) => {
@@ -90,7 +92,8 @@ const SAnaliseVenda = (props: Props) => {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
         .then((res) => {
-          setMeioPagFilTotal(res.data.bi098.bidata);
+          const dataon = res.data.bi098.bidata;
+          setMeioPagFilTotal(dataon ? dataon : []);
         })
         .catch((err) => {
           console.log(err);
@@ -101,10 +104,14 @@ const SAnaliseVenda = (props: Props) => {
     getMeioPag();
   }, [dataFiltro]);
 
-  console.log(dataAtualizacao);
   const valuesFiliais = (meio: string, filial: string, campo: string) => {
     const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
     return meiofilial;
+  }
+
+  const valuesFiliaisTotal = (meio: string, campo: string) => {
+    const meiofilialtotal = meioPagFilTotal.filter((fmeio: any) => (fmeio?.MeioPagamento == meio)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
+    return meiofilialtotal;
   }
 
   return (
@@ -238,6 +245,22 @@ const SAnaliseVenda = (props: Props) => {
               <BTh classname='text-sm'>Venda Devolução</BTh>
               <BTh classname='text-sm'>% Venda</BTh>
             </BTr>
+            {/* <BTr>
+              <BTh>Total</BTh>
+              {allMeios?.map((meio: any, fdx: number) => (
+                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                <Fragment key={fdx}>
+                  <BTd>{formatMoney(valuesFiliaisTotal(meio, 'VendaDevolucao'))}</BTd>
+                  <BTd>{formatPercent(valuesFiliaisTotal(meio, 'PercentVenda'))}%</BTd>
+                </Fragment>
+              ))}
+              <BTd>{formatMoney(valuesFiliaisTotal('Cartão/PIX/Boleto', 'VendaDevolucao'))}</BTd>
+              <BTd>{formatPercent(valuesFiliaisTotal('Cartão/PIX/Boleto', 'PercentVenda'))}%</BTd>
+              <BTd>{formatMoney(valuesFiliaisTotal('Cheque', 'VendaDevolucao'))}</BTd>
+              <BTd>{formatPercent(valuesFiliaisTotal('Cheque', 'PercentVenda'))}%</BTd>
+              <BTd>{formatMoney(valuesFiliaisTotal('Geral', 'VendaDevolucao'))}</BTd>
+              <BTd>{formatPercent(valuesFiliaisTotal('Geral', 'PercentVenda'))}%</BTd>
+            </BTr> */}
           </thead>
           <tbody>
             {allFiliais?.map((filial: any, fdx: number) => (
