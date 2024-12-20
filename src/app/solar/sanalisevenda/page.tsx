@@ -245,22 +245,6 @@ const SAnaliseVenda = (props: Props) => {
               <BTh classname='text-sm'>Venda Devolução</BTh>
               <BTh classname='text-sm'>% Venda</BTh>
             </BTr>
-            {/* <BTr>
-              <BTh>Total</BTh>
-              {allMeios?.map((meio: any, fdx: number) => (
-                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
-                <Fragment key={fdx}>
-                  <BTd>{formatMoney(valuesFiliaisTotal(meio, 'VendaDevolucao'))}</BTd>
-                  <BTd>{formatPercent(valuesFiliaisTotal(meio, 'PercentVenda'))}%</BTd>
-                </Fragment>
-              ))}
-              <BTd>{formatMoney(valuesFiliaisTotal('Cartão/PIX/Boleto', 'VendaDevolucao'))}</BTd>
-              <BTd>{formatPercent(valuesFiliaisTotal('Cartão/PIX/Boleto', 'PercentVenda'))}%</BTd>
-              <BTd>{formatMoney(valuesFiliaisTotal('Cheque', 'VendaDevolucao'))}</BTd>
-              <BTd>{formatPercent(valuesFiliaisTotal('Cheque', 'PercentVenda'))}%</BTd>
-              <BTd>{formatMoney(valuesFiliaisTotal('Geral', 'VendaDevolucao'))}</BTd>
-              <BTd>{formatPercent(valuesFiliaisTotal('Geral', 'PercentVenda'))}%</BTd>
-            </BTr> */}
           </thead>
           <tbody>
             {allFiliais?.map((filial: any, fdx: number) => (

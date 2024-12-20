@@ -3,6 +3,8 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 const DonutChart = ({ data, periodo }) => {
+    const alteredData = data?.filter((fl:any) => (fl.VendasTotal > 0)).map((res: any) => ({ name: res.MeioPagamento, y: res.VendasTotal < 0 ? 0 : res.VendasTotal }));
+    console.log(alteredData);
 
     const options = {
 
@@ -34,7 +36,7 @@ const DonutChart = ({ data, periodo }) => {
         },
         plotOptions: {
             pie: {
-                size:200
+                size: 200
             },
             series: {
                 allowPointSelect: true,
@@ -59,45 +61,47 @@ const DonutChart = ({ data, periodo }) => {
             name: 'Registrations',
             colorByPoint: true,
             innerSize: '75%',
-            data: [
-                {
-                    name: data[0]?.MeioPagamento,
-                    y: data[0]?.VendasTotal * 100
-                },
-                {
-                    name: data[1]?.MeioPagamento,
-                    y: data[1]?.VendasTotal * 100
-                },
-                {
-                    name: data[2]?.MeioPagamento,
-                    y: data[2]?.VendasTotal * 100
-                },
-                {
-                    name: data[3]?.MeioPagamento,
-                    y: data[3]?.VendasTotal * 100
-                },
-                {
-                    name: data[4]?.MeioPagamento,
-                    y: data[4]?.VendasTotal * 100
-                },
-                {
-                    name: data[5]?.MeioPagamento,
-                    y: data[5]?.VendasTotal * 100
-                },
-                {
-                    name: data[6]?.MeioPagamento,
-                    y: data[6]?.VendasTotal * 100
-                },
-            ]
+            data: alteredData
+            // [
+            //     {
+            //         name: result[0]?.MeioPagamento,
+            //         y: result[0]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[1]?.MeioPagamento,
+            //         y: result[1]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[2]?.MeioPagamento,
+            //         y: result[2]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[3]?.MeioPagamento,
+            //         y: result[3]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[4]?.MeioPagamento,
+            //         y: result[4]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[5]?.MeioPagamento,
+            //         y: result[5]?.VendasTotal * 100
+            //     },
+            //     {
+            //         name: result[6]?.MeioPagamento,
+            //         y: result[6]?.VendasTotal * 100
+            //     },
+            // ]
         }]
     };
     return (
         <div className='relative h-[300px]'>
             <HighchartsReact
-            containerProps={{ style: { width: '100%', height: '100%' } }}
+                containerProps={{ style: { width: '100%', height: '100%' } }}
                 highcharts={Highcharts}
                 options={options}
             />
+            <p className='absolute -bottom-1 left-2 text-[10px] text-gray-500'>* O conjunto de dados contém valores negativos ou zerados que não podem ser mostrados</p>
         </div>
     )
 }
