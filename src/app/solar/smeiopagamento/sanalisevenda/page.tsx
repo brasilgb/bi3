@@ -26,9 +26,6 @@ const SAnaliseVenda = (props: Props) => {
   const [meioPagFilTotal, setMeioPagFilTotal] = useState<any>([]);
   const [allFiliais, setAllFiliais] = useState<any>([]);
   const [allMeios, setAllMeios] = useState<any>([]);
-  const [dataAtualizacao, setDataAtualizacao] = useState<any>(
-    moment().format('DD/MM/YYYY HH:mm:ss')
-  );
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -56,7 +53,6 @@ const SAnaliseVenda = (props: Props) => {
         .then((res) => {
           const dataon = res.data.bi096.bidata;
           setMeioPagTotal(dataon ? dataon : []);
-          setDataAtualizacao(res.data.bi096.bidata[0].Atualizacao);
         })
         .catch((err) => {
           console.log(err);
@@ -65,7 +61,7 @@ const SAnaliseVenda = (props: Props) => {
         )
     });
     getMeioPag();
-  }, [dataFiltro, setDataAtualizacao]);
+  }, [dataFiltro]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -109,23 +105,8 @@ const SAnaliseVenda = (props: Props) => {
     return meiofilial;
   }
 
-  const valuesFiliaisTotal = (meio: string, campo: string) => {
-    const meiofilialtotal = meioPagFilTotal.filter((fmeio: any) => (fmeio?.MeioPagamento == meio)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
-    return meiofilialtotal;
-  }
-
   return (
-    <main>
-      <SubBarTop
-        colors="border-gray-200 text-gray-500"
-        back="/solar/sfaturamento"
-        forwards="/solar/sinadimplencia"
-        depto="loja"
-        dtatu={dataAtualizacao}
-      />
-      <div className="container m-auto md:px-0 px-1">
-        <MainMenuSolar />
-      </div>
+    <main className='animate__animated animate__fadeIn'>
       <div className='container mx-auto sm:p-0 px-1'>
         {meioPagTotal?.map((pagtot: any, adx: number) => (
           <KpiContainer key={adx}>

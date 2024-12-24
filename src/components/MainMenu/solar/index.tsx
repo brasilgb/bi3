@@ -24,7 +24,7 @@ const MainMenuSolar
           />
           <SLinkMenu value="Resumo" url="/solar/sresumo" depto="loja" />
           <SLinkMenu value="Faturamento" url="/solar/sfaturamento" depto="loja" />
-          <SLinkMenu value="Análise de venda" url="/solar/sanalisevenda" depto="loja" />
+          <SLinkMenu value="Análise de venda" url="/solar/smeiopagamento" depto="loja" />
           <SLinkMenu
             value="Inadimplência"
             url="/solar/sinadimplencia"

@@ -32,7 +32,7 @@ export const BTh = (props: TableProps) => {
     <th
       rowSpan={props.rowspan}
       colSpan={props.colspan}
-      className={`font-medium text-left px-2 py-0.5 whitespace-nowrap ${props.classname}`}
+      className={`font-medium text-left px-2 py-0.5 ${props.classname}`}
     >
       {props.children}
     </th>
