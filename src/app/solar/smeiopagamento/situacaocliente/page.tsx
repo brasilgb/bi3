@@ -62,7 +62,7 @@ const SituacaoCliente = (props: Props) => {
   }, [dataFiltro]);
 
   const valuesPlanos = (plano: string, situacao: string, campo: string) => {
-    const planoPag = allData.filter((fplano: any) => (fplano?.CodPlano == plano && fplano?.Situacao == situacao)).map((vd: any) => (campo == 'Venda' ? vd?.Venda : vd?.QtdCliente));
+    const planoPag = allData.filter((fplano: any) => (fplano?.CodPlano == plano && fplano?.Situacao == situacao)).map((vd: any) => (campo == 'Vendas' ? vd?.Vendas : vd?.QtdCliente));
     return planoPag;
   }
 
@@ -88,8 +88,8 @@ const SituacaoCliente = (props: Props) => {
               <BTh>Plano Pagto.</BTh>
               {situacao?.map((situ: any, sdx: number) => (
                 <Fragment key={sdx}>
-                  <BTh>Cliente</BTh>
                   <BTh>Venda</BTh>
+                  <BTh>Cliente</BTh>
                 </Fragment>
               ))}
             </BTr>
@@ -100,8 +100,8 @@ const SituacaoCliente = (props: Props) => {
                 <BTd>{plano}</BTd>
                 {situacao?.map((situ: any, ddx: number) => (
                   <Fragment key={ddx}>
-                    <BTd>{valuesPlanos(plano, situ, 'QtdCliente')}</BTd>
                     <BTd>{formatMoney(valuesPlanos(plano, situ, 'Vendas'))}</BTd>
+                    <BTd>{valuesPlanos(plano, situ, 'QtdCliente')}</BTd>
                   </Fragment>
                 ))}
               </BTr>
