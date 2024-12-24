@@ -107,7 +107,7 @@ const SAnaliseVenda = (props: Props) => {
 
   return (
     <main className='animate__animated animate__fadeIn'>
-      <div className='container mx-auto sm:p-0 px-1'>
+      <div className='container mx-auto sm:p-0 '>
         {meioPagTotal?.map((pagtot: any, adx: number) => (
           <KpiContainer key={adx}>
             <Kpi
@@ -161,7 +161,7 @@ const SAnaliseVenda = (props: Props) => {
           </KpiContainer>
         ))}
       </div>
-      <div className='container sm:mx-auto sm:grid grid-cols-2 gap-4 mt-4 mx-1'>
+      <div className='container sm:mx-auto sm:grid grid-cols-2 gap-4 mt-4 '>
         <div className='bg-white rounded-md shadow-sm border border-white p-2 w-full overflow-auto'>
           <BTable>
             <thead>
@@ -197,7 +197,7 @@ const SAnaliseVenda = (props: Props) => {
           <DonutChart data={meioPag} periodo={meioPag[0]?.MesAno} />
         </div>
       </div>
-      <div className="container sm:mx-auto mx-1 bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
+      <div className="container sm:mx-auto bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
         <BTable classname='relative'>
           <thead className='sticky top-0 z-10'>
             <BTr classname='text-gray-700 bg-gray-100'>

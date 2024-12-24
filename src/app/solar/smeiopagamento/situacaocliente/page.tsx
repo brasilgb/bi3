@@ -68,10 +68,10 @@ const SituacaoCliente = (props: Props) => {
 
   return (
     <main className='animate__animated animate__fadeIn'>
-      <div className='bg-white rounded-md shadow-sm border border-white p-2 w-full overflow-auto'>
+      <div className='bg-white rounded-md shadow-sm border sm:mx-0 border-white p-2 w-full overflow-auto'>
         <LAnaliseCliente data={graficoCliente} />
       </div>
-      <div className="container sm:mx-auto mx-1 bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
+      <div className="container sm:mx-auto bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
         <BTable classname='relative'>
           <thead className='sticky top-0 z-10'>
             <BTr classname='text-gray-700 bg-gray-100'>

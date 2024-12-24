@@ -38,8 +38,9 @@ const LAnaliseCliente = ({ data }: Props) => {
   });
   const options = {
     chart: {
-      marginRight: 0,
+      // marginRight: 1,
       inverted: width > 640 ? false : true,
+      height: width > 640 ? '400px' : '500px',
     },
     title: {
       useHTML: true,
