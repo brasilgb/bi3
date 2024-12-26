@@ -2,7 +2,7 @@ import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { dreListDataValue } from '@/functions/der-list-data-value';
 import birel from '@/services/birel';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 const SDreGrupo = () => {
   const { yearSelected } = useAuthContext();
@@ -138,6 +138,7 @@ const SDreGrupo = () => {
     }
     return line;
   };
+  const dreMes = dreData?.filter((fd: any) => (fd.Ano == yearSelected)).map((drd: any) => (drd.Mes)).filter((value: any, index: any, self: any) => self.indexOf(value) === index);
 
   return (
     <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
@@ -153,72 +154,82 @@ const SDreGrupo = () => {
             <BTh colspan={2} classname={`${titlehead()}`}>
               Total ({yearSelected})
             </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Janeiro
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Fevereiro
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Março
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Abril
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Maio
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Junho
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Julho
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Agosto
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Setembro
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Outubro
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Novembro
-            </BTh>
-            <BTh colspan={2} classname={`${titlehead()}`}>
-              Dezembro
-            </BTh>
+            {dreMes.sort((a: any, b: any) => (parseInt(a) < parseInt(b) ? 1 : -1)).map((dm: any, idx: number) => (
+              <Fragment key={idx}>
+                {dm == 12 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Dezembro
+                  </BTh >
+                }
+                {dm == 11 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Novembro
+                  </BTh>
+                }
+                {dm == 10 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Outubro
+                  </BTh>
+                }
+                {dm == 9 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Setembro
+                  </BTh>
+                }
+                {dm == 8 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Agosto
+                  </BTh>
+                }
+                {dm == 7 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Julho
+                  </BTh>
+                }
+                {dm == 6 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Junho
+                  </BTh>
+                }
+                {dm == 5 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Maio
+                  </BTh>
+                }
+                {dm == 4 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Abril
+                  </BTh>
+                }
+                {dm == 3 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Março
+                  </BTh>
+                }
+                {dm == 2 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Fevereiro
+                  </BTh>
+                }
+                {dm == 1 &&
+                  <BTh colspan={2} classname={`${titlehead()}`}>
+                    Janeiro
+                  </BTh>
+                }
+              </Fragment>
+            ))}
           </BTr>
           <BTr>
             <BTd classname={`${subhead()}`}>Valor</BTd>
             <BTd classname={`${subhead()} border-solar-green-prymary`}>%</BTd>
             <BTd classname={`${subhead()}`}>Valor</BTd>
             <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
-            <BTd classname={`${subhead()}`}>Valor</BTd>
-            <BTd classname={`${subhead()}`}>%</BTd>
+            {dreMes.map((idx: number) => (
+              <Fragment key={idx}>
+                <BTd classname={`${subhead()}`}>Valor</BTd>
+                <BTd classname={`${subhead()}`}>%</BTd>
+              </Fragment>
+            ))}
           </BTr>
         </thead>
         <tbody>
@@ -274,246 +285,298 @@ const SDreGrupo = () => {
                     color: "text-solar-red-support"
                   })}
                 </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 1,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 1,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 2,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 2,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 3,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 3,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 4,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 4,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 5,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 5,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 6,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 6,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 7,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 7,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 8,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 8,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 9,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 9,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 10,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 10,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 11,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 11,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 12,
-                    ano: yearSelected,
-                    valor: 1,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
-                <BTd classname={`${valuehead}`}>
-                  {dreListDataValue({
-                    data: dreData,
-                    estrutura: estrutura.EstruturaId,
-                    mes: 12,
-                    ano: yearSelected,
-                    valor: 0,
-                    color: "text-solar-red-support"
-                  })}
-                </BTd>
+                {dreMes.sort((a: any, b: any) => (parseInt(a) < parseInt(b) ? 1 : -1)).map((dm: any, idx: number) => (
+                  <Fragment key={idx}>
+                    {dm == 12 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 12,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 12,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 11 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 11,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 11,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 10 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 10,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 10,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 9 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 9,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 9,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 8 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 8,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 8,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 7 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 7,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 7,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 6 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 6,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 6,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 5 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 5,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 5,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 4 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 4,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 4,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 3 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 3,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 3,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 2 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 2,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 2,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                    {dm == 1 &&
+                      <>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 1,
+                            ano: yearSelected,
+                            valor: 1,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                        <BTd classname={`${valuehead}`}>
+                          {dreListDataValue({
+                            data: dreData,
+                            estrutura: estrutura.EstruturaId,
+                            mes: 1,
+                            ano: yearSelected,
+                            valor: 0,
+                            color: "text-solar-red-support"
+                          })}
+                        </BTd>
+                      </>
+                    }
+                  </Fragment>
+                ))}
               </BTr>
             ))}
         </tbody>

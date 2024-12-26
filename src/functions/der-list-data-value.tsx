@@ -35,9 +35,9 @@ export const dreListDataValue = ({
       {valor === 0
         ? (valueDre * 100).toFixed(2).replace('.', ',')
         : Intl.NumberFormat('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          }).format(valueDre)}
+          style: 'currency',
+          currency: 'BRL',
+        }).format(valueDre)}
     </span>
   );
 };
