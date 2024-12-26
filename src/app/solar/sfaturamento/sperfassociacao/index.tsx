@@ -71,7 +71,7 @@ const SPerfAssociacao = (props: Props) => {
             <BTd>{formatMoney(lFatuTotPerfLojas[0]?.JurSFatAss)}</BTd>
             <BTd>{(lFatuTotPerfLojas[0]?.RepJurosAss * 100).toFixed(2)}%</BTd>
             <BTd>{formatMoney(lFatuTotPerfLojas[0]?.EstoqueAss)}</BTd>
-            <BTd>{parseFloat(lFatuTotPerfLojas[0]?.GiroAss).toFixed(2)}</BTd>
+            <BTd>{parseFloat(lFatuTotPerfLojas[0]?.GiroAss).toFixed(0)}</BTd>
             <BTd>{(lFatuTotPerfLojas[0]?.RepEstoqueAss * 100).toFixed(2)}%</BTd>
           </BTr>
           {lFatuPerfAssocLojas
@@ -90,7 +90,7 @@ const SPerfAssociacao = (props: Props) => {
                 <BTd>{formatMoney(associacao?.JurSFat)}</BTd>
                 <BTd>{(associacao?.RepJuros * 100).toFixed(2)}%</BTd>
                 <BTd>{formatMoney(associacao?.Estoque)}</BTd>
-                <BTd>{(associacao?.Giro).toFixed(2)}</BTd>
+                <BTd>{(associacao?.Giro).toFixed(0)}</BTd>
                 <BTd>{(associacao?.RepEstoque * 100).toFixed(2)}%</BTd>
               </BTr>
             ))}
