@@ -554,7 +554,6 @@ const NDreNaturovos = () => {
                     {dm == 1 &&
                       <>
                         <BTd classname={`${valuehead}`}>
-                          ok
                           {dreListDataValue({
                             data: dreData,
                             estrutura: estrutura.EstruturaId,

@@ -226,7 +226,7 @@ const NDreGrupo = () => {
             <BTd classname={`${subhead()}`}>%</BTd>
             {dreMes.map((idx: number) => (
               <Fragment key={idx}>
-                <BTd classname={`${subhead()}`}>Valor</BTd>
+                <BTd classname={`${subhead()}`}>Valor {idx}</BTd>
                 <BTd classname={`${subhead()}`}>%</BTd>
               </Fragment>
             ))}
