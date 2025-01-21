@@ -81,7 +81,9 @@ const NResumo = () => {
           datanatexpor: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNExportacao(results.data.bi034.bidata);
+          const exp = results.data.bi034.bidata;
+          console.log(typeof exp === "undefined" ? [] : exp);
+          setNExportacao(exp);
         })
         .catch(err => {
           console.log(err);

@@ -3,6 +3,7 @@ import { formatMoney } from '@/utils';
 import React from 'react';
 
 const NExportacao = ({ totais, data }: any) => {
+  
   return (
     <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
       <BTable classname="text-gray-800">
@@ -19,12 +20,11 @@ const NExportacao = ({ totais, data }: any) => {
           <BTr classname="bg-blue-50 text-gray-600 font-bold">
             <BTd>Total</BTd>
             <BTd>{formatMoney(totais[0]?.FaturamentoSemBrasil)}</BTd>
-            <BTd>{(1 * 100).toFixed(2)}%</BTd>
+            <BTd>{totais[0]?.FaturamentoSemBrasil?(1 * 100).toFixed(2):'0.00'}%</BTd>
             <BTd>{(totais[0]?.MargemSemBrasil * 100).toFixed(2)}%</BTd>
             <BTd>{(totais[0]?.MetaAlcancada * 100).toFixed(2)}%</BTd>
           </BTr>
-          {data
-            .sort((a: any, b: any) =>
+          {data?.sort((a: any, b: any) =>
               parseInt(a.Faturamento) < parseInt(b.Faturamento) ? 1 : -1
             )
             .map((associacao: any, idx: number) => (
