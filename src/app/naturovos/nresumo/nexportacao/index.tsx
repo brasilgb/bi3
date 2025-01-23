@@ -22,7 +22,7 @@ const NExportacao = ({ totais, data }: any) => {
             <BTd>{formatMoney(totais[0]?.FaturamentoSemBrasil)}</BTd>
             <BTd>{totais[0]?.FaturamentoSemBrasil?(1 * 100).toFixed(2):'0.00'}%</BTd>
             <BTd>{(totais[0]?.MargemSemBrasil * 100).toFixed(2)}%</BTd>
-            <BTd>{(totais[0]?.MetaAlcancada * 100).toFixed(2)}%</BTd>
+            <BTd>{totais[0]?.PrecoMedioSemBrasil}</BTd>
           </BTr>
           {data?.sort((a: any, b: any) =>
               parseInt(a.Faturamento) < parseInt(b.Faturamento) ? 1 : -1
@@ -36,7 +36,7 @@ const NExportacao = ({ totais, data }: any) => {
                 <BTd>{formatMoney(associacao.Faturamento)}</BTd>
                 <BTd>{(associacao.RepFaturamento * 100).toFixed(2)}%</BTd>
                 <BTd>{(associacao.Margem * 100).toFixed(2)}%</BTd>
-                <BTd>{(associacao.PrecoMedio * 100).toFixed(2)}%</BTd>
+                <BTd>{associacao.PrecoMedio}</BTd>
               </BTr>
             ))}
         </tbody>
