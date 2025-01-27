@@ -28,7 +28,8 @@ const Naturovos = () => {
           datanattotal: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setTotais(results.data.bi037.bidata);
+          const res = results.data.bi037.bidata;
+          setTotais(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);

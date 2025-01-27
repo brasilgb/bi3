@@ -29,7 +29,8 @@ const NResumo = () => {
           datanatfilial: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNFiliais(results.data.bi035.bidata);
+          const res = results.data.bi035.bidata;
+          setNFiliais(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -46,7 +47,8 @@ const NResumo = () => {
           datanatfatugrupo: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNAssociacao(results.data.bi036.bidata);
+          const res = results.data.bi036.bidata;
+          setNAssociacao(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -63,8 +65,9 @@ const NResumo = () => {
           datanattotal: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNTotais(results.data.bi037.bidata);
-          setDataAtualizacao(results.data.bi037.bidata[0].Atualizacao);
+          const res = results.data.bi037.bidata;
+          setNTotais(typeof res === "undefined" ? [] : res);
+          setDataAtualizacao(typeof res === "undefined" ? '' : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);
@@ -81,9 +84,8 @@ const NResumo = () => {
           datanatexpor: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          const exp = results.data.bi034.bidata;
-          console.log(typeof exp === "undefined" ? [] : exp);
-          setNExportacao(exp);
+          const res = results.data.bi034.bidata;
+          setNExportacao(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -122,7 +124,7 @@ const NResumo = () => {
               onclick={() => setAnalise('exportacao')}
               active={analise}
             />
-          </div> 
+          </div>
         </div>
         <div className="mt-2">
           {analise === 'filiais' && (
