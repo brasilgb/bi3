@@ -11,7 +11,6 @@ const NResAssociacao = ({ grupo }: any) => {
     const [openAccordion, setOpenAccordion] = useState(null);
     const [nResumoAssociacao, setNResumoAssociacao] = useState<any>([]);
     const [nResumoTotais, setNResumoTotais] = useState<any>([]);
-    console.log(grupo);
 
     useEffect(() => {
         async function getNResumoGrupo() {
@@ -39,7 +38,8 @@ const NResAssociacao = ({ grupo }: any) => {
                     datanatrestotais: moment(dataFiltro).format('YYYYMMDD'),
                 })
                 .then(results => {
-                    setNResumoTotais(results.data.bi033.bidata);
+                    const res = results.data.bi033.bidata;
+                    setNResumoTotais(typeof res === "undefined" ? [] : res);
                 })
                 .catch(err => {
                     console.log(err);

@@ -1,4 +1,5 @@
 'use client';
+import AlertData from '@/components/AlertData';
 import LFatCombination from '@/components/Charts/LFatCombination';
 import NFatPerfCombination from "@/components/Charts/NFatPerfCombination";
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
@@ -23,7 +24,8 @@ const NPerformance = (props: Props) => {
           datanatgrafico: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNGraficoPerf(results.data.bi021.bidata);
+          const res = results.data.bi021.bidata;
+          setNGraficoPerf(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -40,7 +42,8 @@ const NPerformance = (props: Props) => {
           datanattotais: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setNFatuTot(results.data.bi029.bidata);
+          const res = results.data.bi029.bidata;
+          setNFatuTot(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -51,23 +54,29 @@ const NPerformance = (props: Props) => {
 
   return (
     <>
-      <div className="mt-4 w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
-        <div className="bg-solar-orange-prymary text-sm text-gray-800 font-medium p-2 uppercase">
-          Média Dia
-        </div>
-        <BTable classname="text-gray-700 bg-solar-orange-prymary rounded-b-lg">
-          <tbody>
-            <BTr classname="bg-blue-50 text-gray-600 font-bold">
-              <BTd classname="py-4">
-                {formatMoney(nFatuTot[0]?.MediaDia)}
-              </BTd>
-            </BTr>
-          </tbody>
-        </BTable>
-      </div>
-      <div className="bg-white my-4 rounded-md p-2 relative mt-4">
-        <NFatPerfCombination data={nGraficoPerf} />
-      </div>
+      {nFatuTot.length > 0
+        ? <>
+          <div className="mt-4 w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
+            <div className="bg-solar-orange-prymary text-sm text-gray-800 font-medium p-2 uppercase">
+              Média Dia
+            </div>
+            <BTable classname="text-gray-700 bg-solar-orange-prymary rounded-b-lg">
+              <tbody>
+                <BTr classname="bg-blue-50 text-gray-600 font-bold">
+                  <BTd classname="py-4">
+                    {formatMoney(nFatuTot[0]?.MediaDia)}
+                  </BTd>
+                </BTr>
+              </tbody>
+            </BTable>
+          </div>
+          <div className="bg-white my-4 rounded-md p-2 relative mt-4">
+            <NFatPerfCombination data={nGraficoPerf} />
+          </div>
+        </>
+        : <AlertData />
+      }
+
     </>
   );
 };

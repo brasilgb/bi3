@@ -35,33 +35,35 @@ const SubBarTop = (props: SubBarTopProps) => {
           </Link>
         </div>
         <div>
-          <div className={`${props.colors}`}>
-            <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
-              <IoCalendar size={18} />
-              {pathname === '/solar/sdre' || pathname == '/naturovos/ndre' ? (
-                <ul className="flex items-center justify-center gap-2 md:text-sm text-[12px] md:py-0.5 py-1 px-1">
-                  <li>
-                    <button
-                      onClick={() => setYearSelected(anoAtual - 1)}
-                      className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
-                    >
-                      {anoAtual - 1}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => setYearSelected(anoAtual)}
-                      className={`${yearSelected === anoAtual ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
-                    >
-                      {anoAtual}
-                    </button>
-                  </li>
-                </ul>
-              ) : (
-                <DatePickerBI3 />
-              )}
+          {pathname !== '/solar/sinadimplencia' &&
+            <div className={`${props.colors}`}>
+              <div className="flex items-center justify-center border rounded-md pl-1 text-gray-400">
+                <IoCalendar size={18} />
+                {pathname === '/solar/sdre' || pathname == '/naturovos/ndre' ? (
+                  <ul className="flex items-center justify-center gap-2 md:text-sm text-[12px] md:py-0.5 py-1 px-1">
+                    <li>
+                      <button
+                        onClick={() => setYearSelected(anoAtual - 1)}
+                        className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                      >
+                        {anoAtual - 1}
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => setYearSelected(anoAtual)}
+                        className={`${yearSelected === anoAtual ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                      >
+                        {anoAtual}
+                      </button>
+                    </li>
+                  </ul>
+                ) : (
+                  <DatePickerBI3 />
+                )}
+              </div>
             </div>
-          </div>
+          }
         </div>
         <div>
           <div className={`${props.colors} font-medium`}>

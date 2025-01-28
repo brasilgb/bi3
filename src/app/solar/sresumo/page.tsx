@@ -30,7 +30,8 @@ const SResumo = (props: Props) => {
           datalojfilial: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setLFiliais(results.data.bi039.bidata);
+          const res = results.data.bi039.bidata;
+          setLFiliais(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -47,7 +48,8 @@ const SResumo = (props: Props) => {
           datalojassoci: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setLAssociacao(results.data.bi038.bidata);
+          const res = results.data.bi038.bidata;
+          setLAssociacao(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -64,8 +66,9 @@ const SResumo = (props: Props) => {
           datalojfatutotal: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setLTotais(results.data.bi040.bidata);
-          setDataAtualizacao(results.data.bi040.bidata[0].Atualizacao);
+          const res = results.data.bi040.bidata;
+          setLTotais(typeof res === "undefined" ? [] : res);
+          setDataAtualizacao(typeof res === "undefined" ? [] : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);

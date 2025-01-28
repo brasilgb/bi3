@@ -1,3 +1,4 @@
+import AlertData from '@/components/AlertData';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -20,7 +21,8 @@ const NPerfMes = (props: Props) => {
           datanatperfmes: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setLFatuPerfMesLojas(results.data.bi028.bidata);
+          const res = results.data.bi028.bidata;
+          setLFatuPerfMesLojas(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -37,7 +39,8 @@ const NPerfMes = (props: Props) => {
           datanattotais: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setLFatuTotMesLojas(results.data.bi029.bidata);
+          const res = results.data.bi029.bidata;
+          setLFatuTotMesLojas(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -46,44 +49,49 @@ const NPerfMes = (props: Props) => {
     getLFatuTotLojas();
   }, [dataFiltro]);
   return (
-    <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
-      <BTable classname="text-gray-800">
-        <thead>
-          <BTr classname="">
-            <BTh classname="w-16">Mes/Ano</BTh>
-            <BTh classname="w-16">Faturamento</BTh>
-            <BTh classname="w-16">Margem</BTh>
-            <BTh classname="w-16">Rep.Total</BTh>
-            <BTh classname="w-16">Preço Médio Kg</BTh>
-          </BTr>
-        </thead>
-        <tbody>
-          <BTr classname="bg-blue-50 text-gray-600 font-bold">
-            <BTd>Total</BTd>
-            <BTd>{formatMoney(lFatuTotMesLojas[0]?.PMesFaturamento)}</BTd>
-            <BTd>{(lFatuTotMesLojas[0]?.PMesMargem * 100).toFixed(2)}%</BTd>
-            <BTd>{(lFatuTotMesLojas[0]?.PMesRepTotal * 100).toFixed(2)}%</BTd>
-            <BTd>{formatMoney(lFatuTotMesLojas[0]?.PMesPrecoMedioKg)}</BTd>
-          </BTr>
-          {lFatuPerfMesLojas
-            .sort((a: any, b: any) =>
-              parseInt(a.AnoMesNum) < parseInt(b.AnoMesNum) ? 1 : -1
-            )
-            .map((associacao: any, idx: number) => (
-              <BTr
-                key={idx}
-                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
-              >
-                <BTd>{associacao.MesAno}</BTd>
-                <BTd>{formatMoney(associacao?.Faturamento)}</BTd>
-                <BTd>{(associacao?.Margem * 100).toFixed(2)}%</BTd>
-                <BTd>{(associacao?.RepTotal * 100).toFixed(2)}%</BTd>
-                <BTd>{formatMoney(associacao?.PrecoMedioKg)}</BTd>
+    <>
+      {lFatuPerfMesLojas.length > 0
+        ? <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
+          <BTable classname="text-gray-800">
+            <thead>
+              <BTr classname="">
+                <BTh classname="w-16">Mes/Ano</BTh>
+                <BTh classname="w-16">Faturamento</BTh>
+                <BTh classname="w-16">Margem</BTh>
+                <BTh classname="w-16">Rep.Total</BTh>
+                <BTh classname="w-16">Preço Médio Kg</BTh>
               </BTr>
-            ))}
-        </tbody>
-      </BTable>
-    </div>
+            </thead>
+            <tbody>
+              <BTr classname="bg-blue-50 text-gray-600 font-bold">
+                <BTd>Total</BTd>
+                <BTd>{formatMoney(lFatuTotMesLojas[0]?.PMesFaturamento)}</BTd>
+                <BTd>{(lFatuTotMesLojas[0]?.PMesMargem * 100).toFixed(2)}%</BTd>
+                <BTd>{(lFatuTotMesLojas[0]?.PMesRepTotal * 100).toFixed(2)}%</BTd>
+                <BTd>{formatMoney(lFatuTotMesLojas[0]?.PMesPrecoMedioKg)}</BTd>
+              </BTr>
+              {lFatuPerfMesLojas
+                .sort((a: any, b: any) =>
+                  parseInt(a.AnoMesNum) < parseInt(b.AnoMesNum) ? 1 : -1
+                )
+                .map((associacao: any, idx: number) => (
+                  <BTr
+                    key={idx}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                  >
+                    <BTd>{associacao.MesAno}</BTd>
+                    <BTd>{formatMoney(associacao?.Faturamento)}</BTd>
+                    <BTd>{(associacao?.Margem * 100).toFixed(2)}%</BTd>
+                    <BTd>{(associacao?.RepTotal * 100).toFixed(2)}%</BTd>
+                    <BTd>{formatMoney(associacao?.PrecoMedioKg)}</BTd>
+                  </BTr>
+                ))}
+            </tbody>
+          </BTable>
+        </div>
+        : <AlertData />
+      }
+    </>
   );
 };
 

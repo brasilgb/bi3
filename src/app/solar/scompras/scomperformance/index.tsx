@@ -1,3 +1,4 @@
+import AlertData from '@/components/AlertData';
 import LComBar from '@/components/Charts/LComBar';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -18,8 +19,8 @@ const SComPerformance = (props: Props) => {
           datalojgraf: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          const grafSort = results.data.bi002.bidata;
-          setLComGrafico(grafSort);
+          const res = results.data.bi002.bidata;
+          setLComGrafico(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -28,11 +29,15 @@ const SComPerformance = (props: Props) => {
     getLComGrafico();
   }, [dataFiltro]);
 
-
   return (
-    <div className="mt-4 animate__animated animate__fadeIn">
-      <LComBar data={lComGrafico} />
-    </div>
+    <>
+      {lComGrafico.length > 0
+        ? <div className="mt-4 animate__animated animate__fadeIn">
+          <LComBar data={lComGrafico} />
+        </div>
+        : <AlertData />
+      }
+    </>
   );
 };
 

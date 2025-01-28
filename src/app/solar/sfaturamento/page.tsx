@@ -26,7 +26,8 @@ const SFaturamento = (props: Props) => {
           datalojfatuto: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setDataAtualizacao(results.data.bi007.bidata[0].Atualizacao);
+          const res = results.data.bi007.bidata;
+          setDataAtualizacao(typeof res === "undefined" ? [] : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);

@@ -36,7 +36,8 @@ const Solar = (props: Props) => {
           datalojtotpefasm: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setEstoque(results.data.bi011.bidata);
+          const res = results.data.bi011.bidata;
+          setEstoque(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -53,8 +54,9 @@ const Solar = (props: Props) => {
           datalojfatutotal: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setTotais(results.data.bi040.bidata);
-          setDataAtualizacao(results.data.bi040.bidata[0].Atualizacao);
+          const res = results.data.bi040.bidata;
+          setTotais(typeof res === "undefined" ? [] : res);
+          setDataAtualizacao(typeof res === "undefined" ? [] : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);
@@ -71,7 +73,8 @@ const Solar = (props: Props) => {
           datalojfatuto: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setFatuTotMesLojas(results.data.bi007.bidata);
+          const res = results.data.bi007.bidata;
+          setFatuTotMesLojas(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -106,10 +109,7 @@ const Solar = (props: Props) => {
     if (value > meta) return 'text-emerald-500';
   };
 
-
-
   const numrange = Array.from(Array(85).keys()).map(i => 235 + i);
-
 
   return (
     <main className="animate__animated animate__fadeIn">

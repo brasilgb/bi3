@@ -26,7 +26,8 @@ const SCompras = (props: Props) => {
           datalojtotal: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setDataAtualizacao(results.data.bi005.bidata[0].Atualizacao);
+          const res = results.data.bi005.bidata;
+          setDataAtualizacao(typeof res === "undefined" ? [] : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);

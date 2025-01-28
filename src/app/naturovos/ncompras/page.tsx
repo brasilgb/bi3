@@ -23,11 +23,12 @@ const NCompras = (props: Props) => {
   useEffect(() => {
     async function getLComTotais() {
       await birel
-        .post('(LOJ_COM_TOTAL)', {
-          datalojtotal: moment(dataFiltro).format('YYYYMMDD'),
+        .post('(NAT_COM_COMPRATOTA)', {
+          datanatcompratota: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setDataAtualizacao(results.data.bi005.bidata[0].Atualizacao);
+          const res = results.data.bi020.bidata;
+          setDataAtualizacao(typeof res === "undefined" ? '' : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);

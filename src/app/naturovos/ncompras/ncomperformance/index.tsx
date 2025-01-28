@@ -1,3 +1,4 @@
+import AlertData from '@/components/AlertData';
 import LComBar from '@/components/Charts/LComBar';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -14,11 +15,12 @@ const NComPerformance = (props: Props) => {
   useEffect(() => {
     async function getLComGrafico() {
       await birel
-      .post('(NAT_COM_COMPRAGRAF)', {
-        datanatcompragraf: moment(dataFiltro).format('YYYYMMDD'),
-      })
-      .then(results => {
-        setNComGrafico(results.data.bi017.bidata);
+        .post('(NAT_COM_COMPRAGRAF)', {
+          datanatcompragraf: moment(dataFiltro).format('YYYYMMDD'),
+        })
+        .then(results => {
+          const res = results.data.bi017.bidata;
+          setNComGrafico(typeof res === "undefined" ? [] : res);
         })
         .catch(err => {
           console.log(err);
@@ -27,12 +29,15 @@ const NComPerformance = (props: Props) => {
     getLComGrafico();
   }, [dataFiltro]);
 
-  console.log(nComGrafico);
-
   return (
-    <div className="mt-4 animate__animated animate__fadeIn">
-      <LComBar data={nComGrafico} />
-    </div>
+    <>
+      {nComGrafico.length > 0
+        ? <div className="mt-4 animate__animated animate__fadeIn">
+          <LComBar data={nComGrafico} />
+        </div>
+        : <AlertData />
+      }
+    </>
   );
 };
 

@@ -18,6 +18,7 @@ const NAdmResumo = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+
   useEffect(() => {
     async function getLFatuTotLojas() {
       await birel
@@ -25,7 +26,8 @@ const NAdmResumo = (props: Props) => {
           datanattotais: moment(dataFiltro).format('YYYYMMDD'),
         })
         .then(results => {
-          setDataAtualizacao(results.data.bi0290.bidata[0].Atualizacao);
+          const res = results.data.bi029.bidata;
+          setDataAtualizacao(typeof res === "undefined" ? [] : res[0].Atualizacao);
         })
         .catch(err => {
           console.log(err);

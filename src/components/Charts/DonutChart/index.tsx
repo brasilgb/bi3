@@ -17,7 +17,7 @@ const DonutChart = ({ data, periodo }) => {
         },
         title: {
             useHTML: true,
-            text: `<span class="sm:text-lg text-xs text-gray-500">% Representatividade por meio de pagamento</span>`
+            text: `<span class="sm:text-lg text-xs p-0 m-0 text-gray-500">% Representatividade por meio de pagamento</span>`
         },
         subtitle: {
             useHTML: true,
@@ -35,7 +35,7 @@ const DonutChart = ({ data, periodo }) => {
         },
         plotOptions: {
             pie: {
-                size: 200
+                size: 180
             },
             series: {
                 allowPointSelect: true,
@@ -94,13 +94,13 @@ const DonutChart = ({ data, periodo }) => {
         }]
     };
     return (
-        <div className='relative h-[300px]'>
+        <div className='relative h-[320px]'>
             <HighchartsReact
-                containerProps={{ style: { width: '100%', height: '100%' } }}
+                containerProps={{ style: { width: '100%', height: '95%' } }}
                 highcharts={Highcharts}
                 options={options}
             />
-            <p className='absolute -bottom-1 left-2 text-[10px] text-gray-500'>* O conjunto de dados contém valores negativos ou zerados que não podem ser mostrados</p>
+            <p className='absolute bottom-1 left-2 text-[10px] text-gray-500'>* O conjunto de dados contém valores negativos ou zerados que não podem ser mostrados</p>
         </div>
     )
 }
