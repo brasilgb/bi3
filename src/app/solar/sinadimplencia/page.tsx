@@ -14,6 +14,7 @@ const SInadimplencia = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+  
   useEffect(() => {
     async function getVencidaosTotais() {
       await birel
@@ -27,6 +28,7 @@ const SInadimplencia = (props: Props) => {
     }
     getVencidaosTotais();
   }, []);
+
   return (
     <main>
       <SubBarTop

@@ -1,4 +1,5 @@
 'use client'
+import AlertData from '@/components/AlertData'
 import DonutChart from '@/components/Charts/DonutChart'
 import KpiContainer from '@/components/KpiContainer'
 import { Kpi } from '@/components/Kpis'
@@ -32,9 +33,9 @@ const SAnaliseVenda = (props: Props) => {
       await birel.post('(MEIO_PAGAMENTO)', {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
-        .then((res) => {
-          const dataon = res.data.bi095.bidata
-          setMeioPag(dataon ? dataon : []);
+        .then((results) => {
+          const res = results.data.bi095.bidata;
+          setMeioPag(typeof res === "undefined" ? [] : res);
         })
         .catch((err) => {
           console.log(err);
@@ -50,9 +51,9 @@ const SAnaliseVenda = (props: Props) => {
       await birel.post('(MEIO_PAGAMENTO_TOTAL)', {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
-        .then((res) => {
-          const dataon = res.data.bi096.bidata;
-          setMeioPagTotal(dataon ? dataon : []);
+        .then((results) => {
+          const res = results.data.bi096.bidata;
+          setMeioPagTotal(typeof res === "undefined" ? [] : res);
         })
         .catch((err) => {
           console.log(err);
@@ -68,10 +69,12 @@ const SAnaliseVenda = (props: Props) => {
       await birel.post('(MEIO_PAGAMENTO_FILIAL)', {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
-        .then((res) => {
-          setMeioPagFilial(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)));
-          setAllFiliais(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.NomeFilial).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
-          setAllMeios(res.data.bi097.bidata?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.MeioPagamento).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
+        .then((results) => {
+          const res = results.data.bi097.bidata;
+          const ajust = typeof res === "undefined" ? [] : res;
+          setMeioPagFilial(ajust?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)));
+          setAllFiliais(ajust?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.NomeFilial).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
+          setAllMeios(ajust?.sort((a: any, b: any) => (parseInt(a.VendaDevolucao) < parseInt(b.VendaDevolucao) ? 1 : -1)).map((c: any) => c.MeioPagamento).filter((value: any, index: any, self: any) => self.indexOf(value) === index));
         })
         .catch((err) => {
           console.log(err);
@@ -87,9 +90,9 @@ const SAnaliseVenda = (props: Props) => {
       await birel.post('(MEIO_PAGAMENTO_FILIAL_TOTAL)', {
         datachave: moment(dataFiltro).format('YYYYMMDD'),
       })
-        .then((res) => {
-          const dataon = res.data.bi098.bidata;
-          setMeioPagFilTotal(dataon ? dataon : []);
+        .then((results) => {
+          const res = results.data.bi098.bidata;
+          setMeioPagFilTotal(typeof res === "undefined" ? [] : res);
         })
         .catch((err) => {
           console.log(err);
@@ -106,151 +109,156 @@ const SAnaliseVenda = (props: Props) => {
   }
 
   return (
-    <main className='animate__animated animate__fadeIn'>
-      <div className='container mx-auto sm:p-0 '>
-        {meioPagTotal?.map((pagtot: any, adx: number) => (
-          <KpiContainer key={adx}>
-            <Kpi
-              icon={<AiOutlineLineChart size={28} />}
-              title={'Meta Rede'}
-              value={formatMoney(pagtot?.MetaRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-            <Kpi
-              icon={<GiReceiveMoney size={28} />}
-              title={'Vendas/Devolução Rede'}
-              value={formatMoney(pagtot?.VenDevRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-            <Kpi
-              icon={<GiReceiveMoney size={28} />}
-              title={'% Vendas s/Meta'}
-              value={formatPercent(pagtot?.VendaSMetaRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-            <Kpi
-              icon={<TbChartHistogram size={28} />}
-              title={'% Margem Contrib.'}
-              value={formatPercent(pagtot?.MargemContribRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-            <Kpi
-              icon={<FaMoneyBillTrendUp size={26} />}
-              title={'Juros'}
-              value={formatMoney(pagtot?.ValJurosRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-            <Kpi
-              icon={<FaMoneyBillTrendUp size={26} />}
-              title={'% Juros'}
-              value={formatPercent(pagtot?.PercJurosRede)}
-              textcolor={'text-solar-blue-secundary'}
-              bgcolor={''}
-              iconcolor={'text-solar-green-prymary'}
-            />
-          </KpiContainer>
-        ))}
-      </div>
-      <div className='container sm:mx-auto sm:grid grid-cols-2 gap-4 mt-4 '>
-        <div className='bg-white rounded-md shadow-sm border border-white p-2 w-full overflow-auto'>
-          <BTable>
-            <thead>
-              <BTr>
-                <BTh colspan={4} classname='text-center md:text-lg text-xs text-gray-500 font-semibold'>{meioPag[0]?.MesAno}</BTh>
-              </BTr>
-              <BTr classname='text-gray-700 bg-gray-100 md:text-base text-xs'>
-                <BTh>Meio de Pagto</BTh>
-                <BTh>Venda/Devolução</BTh>
-                <BTh>% Venda s/Tot</BTh>
-                <BTh>Qtd.Cliente</BTh>
-              </BTr>
-              <BTr classname='bg-gray-200 text-gray-500 md:text-base text-xs'>
-                <BTh>Total</BTh>
-                <BTh>{formatMoney(meioPagTotal[0]?.VenDevRede)}</BTh>
-                <BTh>{formatPercent(meioPagTotal[0]?.VendasTotal)}%</BTh>
-                <BTh>{meioPagTotal[0]?.QtdCliMesAno}</BTh>
-              </BTr>
-            </thead>
-            <tbody>
-              {meioPag?.sort((a: any, b: any) => (a.VendaDevolucao < b.VendaDevolucao ? 1 : -1)).map((mpag: any, bdx: number) => (
-                <BTr key={bdx} classname={`text-gray-500 sm:text-base text-xs ${bdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'}`}>
-                  <BTd>{mpag?.MeioPagamento}</BTd>
-                  <BTd>{formatMoney(mpag?.VendaDevolucao)}</BTd>
-                  <BTd>{formatPercent(mpag?.VendasTotal)}%</BTd>
-                  <BTd>{mpag?.QtdCliMesAno}</BTd>
+    <>
+      {meioPag.length > 0
+        ? <main className='animate__animated animate__fadeIn'>
+          <div className='container mx-auto sm:p-0 '>
+            {meioPagTotal?.map((pagtot: any, adx: number) => (
+              <KpiContainer key={adx}>
+                <Kpi
+                  icon={<AiOutlineLineChart size={28} />}
+                  title={'Meta Rede'}
+                  value={formatMoney(pagtot?.MetaRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+                <Kpi
+                  icon={<GiReceiveMoney size={28} />}
+                  title={'Vendas/Devolução Rede'}
+                  value={formatMoney(pagtot?.VenDevRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+                <Kpi
+                  icon={<GiReceiveMoney size={28} />}
+                  title={'% Vendas s/Meta'}
+                  value={formatPercent(pagtot?.VendaSMetaRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+                <Kpi
+                  icon={<TbChartHistogram size={28} />}
+                  title={'% Margem Contrib.'}
+                  value={formatPercent(pagtot?.MargemContribRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+                <Kpi
+                  icon={<FaMoneyBillTrendUp size={26} />}
+                  title={'Juros'}
+                  value={formatMoney(pagtot?.ValJurosRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+                <Kpi
+                  icon={<FaMoneyBillTrendUp size={26} />}
+                  title={'% Juros'}
+                  value={formatPercent(pagtot?.PercJurosRede)}
+                  textcolor={'text-solar-blue-secundary'}
+                  bgcolor={''}
+                  iconcolor={'text-solar-green-prymary'}
+                />
+              </KpiContainer>
+            ))}
+          </div>
+          <div className='container sm:mx-auto sm:grid grid-cols-2 gap-4 mt-4 '>
+            <div className='bg-white rounded-md shadow-sm border border-white p-2 w-full overflow-auto'>
+              <BTable>
+                <thead>
+                  <BTr>
+                    <BTh colspan={4} classname='text-center md:text-lg text-xs text-gray-500 font-semibold'>{meioPag[0]?.MesAno}</BTh>
+                  </BTr>
+                  <BTr classname='text-gray-700 bg-gray-100 md:text-base text-xs'>
+                    <BTh>Meio de Pagto</BTh>
+                    <BTh>Venda/Devolução</BTh>
+                    <BTh>% Venda s/Tot</BTh>
+                    <BTh>Qtd.Cliente</BTh>
+                  </BTr>
+                  <BTr classname='bg-gray-200 text-gray-500 md:text-base text-xs'>
+                    <BTh>Total</BTh>
+                    <BTh>{formatMoney(meioPagTotal[0]?.VenDevRede)}</BTh>
+                    <BTh>{formatPercent(meioPagTotal[0]?.VendasTotal)}%</BTh>
+                    <BTh>{meioPagTotal[0]?.QtdCliMesAno}</BTh>
+                  </BTr>
+                </thead>
+                <tbody>
+                  {meioPag?.sort((a: any, b: any) => (a.VendaDevolucao < b.VendaDevolucao ? 1 : -1)).map((mpag: any, bdx: number) => (
+                    <BTr key={bdx} classname={`text-gray-500 sm:text-base text-xs ${bdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'}`}>
+                      <BTd>{mpag?.MeioPagamento}</BTd>
+                      <BTd>{formatMoney(mpag?.VendaDevolucao)}</BTd>
+                      <BTd>{formatPercent(mpag?.VendasTotal)}%</BTd>
+                      <BTd>{mpag?.QtdCliMesAno}</BTd>
+                    </BTr>
+                  ))}
+                </tbody>
+              </BTable>
+            </div>
+            <div className='bg-white rounded-md shadow-sm border border-gray-50 sm:mt-0 mt-4'>
+              <DonutChart data={meioPag} periodo={meioPag[0]?.MesAno} />
+            </div>
+          </div>
+          <div className="container sm:mx-auto bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
+            <BTable classname='relative'>
+              <thead className='sticky top-0 z-10'>
+                <BTr classname='text-gray-700 bg-gray-100'>
+                  <BTh><></></BTh>
+                  {allMeios?.map((meio: any, mdx: number) => (
+                    meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                    <BTh colspan={2} key={mdx} classname='sm:text-base text-xs text-center'>{meio}</BTh>
+                  ))}
+                  <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cartão/PIX/Boleto</BTh>
+                  <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cheque</BTh>
+                  <BTh colspan={2} classname='sm:text-base text-xs text-center'>Geral</BTh>
                 </BTr>
-              ))}
-            </tbody>
-          </BTable>
-        </div>
-        <div className='bg-white rounded-md shadow-sm border border-gray-50 sm:mt-0 mt-4'>
-          <DonutChart data={meioPag} periodo={meioPag[0]?.MesAno} />
-        </div>
-      </div>
-      <div className="container sm:mx-auto bg-white rounded-md shadow-sm border-4 border-white mt-4 h-72 overflow-auto">
-        <BTable classname='relative'>
-          <thead className='sticky top-0 z-10'>
-            <BTr classname='text-gray-700 bg-gray-100'>
-              <BTh><></></BTh>
-              {allMeios?.map((meio: any, mdx: number) => (
-                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
-                <BTh colspan={2} key={mdx} classname='sm:text-base text-xs text-center'>{meio}</BTh>
-              ))}
-              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cartão/PIX/Boleto</BTh>
-              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Cheque</BTh>
-              <BTh colspan={2} classname='sm:text-base text-xs text-center'>Geral</BTh>
-            </BTr>
-            <BTr classname='text-gray-700 bg-gray-100 sm:text-base text-xs'>
-              <BTh classname='text-center'>Filial</BTh>
-              {allMeios?.map((meio: any, mdx: number) => (
-                meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
-                <Fragment key={mdx}>
+                <BTr classname='text-gray-700 bg-gray-100 sm:text-base text-xs'>
+                  <BTh classname='text-center'>Filial</BTh>
+                  {allMeios?.map((meio: any, mdx: number) => (
+                    meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                    <Fragment key={mdx}>
+                      <BTh classname='text-sm'>Venda Devolução</BTh>
+                      <BTh classname='text-sm'>% Venda</BTh>
+                    </Fragment>
+                  ))}
                   <BTh classname='text-sm'>Venda Devolução</BTh>
                   <BTh classname='text-sm'>% Venda</BTh>
-                </Fragment>
-              ))}
-              <BTh classname='text-sm'>Venda Devolução</BTh>
-              <BTh classname='text-sm'>% Venda</BTh>
-              <BTh classname='text-sm'>Venda Devolução</BTh>
-              <BTh classname='text-sm'>% Venda</BTh>
-              <BTh classname='text-sm'>Venda Devolução</BTh>
-              <BTh classname='text-sm'>% Venda</BTh>
-            </BTr>
-          </thead>
-          <tbody>
-            {allFiliais?.map((filial: any, fdx: number) => (
-              filial != '-' &&
-              <BTr key={fdx} classname={`text-gray-500 text-base ${fdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'} sm:text-base text-xs`}>
-                <BTd>{filial}</BTd>
-                {allMeios?.map((meio: any, fdx: number) => (
-                  meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
-                  <Fragment key={fdx}>
-                    <BTd>{formatMoney(valuesFiliais(meio, filial, 'VendaDevolucao'))}</BTd>
-                    <BTd>{formatPercent(valuesFiliais(meio, filial, 'PercentVenda'))}%</BTd>
-                  </Fragment>
+                  <BTh classname='text-sm'>Venda Devolução</BTh>
+                  <BTh classname='text-sm'>% Venda</BTh>
+                  <BTh classname='text-sm'>Venda Devolução</BTh>
+                  <BTh classname='text-sm'>% Venda</BTh>
+                </BTr>
+              </thead>
+              <tbody>
+                {allFiliais?.map((filial: any, fdx: number) => (
+                  filial != '-' &&
+                  <BTr key={fdx} classname={`text-gray-500 text-base ${fdx % 2 === 1 ? 'bg-gray-100' : 'bg-gray-50'} sm:text-base text-xs`}>
+                    <BTd>{filial}</BTd>
+                    {allMeios?.map((meio: any, fdx: number) => (
+                      meio != '-' && meio != 'Cartão/PIX/Boleto' && meio != 'Geral' && meio != 'Cheque' &&
+                      <Fragment key={fdx}>
+                        <BTd>{formatMoney(valuesFiliais(meio, filial, 'VendaDevolucao'))}</BTd>
+                        <BTd>{formatPercent(valuesFiliais(meio, filial, 'PercentVenda'))}%</BTd>
+                      </Fragment>
+                    ))}
+                    <BTd>{formatMoney(valuesFiliais('Cartão/PIX/Boleto', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Cartão/PIX/Boleto', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
+                    <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
+                    <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
+                  </BTr>
                 ))}
-                <BTd>{formatMoney(valuesFiliais('Cartão/PIX/Boleto', filial, 'VendaDevolucao'))}</BTd>
-                <BTd>{formatPercent(valuesFiliais('Cartão/PIX/Boleto', filial, 'PercentVenda'))}%</BTd>
-                <BTd>{formatMoney(valuesFiliais('Cheque', filial, 'VendaDevolucao'))}</BTd>
-                <BTd>{formatPercent(valuesFiliais('Cheque', filial, 'PercentVenda'))}%</BTd>
-                <BTd>{formatMoney(valuesFiliais('Geral', filial, 'VendaDevolucao'))}</BTd>
-                <BTd>{formatPercent(valuesFiliais('Geral', filial, 'PercentVenda'))}%</BTd>
-              </BTr>
-            ))}
-          </tbody>
-        </BTable>
-      </div>
-    </main>
+              </tbody>
+            </BTable>
+          </div>
+        </main>
+        : <AlertData />
+      }
+    </>
   )
 }
 
