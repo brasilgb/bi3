@@ -12,8 +12,8 @@ const birel = axios.create({
 birel.interceptors.request.use(async request => {
   request.baseURL = `https://services.gruposolar.com.br:8086/servicesgruposolar/servlet/isCobol`;
   BASE_URL = `https://services.gruposolar.com.br:8086/servicesgruposolar/servlet/isCobol`;
-  // request.baseURL = `https://172.16.1.67:9091/servicesgruposolar/servlet/isCobol`;
-  // BASE_URL = `https://172.16.1.67:9091/servicesgruposolar/servlet/isCobol`;
+  // request.baseURL = `http://172.16.1.67:9090/servicesgruposolar/servlet/isCobol`;
+  // BASE_URL = `http://172.16.1.67:9090/servicesgruposolar/servlet/isCobol`;
 
   requestCustom = request;
   data = request.data;
