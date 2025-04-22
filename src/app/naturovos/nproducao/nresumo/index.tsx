@@ -9,6 +9,7 @@ const NResumo = ({ totais, data }: any) => {
   const [resumoProducao, setResumoProducao] = useState<any>([]);
   const [resumoProducao48, setResumoProducao48] = useState<any>([]);
 
+  
   useEffect(() => {
     const getResumoProducao = async () => {
       await birel
@@ -41,16 +42,8 @@ const NResumo = ({ totais, data }: any) => {
   }, []);
 
   return (
-    <div className="md:grid md:grid-cols-4 flex flex-col md:gap-4 gap-2 md:px-0 px-2">
-      <div className="col-span-1">
-      <Central data={resumoProducao} />
-      </div>
-      <div className="col-span-1">
-      <Vacaria data={resumoProducao} />
-      </div>
-      <div className="col-span-2">
+    <div className="px-2">
       <Industria data={resumoProducao48} />
-      </div>
     </div>
   );
 };

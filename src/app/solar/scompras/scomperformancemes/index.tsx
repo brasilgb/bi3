@@ -10,8 +10,8 @@ type Props = {};
 
 const SComPerformanceMes = (props: Props) => {
   const { dataFiltro } = useAuthContext();
-  const [lComPerfMes, setLComPerfMes] = useState<any>([]);
   const [lComTotais, setLComTotais] = useState<any>([]);
+  const [lComPerfMes, setLComPerfMes] = useState<any>([]);
 
   // Extração de dados resumos serviço resumo dia
   useEffect(() => {

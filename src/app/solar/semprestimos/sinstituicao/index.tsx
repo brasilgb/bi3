@@ -5,11 +5,9 @@ import { formatMoney } from '@/utils';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
-type Props = {};
-
-const SInstituicao = (props: Props) => {
+const SInstituicao = () => {
   const { dataInicial, dataFinal } = useAuthContext();
-  const [lEmprestimos, setLInstituicao] = useState([]);
+  const [lEmprestimos, setLEmprestimos] = useState<any>([]);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -21,7 +19,7 @@ const SInstituicao = (props: Props) => {
           datfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
-          setLInstituicao(results.data.bi056.bidata);
+          setLEmprestimos(results.data.bi056.bidata);
         })
         .catch(err => {
           console.log(err);

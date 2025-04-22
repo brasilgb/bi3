@@ -127,16 +127,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setStorage();
     }, []);
 
-  useEffect(() => {
-    const cookieAccess = async () => {
-      const recoveredUser = getCookie('portal_access');
-      if (recoveredUser) {
-        setUser(JSON.parse(recoveredUser));
-      }
-    };
-    cookieAccess();
-  }, []);
-
   const signOut = () => {
     deleteCookie('portal_access');
     setUser(null);

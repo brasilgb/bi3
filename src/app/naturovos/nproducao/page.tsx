@@ -8,10 +8,15 @@ import ButtonAnaliseNaturovos from "@/components/ButtonAnaliseNaturovos";
 import NResumo from "./nresumo";
 import NLoaderIndustria from "./nloader/industria";
 import NDescarte from "./ndescarte";
+import Industria from './nresumo/industria';
+import NIndustria from './nresumo/industria';
+import NCentral from './nresumo/central';
+import NVacaria from './nresumo/vacaria';
 
 const NProducao = () => {
 
-  const [analise, setAnalise] = useState<string>('resumo');
+  const [analise, setAnalise] = useState<string>('industria');
+
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
@@ -48,8 +53,18 @@ const NProducao = () => {
         <div className="bg-white mt-2 rounded-md shadow-sm p-2">
           <div className="flex items-center justify-start md:gap-4 gap-2 overflow-x-auto">
             <ButtonAnaliseNaturovos
-              title={'Resumo'}
-              onclick={() => setAnalise('resumo')}
+              title={'Indústria'}
+              onclick={() => setAnalise('industria')}
+              active={analise}
+            />
+            <ButtonAnaliseNaturovos
+              title={'Central'}
+              onclick={() => setAnalise('central')}
+              active={analise}
+            />
+            <ButtonAnaliseNaturovos
+              title={'Vacaria'}
+              onclick={() => setAnalise('vacaria')}
               active={analise}
             />
             <ButtonAnaliseNaturovos
@@ -65,9 +80,17 @@ const NProducao = () => {
           </div>
         </div>
         <div className="mt-2">
-          {analise === 'resumo' && (
-            <NResumo />
+          {analise === 'industria' && (
+            <NIndustria />
           )}
+          {analise === 'central' && (
+            <NCentral />
+          )}
+          {analise === 'vacaria' && (
+            <NVacaria />
+          )}
+
+
           {analise === 'loaderindustria' && (
             <NLoaderIndustria />
           )}

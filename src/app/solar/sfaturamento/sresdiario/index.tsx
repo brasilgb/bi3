@@ -31,7 +31,6 @@ const SResdiario = (props: Props) => {
     getLFaturamento();
   }, [dataFiltro]);
 
-  console.log(lFatuTotLojas);
   // Extração de dados resumos totais
   useEffect(() => {
     async function getLFatuTotLojas() {

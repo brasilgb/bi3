@@ -9,11 +9,7 @@ type Props = {};
 
 const STInstituicao = (props: Props) => {
   const { dataInicial, dataFinal } = useAuthContext();
-  const [lEmprestimos, setLInstituicao] = useState([]);
-  console.log(
-    moment(dataInicial).format('YYYYMMDD'),
-    moment(dataFinal).format('YYYYMMDD')
-  );
+  const [lEmprestimos, setLEmprestimo] = useState([]);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -26,7 +22,7 @@ const STInstituicao = (props: Props) => {
           datfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
-          setLInstituicao(results.data.bi056.bidata);
+          setLEmprestimo(results.data.bi056.bidata);
         })
         .catch(err => {
           console.log(err);
