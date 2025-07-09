@@ -1,4 +1,5 @@
 'use client';
+import CardData from '@/components/CardData';
 import Progress from '@/components/Charts/Progress';
 import { Kpi } from '@/components/Kpis';
 import MainMenuSolar from "@/components/MainMenu/solar";
@@ -19,7 +20,7 @@ import { TbChartHistogram } from 'react-icons/tb';
 type Props = {};
 
 const Solar = (props: Props) => {
-  const { dataFiltro } = useAuthContext();
+  const { dataFiltro, monthSelected } = useAuthContext();
   const [totais, setTotais] = useState<any>([]);
   const [fatuTotMesLojas, setFatuTotMesLojas] = useState<any>([]);
   const [inadimplencia, setInadimplencia] = useState<any>([]);
@@ -27,6 +28,7 @@ const Solar = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+  const [credInadimplencia, setCredInadimplencia] = useState<any>([]);
 
   // Extração de dados Estoque
   useEffect(() => {
@@ -61,7 +63,7 @@ const Solar = (props: Props) => {
         .catch(err => {
           console.log(err);
         });
-    }       
+    }
     getTotais();
   }, [dataFiltro]);
 
@@ -97,6 +99,22 @@ const Solar = (props: Props) => {
     }
     getInadimplencia();
   }, []);
+
+  useEffect(() => {
+    const getCredInadimplencia = (async () => {
+      await birel.post('(CRED_INADIMPLENCIA)', {
+        filial: 0,
+        meses: monthSelected
+      })
+        .then((response) => {
+          const data = response.data.bi104.bidata.filter((fil: any) => (fil.tipo === 'G'));
+          setCredInadimplencia(data);
+        }).catch((err) => {
+          console.log(err);
+        });
+    });
+    getCredInadimplencia();
+  }, [monthSelected]);
 
   const colorBar = (value: any) => {
     if (value <= 90) return '#DC2626';
@@ -159,6 +177,20 @@ const Solar = (props: Props) => {
           />
         </div>
 
+        <div className="grid md:grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
+          {credInadimplencia.map((item: any, idx: number) => (
+            <CardData key={idx}
+              vendas={item.vendas}
+              vencido={item.vencido}
+              percVencidos={item.percVencidos}
+              tipo={item.tipo}
+              meses={item.meses}
+              lastid={idx}
+              lengthid={credInadimplencia.length}
+            />
+          ))}
+        </div>
+
         <div className="grid grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
@@ -168,7 +200,7 @@ const Solar = (props: Props) => {
               colorText="#019EE3"
             />
           </div>
-          
+
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
               title="Margem"
@@ -187,7 +219,7 @@ const Solar = (props: Props) => {
           </div>
         </div>
         <div className="grid grid-cols-2 md:gap-4 gap-2 md:mt-4 mt-2">
-        <div className="p-0.5 bg-white rounded-md shadow-sm">
+          <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
               title="Margem Média"
               subtitle="Período"
@@ -249,16 +281,6 @@ const Solar = (props: Props) => {
           />
         </div>
 
-        {/* <div className="grid grid-cols-2 gap-4 mt-4">
-          <div className="bg-gray-50 rounded shadow-sm grid grid-cols-6 gap-2 text-center p-2">
-            {numrange.map((range: any, idx: number) => (
-              <div className="bg-gray-100 text-sm font-medium text-gray-600 rounded shadow-sm border border-white py-1">
-                {("000000" + range).slice(-6)}
-              </div>
-            ))}
-          </div>
-          <div className="bg-gray-50 rounded shadow-sm">ok</div>
-        </div> */}
       </div>
 
     </main>

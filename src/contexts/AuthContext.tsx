@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     moment().format('YYYY')
   );
   const [yearExists, setYearExists] = useState(false);
+  const [monthSelected, setMonthSelected] = useState<number>(12);
 
   useEffect(() => {
     const getYearSelected = async () => {
@@ -148,6 +149,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setYearSelected,
         yearSelected,
         yearExists,
+        monthSelected, 
+        setMonthSelected
       }}
     >
       {children}
