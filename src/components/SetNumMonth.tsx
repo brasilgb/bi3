@@ -9,7 +9,6 @@ import {
 import { useAuthContext } from "@/contexts/AuthContext"
 import { PopoverArrow, PopoverClose } from "@radix-ui/react-popover"
 import { Calendar } from "lucide-react"
-import { useEffect, useState } from "react"
 import { Cross2Icon } from "@radix-ui/react-icons";
 
 export function SetNumMonth() {

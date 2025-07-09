@@ -17,7 +17,7 @@ export default function CardData({ vendas, vencido, percVencidos, tipo, meses, l
             <CardHeader>
                 <CardDescription>Análise por {tipo === 'F' ? 'filial' : 'grupo'} dos últimos <span className="font-bold text-gray-900">{meses}</span> meses</CardDescription>
                 <CardTitle className="font-semibold flex items-center justify-between gap-2">
-                    <span className="md:md:text-sm text-xs text-xs text-gray-500">Vendas</span>
+                    <span className="md:md:text-sm text-xs text-gray-500">Vendas</span>
                     <Badge variant="outline" className="md:text-lg text-base text-blue-600">
                         {formatMoney(vendas)}
                     </Badge>
