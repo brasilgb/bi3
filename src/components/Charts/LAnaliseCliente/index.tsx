@@ -44,7 +44,7 @@ const LAnaliseCliente = ({ data }: Props) => {
     },
     title: {
       useHTML: true,
-      text: `<h1 class="sm:text-sm text-[9px] text-gray-500 w-full">Análise Quantidade Cliente por Situação e Plano de Pagamento <span class="uppercase">(${moment(mes[0]).format('MMM')}</span>)</h1>`,
+      text: `<h1 class="sm:text-sm text-[9px] text-gray-500 w-full">Análise Quantidade Cliente por Situação e Tipo de Movimento <span class="uppercase">(${moment(mes[0]).format('MMM')}</span>)</h1>`,
       align: 'left',
     },
     // subtitle: {

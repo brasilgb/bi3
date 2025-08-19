@@ -17,7 +17,7 @@ const DonutChart = ({ data, periodo }) => {
         },
         title: {
             useHTML: true,
-            text: `<span class="sm:text-lg text-xs p-0 m-0 text-gray-500">% Representatividade por meio de pagamento</span>`
+            text: `<span class="sm:text-lg text-xs p-0 m-0 text-gray-500">% Representatividade por tipo de movimento</span>`
         },
         subtitle: {
             useHTML: true,

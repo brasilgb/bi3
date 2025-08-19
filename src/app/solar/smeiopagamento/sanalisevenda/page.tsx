@@ -174,7 +174,7 @@ const SAnaliseVenda = (props: Props) => {
                     <BTh colspan={4} classname='text-center md:text-lg text-xs text-gray-500 font-semibold'>{meioPag[0]?.MesAno}</BTh>
                   </BTr>
                   <BTr classname='text-gray-700 bg-gray-100 md:text-base text-xs'>
-                    <BTh>Meio de Pagto</BTh>
+                    <BTh>Tipo de Movimento</BTh>
                     <BTh>Venda/Devolução</BTh>
                     <BTh>% Venda s/Tot</BTh>
                     <BTh>Qtd.Cliente</BTh>
