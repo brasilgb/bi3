@@ -177,7 +177,6 @@ const Solar = (props: Props) => {
           />
         </div>
 
-
         <div className="grid grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
           <div className="p-0.5 bg-white rounded-md shadow-sm">
             <Progress
@@ -226,7 +225,7 @@ const Solar = (props: Props) => {
             />
           </div>
         </div>
-        
+
         <div className="grid md:grid-cols-3 md:gap-4 gap-2 md:mt-4 mt-2">
           {credInadimplencia.map((item: any, idx: number) => (
             <CardData key={idx}
@@ -240,7 +239,7 @@ const Solar = (props: Props) => {
             />
           ))}
         </div>
-        
+
         <div className="grid md:grid-cols-4 md:gap-4 grid-cols-2 gap-2 md:mt-4 mt-2">
           <Kpi
             icon={<PiChartLineDown />}

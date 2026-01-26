@@ -10,6 +10,7 @@ import birel from '@/services/birel';
 import moment from 'moment';
 import { useAuthContext } from '@/contexts/AuthContext';
 import MainMenuSolar from "@/components/MainMenu/solar";
+import AlertData from '@/components/AlertData';
 
 type Props = {};
 
@@ -19,6 +20,9 @@ const SFluxo = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+
+  const [fluxoData, setFluxoData] = useState<any>([]);
+
 
   useEffect(() => {
     async function getFluxoCaixaLojas() {
@@ -30,6 +34,7 @@ const SFluxo = (props: Props) => {
           fluxoDatfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
+          setFluxoData(results.data.bi054.bidata);
           setDataAtualizacao(
             results.data.bi054.bidata.filter((a: any) => a.agrupador === 0)
           );
@@ -40,6 +45,7 @@ const SFluxo = (props: Props) => {
     }
     getFluxoCaixaLojas();
   }, [dataInicial, dataFinal]);
+  console.log(!!fluxoData);
 
   return (
     <main>
@@ -48,41 +54,48 @@ const SFluxo = (props: Props) => {
         back="/solar/scompras"
         forwards="/solar/semprestimos"
         depto="loja"
-        dtatu={dataAtualizacao[0].atualizacao}
+        dtatu={dataAtualizacao[0].atualizacao || moment().format('DD/MM/YYYY HH:mm:ss')}
       />
       <div className="container m-auto md:px-0 px-1">
         <MainMenuSolar />
       </div>
       <div className="container m-auto md:px-0 px-1">
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
-          <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
-            <ButtonAnalise
-              title={'Fluxo Lojas'}
-              onclick={() => setAnalise('fluxolojas')}
-              active={analise}
-            />
-            <ButtonAnalise
-              title={'Fluxo Grupo'}
-              onclick={() => setAnalise('fluxogrupo')}
-              active={analise}
-            />
-            <ButtonAnalise
-              title={'Fluxo Lojas/Data'}
-              onclick={() => setAnalise('fluxolojasdata')}
-              active={analise}
-            />
-            <ButtonAnalise
-              title={'Fluxo Grupo/Data'}
-              onclick={() => setAnalise('fluxogrupodata')}
-              active={analise}
-            />
-          </div>
-          <div className="mt-2">
-            {analise === 'fluxolojas' && <FluxoSolar />}
-            {analise === 'fluxogrupo' && <FluxoGrupo />}
-            {analise === 'fluxolojasdata' && <FluxoSolarData />}
-            {analise === 'fluxogrupodata' && <FluxoGrupoData />}
-          </div>
+          {fluxoData ?
+
+            <>
+              <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
+                <ButtonAnalise
+                  title={'Fluxo Lojas'}
+                  onclick={() => setAnalise('fluxolojas')}
+                  active={analise}
+                />
+                <ButtonAnalise
+                  title={'Fluxo Grupo'}
+                  onclick={() => setAnalise('fluxogrupo')}
+                  active={analise}
+                />
+                <ButtonAnalise
+                  title={'Fluxo Lojas/Data'}
+                  onclick={() => setAnalise('fluxolojasdata')}
+                  active={analise}
+                />
+                <ButtonAnalise
+                  title={'Fluxo Grupo/Data'}
+                  onclick={() => setAnalise('fluxogrupodata')}
+                  active={analise}
+                />
+              </div>
+              <div className="mt-2">
+                {analise === 'fluxolojas' && <FluxoSolar />}
+                {analise === 'fluxogrupo' && <FluxoGrupo />}
+                {analise === 'fluxolojasdata' && <FluxoSolarData />}
+                {analise === 'fluxogrupodata' && <FluxoGrupoData />}
+              </div>
+            </>
+            : <AlertData />
+          }
+
         </div>
       </div>
     </main>

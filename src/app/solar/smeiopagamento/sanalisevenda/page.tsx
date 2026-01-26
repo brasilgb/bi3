@@ -110,8 +110,9 @@ const SAnaliseVenda = (props: Props) => {
 
   return (
     <>
-      {meioPag.length > 0
-        ? <main className='animate__animated animate__fadeIn'>
+      {/* {meioPag.length > 0
+        ?  */}
+        <main className='animate__animated animate__fadeIn'>
           <div className='container mx-auto sm:p-0 '>
             {meioPagTotal?.map((pagtot: any, adx: number) => (
               <KpiContainer key={adx}>
@@ -256,8 +257,8 @@ const SAnaliseVenda = (props: Props) => {
             </BTable>
           </div>
         </main>
-        : <AlertData />
-      }
+        {/* : <AlertData />
+      } */}
     </>
   )
 }
