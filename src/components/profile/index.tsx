@@ -14,6 +14,7 @@ const Profile = () => {
 
   const { signOut, user } = useAuthContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+console.log('user', user);
 
   const toggle = () => {
     setIsOpen(old => !old);
