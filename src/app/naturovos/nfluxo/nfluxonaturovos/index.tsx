@@ -46,7 +46,7 @@ const NFluxoNaturovos = (props: Props) => {
           fluxoDatfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
-          setFluxoDataParcialLojas(results.data.bi054.bidata);
+          setFluxoDataParcialLojas(results.data.bi054.bidata || []);
         })
         .catch(err => {
           console.log(err);

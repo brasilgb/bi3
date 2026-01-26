@@ -45,7 +45,6 @@ const SFluxo = (props: Props) => {
     }
     getFluxoCaixaLojas();
   }, [dataInicial, dataFinal]);
-  console.log(!!fluxoData);
 
   return (
     <main>

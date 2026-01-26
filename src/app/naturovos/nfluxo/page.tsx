@@ -11,6 +11,7 @@ import NFluxoNaturovosData from "./nfluxonaturovosdata";
 import NFluxoGrupoData from "./nfluxogrupodata";
 import MainMenuNaturovos from "@/components/MainMenu/naturovos";
 import ButtonAnaliseNaturovos from "@/components/ButtonAnaliseNaturovos";
+import AlertData from '@/components/AlertData';
 
 type Props = {};
 
@@ -20,6 +21,8 @@ const NFluxo = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+
+  const [fluxoData, setFluxoData] = useState<any>([]);
 
   useEffect(() => {
     async function getFluxoCaixaLojas() {
@@ -31,6 +34,7 @@ const NFluxo = (props: Props) => {
           fluxoDatfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
+          setFluxoData(results.data.bi054.bidata);
           setDataAtualizacao(
             results.data.bi054.bidata.filter((a: any) => a.agrupador === 0)
           );
@@ -49,41 +53,47 @@ const NFluxo = (props: Props) => {
         back="/naturovos/nadmresumo"
         forwards="/naturovos/ndre"
         depto="naturovos"
-        dtatu={dataAtualizacao[0].atualizacao}
+        dtatu={dataAtualizacao[0].atualizacao || moment().format('DD/MM/YYYY HH:mm:ss')}
       />
       <div className="container m-auto md:px-0 px-1">
         <MainMenuNaturovos />
       </div>
       <div className="container m-auto md:px-0 px-1">
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
-          <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
-            <ButtonAnaliseNaturovos
-              title={'Fluxo naturovos'}
-              onclick={() => setAnalise('fluxonaturovos')}
-              active={analise}
-            />
-            <ButtonAnaliseNaturovos
-              title={'Fluxo Grupo'}
-              onclick={() => setAnalise('fluxogrupo')}
-              active={analise}
-            />
-            <ButtonAnaliseNaturovos
-              title={'Fluxo Nat./Data'}
-              onclick={() => setAnalise('fluxonatdata')}
-              active={analise}
-            />
-            <ButtonAnaliseNaturovos
-              title={'Fluxo Grupo/Data'}
-              onclick={() => setAnalise('fluxogrupodata')}
-              active={analise}
-            />
-          </div>
-          <div className="mt-2">
-            {analise === 'fluxonaturovos' && <NFluxoNaturovos />}
-            {analise === 'fluxogrupo' && <NFluxoGrupo />}
-            {analise === 'fluxonatdata' && <NFluxoNaturovosData />}
-            {analise === 'fluxogrupodata' && <NFluxoGrupoData />}
-          </div>
+          {fluxoData ?
+
+            <>
+              <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
+                <ButtonAnaliseNaturovos
+                  title={'Fluxo naturovos'}
+                  onclick={() => setAnalise('fluxonaturovos')}
+                  active={analise}
+                />
+                <ButtonAnaliseNaturovos
+                  title={'Fluxo Grupo'}
+                  onclick={() => setAnalise('fluxogrupo')}
+                  active={analise}
+                />
+                <ButtonAnaliseNaturovos
+                  title={'Fluxo Nat./Data'}
+                  onclick={() => setAnalise('fluxonatdata')}
+                  active={analise}
+                />
+                <ButtonAnaliseNaturovos
+                  title={'Fluxo Grupo/Data'}
+                  onclick={() => setAnalise('fluxogrupodata')}
+                  active={analise}
+                />
+              </div>
+              <div className="mt-2">
+                {analise === 'fluxonaturovos' && <NFluxoNaturovos />}
+                {analise === 'fluxogrupo' && <NFluxoGrupo />}
+                {analise === 'fluxonatdata' && <NFluxoNaturovosData />}
+                {analise === 'fluxogrupodata' && <NFluxoGrupoData />}
+              </div>
+            </>
+            : <AlertData />
+          }
         </div>
       </div>
     </main>
