@@ -1,5 +1,5 @@
 'use client';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { checkUserAuthenticated } from '@/functions/check-user-authenticated';
@@ -11,20 +11,25 @@ interface PrivateRouteProps {
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const router = useRouter();
-  const isUserAutenticated = checkUserAuthenticated();
+  // Começa como `null` (nem autenticado, nem não-autenticado) para que a
+  // primeira renderização no cliente seja idêntica à do servidor — o cookie
+  // só pode ser lido depois de montar, dentro do useEffect. Decidir isso
+  // direto no corpo do componente é o que causava o erro de hidratação
+  // (servidor sempre renderiza sem <Header>, cliente já renderizava com
+  // ele quando o cookie de sessão já existia no navegador).
+  const [isUserAutenticated, setIsUserAutenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!isUserAutenticated) {
+    const authenticated = !!checkUserAuthenticated();
+    setIsUserAutenticated(authenticated);
+    if (!authenticated) {
       router.push(APP_ROUTES.public.login);
     }
-  }, [isUserAutenticated, router]);
+  }, [router]);
 
-  return (
-    <>
-      {!isUserAutenticated && null}
-      {isUserAutenticated && children}
-    </>
-  );
+  if (isUserAutenticated === null) return null;
+
+  return <>{isUserAutenticated && children}</>;
 };
 
 export default PrivateRoute;

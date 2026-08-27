@@ -22,13 +22,15 @@ const Progress = ({
   sizevalue,
   sizetitle,
 }: ProgressProps) => {
-  const [sizeWindow, setSizeWindow] = useState(1900);
+  const [sizeWindow, setSizeWindow] = useState(0);
 
   useEffect(() => {
     const getSizeWindow = () => {
-      setSizeWindow(window.screen.availWidth);
+      setSizeWindow(window.innerWidth);
     };
     getSizeWindow();
+    window.addEventListener('resize', getSizeWindow);
+    return () => window.removeEventListener('resize', getSizeWindow);
   }, []);
 
   const options = {

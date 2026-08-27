@@ -64,3 +64,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Popup do DatePicker (react-modern-calendar-datepicker): evita que o calendário
+   estoure a largura da tela em dispositivos móveis, especialmente no modo de
+   intervalo (dois meses lado a lado). */
+.DatePicker__calendarContainer {
+  max-width: calc(100vw - 1rem);
+}
+
+.responsive-calendar.Calendar {
+  max-width: calc(100vw - 1rem);
+  overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+  .responsive-calendar.Calendar {
+    width: calc(100vw - 1rem);
+  }
+}
