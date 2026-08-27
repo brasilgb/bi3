@@ -1,5 +1,6 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 import birel from "@/services/birel";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import moment from "moment";
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -11,6 +12,9 @@ const NLoaderIndustria = ({ totais, data }: any) => {
   const [producaoTurno2, setProducaoTurno2] = useState([]);
   const [producaoTurno3, setProducaoTurno3] = useState([]);
   const [producaoTurnos, setProducaoTurnos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     const getProducaoEps = async () => {
@@ -38,10 +42,21 @@ const NLoaderIndustria = ({ totais, data }: any) => {
           setProducaoTurno1(turno1);
           setProducaoTurno2(turno2);
           setProducaoTurno3(turno3);
-        });
+        })
+        .catch(err => {
+          console.log(err);
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     };
     getProducaoEps();
-  }, [dataInicial, dataFinal]);
+  }, [dataInicial, dataFinal, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const dateToInt = (dt: any) => {
     const dateInt = moment(dt.split('/').reverse().join('-')).format(
@@ -49,6 +64,9 @@ const NLoaderIndustria = ({ totais, data }: any) => {
     );
     return dateInt;
   };
+
+  if (loading) return <LoadingRows />;
+  if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
   return (
     <div className="animate__animated animate__fadeIn">

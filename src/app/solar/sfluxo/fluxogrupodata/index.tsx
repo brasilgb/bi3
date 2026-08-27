@@ -1,4 +1,5 @@
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
 import { formatMoney, removeAcentos } from '@/utils';
@@ -11,6 +12,9 @@ type Props = {};
 const FluxoGrupoData = (props: Props) => {
   const { dataInicial, dataFinal } = useAuthContext();
   const [fluxoDataParcialLojas, setFluxoDataParcialLojas] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   const [levelOpen, setLevelOpen] = useState<boolean>(false);
   const [levelOpen2, setLevelOpen2] = useState<boolean>(false);
   const [levelValue, setLeveValue] = useState<string>('');
@@ -46,14 +50,22 @@ const FluxoGrupoData = (props: Props) => {
           fluxoDatfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
-          setFluxoDataParcialLojas(results.data.bi054.bidata);
+          setFluxoDataParcialLojas(results.data.bi054.bidata || []);
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getFluxoCaixaLojas();
-  }, [dataInicial, dataFinal]);
+  }, [dataInicial, dataFinal, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
   const descricao1 = fluxoDataParcialLojas.filter(
     (ds: any) => ds.nivel === 1 && ds.coluna === 1
   );
@@ -115,6 +127,11 @@ const FluxoGrupoData = (props: Props) => {
       <div className="font-medium text-left px-2 py-0.5 whitespace-nowrap">
         Fluxo de caixa lojas
       </div>
+      {loading ? (
+        <LoadingRows />
+      ) : hasError ? (
+        <ErrorRetry onRetry={handleRetry} />
+      ) : (
       <BTable>
         <BTr classname="flex justify-start text-base bg-solar-green-prymary text-gray-100">
           <BTd classname="flex items-start">
@@ -131,7 +148,7 @@ const FluxoGrupoData = (props: Props) => {
             <BTr
               onclick={() => handleLevelOpen(removeAcentos(fluxo1))}
               key={idx}
-              classname={`flex justify-start text-sm !border-b-gray-100 text-gray-500 bg-gray-200 hover:bg-red-50 ${caretLevel(2, removeAcentos(fluxo1)) ? 'cursor-pointer' : 'cursor-default'}`}
+              classname={`flex justify-start text-sm !border-b-gray-100 text-gray-500 bg-gray-200 transition-colors duration-150 hover:bg-solar-blue-primary/10 ${caretLevel(2, removeAcentos(fluxo1)) ? 'cursor-pointer' : 'cursor-default'}`}
             >
               <BTd classname="flex items-center">
                 {caretLevel(2, removeAcentos(fluxo1)) ? (
@@ -168,7 +185,7 @@ const FluxoGrupoData = (props: Props) => {
                       <BTr
                         onclick={() => handleLevelOpen2(removeAcentos(fluxo2))}
                         key={idx}
-                        classname={`flex justify-start !border-b-gray-50 bg-gray-100 text-gray-500 hover:bg-red-50 ${caretLevel(3, removeAcentos(fluxo2)) ? 'cursor-pointer' : 'cursor-default'}`}
+                        classname={`flex justify-start !border-b-gray-50 bg-gray-100 text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10 ${caretLevel(3, removeAcentos(fluxo2)) ? 'cursor-pointer' : 'cursor-default'}`}
                       >
                         <BTd classname="flex items-center">
                           {caretLevel(3, removeAcentos(fluxo2)) ? (
@@ -209,7 +226,7 @@ const FluxoGrupoData = (props: Props) => {
                               (fluxo3: any, idx: number) => (
                                 <BTr
                                   key={idx}
-                                  classname={`flex justify-start bg-gray-50 text-gray-500 hover:bg-red-50`}
+                                  classname={`flex justify-start bg-gray-50 text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
                                 >
                                   <BTd classname="flex items-center">
                                     <span className="ml-4 text-gray-400">
@@ -249,6 +266,7 @@ const FluxoGrupoData = (props: Props) => {
           </>
         ))}
       </BTable>
+      )}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 const DonutChart = ({ data, periodo }) => {
-    const alteredData = data?.filter((fl:any) => (fl.VendasTotal > 0)).map((res: any) => ({ name: res.MeioPagamento, y: res.VendasTotal < 0 ? 0 : res.VendasTotal }));
+    const alteredData = data?.filter((fl: any) => (fl.VendasTotal > 0)).map((res: any) => ({ name: res.MeioPagamento, y: res.VendasTotal }));
 
     const options = {
 

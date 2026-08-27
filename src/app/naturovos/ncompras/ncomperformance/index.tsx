@@ -1,4 +1,5 @@
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import LComBar from '@/components/Charts/LComBar';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -10,6 +11,9 @@ type Props = {};
 const NComPerformance = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [nComGrafico, setNComGrafico] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -24,14 +28,26 @@ const NComPerformance = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getLComGrafico();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {nComGrafico.length > 0
+      {loading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : nComGrafico.length > 0
         ? <div className="mt-4 animate__animated animate__fadeIn">
           <LComBar data={nComGrafico} />
         </div>

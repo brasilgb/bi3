@@ -1,6 +1,7 @@
 'use client'
 import { KpiNatur } from "@/components/Kpis";
 import birel from "@/services/birel";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { formatNumber } from "@/utils";
 import React, { useEffect, useState } from 'react'
 import { IoChevronDown } from "react-icons/io5";
@@ -9,6 +10,9 @@ import { ChartProd } from "./ChartProd";
 const NCentral = ({ data }: any) => {
     const [centralOpen, setCentralOpen] = useState<boolean>(false);
     const [producaoCentral, setProducaoCentral] = useState<any>([]);
+    const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
     useEffect(() => {
         const getProducaoCentral = async () => {
@@ -20,11 +24,21 @@ const NCentral = ({ data }: any) => {
                 })
                 .catch(err => {
                     console.log(err);
-                });
+                    setHasError(true);
+                })
+                .finally(() => setLoading(false));
         };
         getProducaoCentral();
-    }, []);
-    
+    }, [reloadTrigger]);
+
+    const handleRetry = () => {
+        setHasError(false);
+        setLoading(true);
+        setReloadTrigger(t => t + 1);
+    };
+
+    if (loading) return <LoadingRows rows={4} />;
+    if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
     return (
         <>

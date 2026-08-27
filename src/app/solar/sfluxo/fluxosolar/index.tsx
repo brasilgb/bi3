@@ -1,4 +1,5 @@
 import { BTable, BTd, BTr } from '@/components/Table';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
 import { formatMoney } from '@/utils';
@@ -11,6 +12,9 @@ type Props = {};
 const FluxoSolar = (props: Props) => {
   const { dataInicial, dataFinal } = useAuthContext();
   const [fluxoDataParcialLojas, setFluxoDataParcialLojas] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   const [levelOpen, setLevelOpen] = useState<boolean>(false);
   const [levelOpen2, setLevelOpen2] = useState<boolean>(false);
   const [levelNum, setLevelNum] = useState<number>(0);
@@ -50,10 +54,18 @@ const FluxoSolar = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getFluxoCaixaLojas();
-  }, [dataInicial, dataFinal]);
+  }, [dataInicial, dataFinal, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const caretLevel = (nivel: number, codigo: number) => {
     return fluxoDataParcialLojas.filter(
@@ -66,6 +78,11 @@ const FluxoSolar = (props: Props) => {
       <div className="font-medium text-left px-2 py-0.5 whitespace-nowrap">
         Fluxo de caixa lojas
       </div>
+      {loading ? (
+        <LoadingRows />
+      ) : hasError ? (
+        <ErrorRetry onRetry={handleRetry} />
+      ) : (
       <BTable>
       <BTr classname="flex justify-between text-base bg-solar-green-prymary text-gray-100">
           <BTd classname="flex items-start">
@@ -83,7 +100,7 @@ const FluxoSolar = (props: Props) => {
               <BTr
                 onclick={() => handleLevelOpen(fluxo1.codigo)}
                 key={idx}
-                classname={`flex justify-between text-sm !border-b-gray-100 text-gray-500 bg-gray-200 hover:bg-red-50 ${caretLevel(2, fluxo1.codigo) ? 'cursor-pointer' : 'cursor-default'}`}
+                classname={`flex justify-between text-sm !border-b-gray-100 text-gray-500 bg-gray-200 transition-colors duration-150 hover:bg-solar-blue-primary/10 ${caretLevel(2, fluxo1.codigo) ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <BTd classname="flex items-center">
                   {caretLevel(2, fluxo1.codigo) ? (
@@ -122,7 +139,7 @@ const FluxoSolar = (props: Props) => {
                           <BTr
                             onclick={() => handleLevelOpen2(fluxo2.codigo)}
                             key={idx}
-                            classname={`flex justify-between !border-b-gray-50 bg-gray-100 text-gray-500 hover:bg-red-50 ${caretLevel(2, fluxo1.codigo) ? 'cursor-pointer' : 'cursor-default'}`}
+                            classname={`flex justify-between !border-b-gray-50 bg-gray-100 text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10 ${caretLevel(2, fluxo1.codigo) ? 'cursor-pointer' : 'cursor-default'}`}
                           >
                             <BTd classname="flex items-center">
                               {caretLevel(3, fluxo2.codigo) ? (
@@ -158,7 +175,7 @@ const FluxoSolar = (props: Props) => {
                                   .map((fluxo3: any, idx: number) => (
                                     <BTr
                                       key={idx}
-                                      classname={`flex justify-between bg-gray-50 text-gray-500 hover:bg-red-50`}
+                                      classname={`flex justify-between bg-gray-50 text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
                                     >
                                       <BTd classname="flex items-center">
                                         <span className="ml-4 text-gray-400">
@@ -186,6 +203,7 @@ const FluxoSolar = (props: Props) => {
             </>
           ))}
       </BTable>
+      )}
     </div>
   );
 };

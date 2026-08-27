@@ -21,6 +21,11 @@ const SResumo = (props: Props) => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
 );
+  const [loadingFiliais, setLoadingFiliais] = useState(true);
+  const [loadingAssociacao, setLoadingAssociacao] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -35,10 +40,12 @@ const SResumo = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingFiliais(false));
     }
     getLFiliais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -53,10 +60,12 @@ const SResumo = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingAssociacao(false));
     }
     getLAssociacao();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -72,10 +81,21 @@ const SResumo = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingFiliais || loadingAssociacao || loadingTotais;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingFiliais(true);
+    setLoadingAssociacao(true);
+    setLoadingTotais(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <main>
@@ -105,10 +125,10 @@ const SResumo = (props: Props) => {
           </div>
           <div className="mt-2">
             {analise === 'filiais' && (
-              <SFiliais totais={lTotais} data={lFiliais} />
+              <SFiliais totais={lTotais} data={lFiliais} loading={isLoading} hasError={hasError} onRetry={handleRetry} />
             )}
             {analise === 'associacao' && (
-              <SAssociacao totais={lTotais} data={lAssociacao} />
+              <SAssociacao totais={lTotais} data={lAssociacao} loading={isLoading} hasError={hasError} onRetry={handleRetry} />
             )}
           </div>
         </div>

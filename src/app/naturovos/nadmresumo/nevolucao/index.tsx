@@ -1,4 +1,5 @@
 import AlertData from "@/components/AlertData";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import NAdmEvolucao from "@/components/Charts/NAdmEvolucao";
 import { BTable, BTd, BTh, BTr } from "@/components/Table";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -11,6 +12,10 @@ const NEvolucao = (grupo: any) => {
   const { dataFiltro } = useAuthContext();
   const [nResumoGrafico, setNResumoGrafico] = useState([]);
   const [nResumoTotais, setNResumoTotais] = useState<any>([]);
+  const [loadingGrafico, setLoadingGrafico] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     async function getNResumoGrupo() {
@@ -24,10 +29,12 @@ const NEvolucao = (grupo: any) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingGrafico(false));
     }
     getNResumoGrupo();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   useEffect(() => {
     async function getNResumoTotais() {
@@ -41,14 +48,28 @@ const NEvolucao = (grupo: any) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getNResumoTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingGrafico || loadingTotais;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingGrafico(true);
+    setLoadingTotais(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {nResumoGrafico.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : nResumoGrafico.length > 0
         ? <>
           <div className="mt-4 w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
             <BTable classname="text-gray-700 bg-solar-orange-prymary rounded-b-lg">

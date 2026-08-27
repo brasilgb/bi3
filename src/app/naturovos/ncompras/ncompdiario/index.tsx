@@ -1,4 +1,5 @@
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -12,6 +13,10 @@ const NCompDiario = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [nComComparaDia, setNComComparaDia] = useState<any>([]);
   const [nComTotais, setNComTotais] = useState<any>([]);
+  const [loadingCompara, setLoadingCompara] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
 
   // Extração de dados resumos filiais
@@ -27,10 +32,12 @@ const NCompDiario = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingCompara(false));
     }
     getNComComparaDia();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -45,14 +52,28 @@ const NCompDiario = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getNComTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingCompara || loadingTotais;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingCompara(true);
+    setLoadingTotais(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {nComComparaDia.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : nComComparaDia.length > 0
         ? <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-800">
             <thead>
@@ -83,7 +104,7 @@ const NCompDiario = (props: Props) => {
               {nComComparaDia?.map((perfmes: any, idx: number) => (
                 <BTr
                   key={idx}
-                  classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                  classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-orange-prymary/10`}
                 >
                   <BTd>{perfmes.MateriaPrima}</BTd>
                   <BTd>{formatMoney(perfmes?.CompraDia)}</BTd>

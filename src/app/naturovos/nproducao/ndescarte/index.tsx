@@ -1,4 +1,5 @@
 import { BTable, BTd, BTh, BTr } from "@/components/Table";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { useAuthContext } from "@/contexts/AuthContext";
 import birel from "@/services/birel";
 import { formatMoney } from "@/utils";
@@ -11,7 +12,9 @@ type Props = {}
 const NDescarte = (props: Props) => {
     const { dataInicial, dataFinal } = useAuthContext();
     const [descarte, setDescarte] = useState<any>([]);
-    console.log(moment(dataInicial).format('YYYYMMDD'), moment(dataFinal).format('YYYYMMDD'));
+    const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
     useEffect(() => {
         const getResumoProducao = async () => {
@@ -27,15 +30,25 @@ const NDescarte = (props: Props) => {
                 })
                 .catch(err => {
                     console.log(err);
-                });
+                    setHasError(true);
+                })
+                .finally(() => setLoading(false));
         };
         getResumoProducao();
-    }, [dataInicial, dataFinal]);
-    console.log(descarte);
+    }, [dataInicial, dataFinal, reloadTrigger]);
+
+    const handleRetry = () => {
+        setHasError(false);
+        setLoading(true);
+        setReloadTrigger(t => t + 1);
+    };
 
     const notDecimalPlaces = (value: any) => {
         return (value)?.toFixed()
     }
+
+    if (loading) return <LoadingRows />;
+    if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
     return (
         <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
@@ -71,7 +84,7 @@ const NDescarte = (props: Props) => {
                     ))}
                     {descarte?.filter((fil: any) => (fil.codFor != '99999999')).map((desc: any, idx: number) => (
                         <BTr key={idx}
-                            classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}>
+                            classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-orange-prymary/10`}>
                             <BTd>{(desc.codFor)}</BTd>
                             <BTd>{(desc.nomFor)}</BTd>
                             <BTd classname="text-center">{(desc.tipOvo)}</BTd>

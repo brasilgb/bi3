@@ -9,6 +9,7 @@ import NFiliais from "./nfiliais";
 import MainMenuNaturovos from "@/components/MainMenu/naturovos";
 import ButtonAnaliseNaturovos from "@/components/ButtonAnaliseNaturovos";
 import NExportacao from "./nexportacao";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 const NResumo = () => {
   const { dataFiltro } = useAuthContext();
@@ -20,6 +21,12 @@ const NResumo = () => {
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
   const [nExportacao, setNExportacao] = useState<any>([]);
+  const [loadingFiliais, setLoadingFiliais] = useState(true);
+  const [loadingAssociacao, setLoadingAssociacao] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [loadingExportacao, setLoadingExportacao] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -34,10 +41,12 @@ const NResumo = () => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingFiliais(false));
     }
     getNFiliais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -52,10 +61,12 @@ const NResumo = () => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingAssociacao(false));
     }
     getNAssociacao();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -71,10 +82,12 @@ const NResumo = () => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Exportação
   useEffect(() => {
@@ -89,10 +102,22 @@ const NResumo = () => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingExportacao(false));
     }
     getNExportacao();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingFiliais || loadingAssociacao || loadingTotais || loadingExportacao;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingFiliais(true);
+    setLoadingAssociacao(true);
+    setLoadingTotais(true);
+    setLoadingExportacao(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <main>
@@ -128,13 +153,13 @@ const NResumo = () => {
         </div>
         <div className="mt-2">
           {analise === 'filiais' && (
-            <NFiliais totais={nTotais} data={nFiliais} />
+            <NFiliais totais={nTotais} data={nFiliais} loading={isLoading} hasError={hasError} onRetry={handleRetry} />
           )}
           {analise === 'associacao' && (
-            <NAssociacao totais={nTotais} data={nAssociacao} />
+            <NAssociacao totais={nTotais} data={nAssociacao} loading={isLoading} hasError={hasError} onRetry={handleRetry} />
           )}
           {analise === 'exportacao' && (
-            <NExportacao totais={nTotais} data={nExportacao} />
+            <NExportacao totais={nTotais} data={nExportacao} loading={isLoading} hasError={hasError} onRetry={handleRetry} />
           )}
         </div>
       </div>

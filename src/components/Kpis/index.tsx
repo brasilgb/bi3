@@ -16,7 +16,7 @@ interface KpiProps {
 
 export const Kpi = (props: KpiProps) => {
   return (
-    <div className="flex flex-col bg-white rounded-md shadow-sm w-full relative">
+    <div className="flex flex-col bg-white rounded-md shadow-sm w-full relative transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5">
       <div className="flex items-center justify-between p-4">
         <div className="flex flex-1 flex-col items-start justify-between">
           <div className="md:text-base text-[10px] text-gray-400 ">
@@ -67,7 +67,7 @@ export const KpiNatur = (props: KpiNaturProps) => {
     <Fragment>
       <div className="relative">
         <div
-          className={`${props.kpiStyle} flex flex-col items-center justify-center bg-gray-50 border border-gray-200 rounded-md py-6`}
+          className={`${props.kpiStyle} flex flex-col items-center justify-center bg-gray-50 border border-gray-200 rounded-md py-6 transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5 hover:border-gray-300`}
         >
           {props.realTime && (
             <div className="absolute top-2 left-2">

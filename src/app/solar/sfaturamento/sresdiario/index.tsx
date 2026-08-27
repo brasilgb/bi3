@@ -1,4 +1,5 @@
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -12,6 +13,10 @@ const SResdiario = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [lFaturamento, setLFaturamento] = useState<any>([]);
   const [lFatuTotLojas, setLFatuTotLojas] = useState<any>([]);
+  const [loadingFaturamento, setLoadingFaturamento] = useState(true);
+  const [loadingTotal, setLoadingTotal] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -26,10 +31,12 @@ const SResdiario = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingFaturamento(false));
     }
     getLFaturamento();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -44,14 +51,28 @@ const SResdiario = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotal(false));
     }
     getLFatuTotLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingFaturamento || loadingTotal;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingFaturamento(true);
+    setLoadingTotal(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {lFaturamento.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : lFaturamento.length > 0
         ? <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-50">
             <thead>
@@ -106,7 +127,7 @@ const SResdiario = (props: Props) => {
                 .map((associacao: any, idx: number) => (
                   <BTr
                     key={idx}
-                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
                   >
                     <BTd>{associacao.Associacao}</BTd>
                     <BTd>{formatMoney(associacao?.FatuDia)}</BTd>

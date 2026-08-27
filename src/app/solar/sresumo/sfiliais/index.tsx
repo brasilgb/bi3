@@ -2,11 +2,16 @@ import React from 'react';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { formatMoney } from '@/utils';
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
-const SFiliais = ({ totais, data }: any) => {
+const SFiliais = ({ totais, data, loading, hasError, onRetry }: any) => {
   return (
     <>
-      {data.length > 0
+      {loading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={onRetry} />
+        : data.length > 0
         ? <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-50">
             <thead>
@@ -37,7 +42,7 @@ const SFiliais = ({ totais, data }: any) => {
                 .map((filial: any, idx: number) => (
                   <BTr
                     key={idx}
-                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
                   >
                     <BTd>{filial.Filial}</BTd>
                     <BTd>{formatMoney(filial.Faturamento)}</BTd>

@@ -1,17 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { Anybody } from "next/font/google";
 
 type Props = {
   data: any;
 };
 
 const NFatPerfCombination = ({ data }: Props) => {
-  console.log('data');
-  
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [height, setHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
@@ -24,7 +21,9 @@ const NFatPerfCombination = ({ data }: Props) => {
   const colors = Highcharts.getOptions().colors;
   const diasemana = data.map((value: any) => value.DiaSemana);
   const margem = data.map((value: any) => value.Margem * 100);
-  const vendas = data.sort((a: any, b: any) => (a.Vendas > b.Vendas ? 1 : -1)).map((value: any) => value.Vendas);
+  // vendas precisa manter a mesma ordem de diasemana/margem (não ordenar por valor,
+  // senão as séries ficam desalinhadas em relação ao eixo x)
+  const vendas = data.map((value: any) => value.Vendas);
 
   Highcharts.setOptions({
     lang: {

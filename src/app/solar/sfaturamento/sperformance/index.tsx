@@ -1,5 +1,6 @@
 'use client';
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import LFatCombination from '@/components/Charts/LFatCombination';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
@@ -14,6 +15,10 @@ const SPerformance = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [lGraficoLojas, setLGraficoLojas] = useState<any>([]);
   const [lFatuTotLojas, setLFatuTotLojas] = useState<any>([]);
+  const [loadingGrafico, setLoadingGrafico] = useState(true);
+  const [loadingTotal, setLoadingTotal] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -27,10 +32,12 @@ const SPerformance = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingGrafico(false));
     }
     getLGraficoLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -45,15 +52,28 @@ const SPerformance = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotal(false));
     }
     getLFatuTotLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
+  const isLoading = loadingGrafico || loadingTotal;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingGrafico(true);
+    setLoadingTotal(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {lGraficoLojas.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : lGraficoLojas.length > 0
         ?
         <>
           <div className="w-full shadow-sm overflow-x-auto animate__animated animate__fadeIn">

@@ -8,8 +8,8 @@ type Props = {
 };
 
 const NAdmEvolucao = ({ data, totais }: Props) => {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [height, setHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
@@ -23,7 +23,9 @@ const NAdmEvolucao = ({ data, totais }: Props) => {
   const dia = data.map((value: any) => value.Dia);
   const MesAtual = data.map((value: any) => value.MesAtual);
   const MesAnterior = data.map((value: any) => value.MesAnterior);
-  const AnoMesAtual = data.sort((a:any, b:any) => (a.AnoMesAtual > b.AnoMesAtual ? 1 : -1 )).map((value: any) => value.AnoMesAtual);
+  // AnoMesAtual precisa manter a mesma ordem de dia/MesAtual/MesAnterior (não ordenar
+  // por valor, senão a série fica desalinhada em relação ao eixo x)
+  const AnoMesAtual = data.map((value: any) => value.AnoMesAtual);
 
   Highcharts.setOptions({
     lang: {

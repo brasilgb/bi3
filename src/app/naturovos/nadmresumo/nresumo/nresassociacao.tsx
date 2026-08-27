@@ -5,12 +5,17 @@ import { formatMoney, removeAcentos } from "@/utils";
 import moment from "moment";
 import React, { useEffect, useState } from 'react'
 import { IoChevronDown, IoChevronForward } from "react-icons/io5";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 const NResAssociacao = ({ grupo }: any) => {
     const { dataFiltro } = useAuthContext();
     const [openAccordion, setOpenAccordion] = useState(null);
     const [nResumoAssociacao, setNResumoAssociacao] = useState<any>([]);
     const [nResumoTotais, setNResumoTotais] = useState<any>([]);
+    const [loadingAssociacao, setLoadingAssociacao] = useState(true);
+    const [loadingTotais, setLoadingTotais] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
     useEffect(() => {
         async function getNResumoGrupo() {
@@ -26,10 +31,12 @@ const NResAssociacao = ({ grupo }: any) => {
                 })
                 .catch(err => {
                     console.log(err);
-                });
+                    setHasError(true);
+                })
+                .finally(() => setLoadingAssociacao(false));
         }
         getNResumoGrupo();
-    }, [dataFiltro, grupo]);
+    }, [dataFiltro, grupo, reloadTrigger]);
 
     useEffect(() => {
         async function getNResumoTotais() {
@@ -43,10 +50,19 @@ const NResAssociacao = ({ grupo }: any) => {
                 })
                 .catch(err => {
                     console.log(err);
-                });
+                    setHasError(true);
+                })
+                .finally(() => setLoadingTotais(false));
         }
         getNResumoTotais();
-    }, [dataFiltro]);
+    }, [dataFiltro, reloadTrigger]);
+
+    const handleRetry = () => {
+        setHasError(false);
+        setLoadingAssociacao(true);
+        setLoadingTotais(true);
+        setReloadTrigger(t => t + 1);
+    };
 
     const handleAccordionClick = (index: any) => {
         if (index !== openAccordion) {
@@ -56,6 +72,8 @@ const NResAssociacao = ({ grupo }: any) => {
         }
     };
 
+    if (loadingAssociacao || loadingTotais) return <LoadingRows rows={3} />;
+    if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
     return (
         <div className="w-full animate__animated animate__fadeIn">
@@ -83,7 +101,7 @@ const NResAssociacao = ({ grupo }: any) => {
                         .map((assoc: any, idx: any) => (
                             <BTr
                                 key={idx}
-                                classname={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                                classname={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-orange-prymary/10`}
                             >
                                 <BTd classname="flex justify-end"><IoChevronForward size={20} color="#cacaca" /></BTd>
                                 <BTd>{assoc.Associacao}</BTd>

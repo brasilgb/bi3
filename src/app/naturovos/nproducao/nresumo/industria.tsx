@@ -1,5 +1,6 @@
 'use client'
 import birel from "@/services/birel";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { formatNumber } from "@/utils";
 import React, { useEffect, useState } from 'react'
 import { IoChevronDown } from "react-icons/io5";
@@ -7,6 +8,9 @@ import { IoChevronDown } from "react-icons/io5";
 const NIndustria = ({ data }: any) => {
   const [industriaOpen, setIndustriaOpen] = useState<boolean>(false);
   const [producaoIndustria, setProducaoIndústria] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     const getResumoProducao = async () => {
@@ -19,10 +23,21 @@ const NIndustria = ({ data }: any) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     };
     getResumoProducao();
-  }, []);
+  }, [reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
+
+  if (loading) return <LoadingRows rows={4} />;
+  if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
   return (
     <div className="bg-gray-50 shadow-md rounded-md">

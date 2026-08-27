@@ -1,4 +1,5 @@
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
 import { formatMoney } from '@/utils';
@@ -10,6 +11,9 @@ type Props = {};
 const STInstituicao = (props: Props) => {
   const { dataInicial, dataFinal } = useAuthContext();
   const [lEmprestimos, setLEmprestimo] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -26,10 +30,21 @@ const STInstituicao = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getInstituicao();
-  }, [dataInicial, dataFinal]);
+  }, [dataInicial, dataFinal, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
+
+  if (loading) return <LoadingRows />;
+  if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
   return (
     <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
@@ -57,7 +72,7 @@ const STInstituicao = (props: Props) => {
             .map((emprestimo: any, idx: number) => (
               <BTr
                 key={idx}
-                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
               >
                 <BTd>{emprestimo?.agrupa}</BTd>
                 <BTd>{formatMoney(emprestimo?.valor)}</BTd>

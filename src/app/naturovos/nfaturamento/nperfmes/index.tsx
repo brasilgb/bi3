@@ -1,4 +1,5 @@
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -12,6 +13,10 @@ const NPerfMes = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [lFatuPerfMesLojas, setLFatuPerfMesLojas] = useState<any>([]);
   const [lFatuTotMesLojas, setLFatuTotMesLojas] = useState<any>([]);
+  const [loadingPerfMes, setLoadingPerfMes] = useState(true);
+  const [loadingTotal, setLoadingTotal] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -26,10 +31,12 @@ const NPerfMes = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingPerfMes(false));
     }
     getLFatuPerfMesLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -44,13 +51,28 @@ const NPerfMes = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotal(false));
     }
     getLFatuTotLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingPerfMes || loadingTotal;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingPerfMes(true);
+    setLoadingTotal(true);
+    setReloadTrigger(t => t + 1);
+  };
+
   return (
     <>
-      {lFatuPerfMesLojas.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : lFatuPerfMesLojas.length > 0
         ? <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-800">
             <thead>
@@ -77,7 +99,7 @@ const NPerfMes = (props: Props) => {
                 .map((associacao: any, idx: number) => (
                   <BTr
                     key={idx}
-                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-orange-prymary/10`}
                   >
                     <BTd>{associacao.MesAno}</BTd>
                     <BTd>{formatMoney(associacao?.Faturamento)}</BTd>

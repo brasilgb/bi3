@@ -1,5 +1,6 @@
 'use client'
 import AlertData from '@/components/AlertData'
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback'
 import LAnaliseCliente from '@/components/Charts/LAnaliseCliente'
 import { BTable, BTd, BTh, BTr } from '@/components/Table'
 import { useAuthContext } from '@/contexts/AuthContext'
@@ -14,6 +15,10 @@ const SituacaoCliente = () => {
   const [allPlanos, setAllPlanos] = useState<any>([]);
   const [allData, setAllData] = useState<any>([]);
   const [graficoCliente, setGraficoCliente] = useState<any>([]);
+  const [loadingAnalise, setLoadingAnalise] = useState(true);
+  const [loadingGrafico, setLoadingGrafico] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -29,12 +34,12 @@ const SituacaoCliente = () => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingAnalise(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -47,12 +52,20 @@ const SituacaoCliente = () => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingGrafico(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingAnalise || loadingGrafico;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingAnalise(true);
+    setLoadingGrafico(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const valuesPlanos = (plano: string, situacao: string, campo: string) => {
     const planoPag = allData.filter((fplano: any) => (fplano?.CodPlano == plano && fplano?.Situacao == situacao)).map((vd: any) => (campo == 'Vendas' ? vd?.Vendas : vd?.QtdCliente));
@@ -61,7 +74,11 @@ const SituacaoCliente = () => {
 
   return (
     <>
-      {graficoCliente.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : graficoCliente.length > 0
         ? <main className='animate__animated animate__fadeIn'>
           <div className='bg-white rounded-md shadow-sm border sm:mx-0 border-white p-2 w-full overflow-auto'>
             <LAnaliseCliente data={graficoCliente} />

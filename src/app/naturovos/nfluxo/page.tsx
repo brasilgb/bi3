@@ -12,17 +12,21 @@ import NFluxoGrupoData from "./nfluxogrupodata";
 import MainMenuNaturovos from "@/components/MainMenu/naturovos";
 import ButtonAnaliseNaturovos from "@/components/ButtonAnaliseNaturovos";
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 type Props = {};
 
 const NFluxo = (props: Props) => {
   const [analise, setAnalise] = useState<string>('fluxonaturovos');
   const { dataInicial, dataFinal } = useAuthContext();
-  const [dataAtualizacao, setDataAtualizacao] = useState<any>(
+  const [dataAtualizacao, setDataAtualizacao] = useState<string>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
 
   const [fluxoData, setFluxoData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     async function getFluxoCaixaLojas() {
@@ -34,17 +38,27 @@ const NFluxo = (props: Props) => {
           fluxoDatfin: moment(dataFinal).format('YYYYMMDD'),
         })
         .then(results => {
-          setFluxoData(results.data.bi054.bidata);
-          setDataAtualizacao(
-            results.data.bi054.bidata.filter((a: any) => a.agrupador === 0)
-          );
+          const bidata = results.data.bi054.bidata || [];
+          setFluxoData(bidata);
+          const cabecalho = bidata.filter((a: any) => a.agrupador === 0);
+          if (cabecalho[0]?.atualizacao) {
+            setDataAtualizacao(cabecalho[0].atualizacao);
+          }
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getFluxoCaixaLojas();
-  }, [dataInicial, dataFinal]);
+  }, [dataInicial, dataFinal, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <main>
@@ -53,15 +67,18 @@ const NFluxo = (props: Props) => {
         back="/naturovos/nadmresumo"
         forwards="/naturovos/ndre"
         depto="naturovos"
-        dtatu={dataAtualizacao[0].atualizacao || moment().format('DD/MM/YYYY HH:mm:ss')}
+        dtatu={dataAtualizacao}
       />
       <div className="container m-auto md:px-0 px-1">
         <MainMenuNaturovos />
       </div>
       <div className="container m-auto md:px-0 px-1">
         <div className="bg-white p-2 mt-2 rounded-md shadow-sm">
-          {fluxoData ?
-
+          {loading ? (
+            <LoadingRows />
+          ) : hasError ? (
+            <ErrorRetry onRetry={handleRetry} />
+          ) : fluxoData.length > 0 ? (
             <>
               <div className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto">
                 <ButtonAnaliseNaturovos
@@ -92,8 +109,9 @@ const NFluxo = (props: Props) => {
                 {analise === 'fluxogrupodata' && <NFluxoGrupoData />}
               </div>
             </>
-            : <AlertData />
-          }
+          ) : (
+            <AlertData />
+          )}
         </div>
       </div>
     </main>

@@ -2,6 +2,7 @@
 import CardData from '@/components/CardData';
 import Progress from '@/components/Charts/Progress';
 import { Kpi } from '@/components/Kpis';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import MainMenuSolar from "@/components/MainMenu/solar";
 import SubBarTop from '@/components/SubBarTop';
 import { useAuthContext } from '@/contexts/AuthContext';
@@ -29,6 +30,13 @@ const Solar = (props: Props) => {
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
   const [credInadimplencia, setCredInadimplencia] = useState<any>([]);
+  const [loadingEstoque, setLoadingEstoque] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [loadingFatuTot, setLoadingFatuTot] = useState(true);
+  const [loadingInadimplencia, setLoadingInadimplencia] = useState(true);
+  const [loadingCredInadimplencia, setLoadingCredInadimplencia] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados Estoque
   useEffect(() => {
@@ -43,10 +51,12 @@ const Solar = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingEstoque(false));
     }
     getEstoque();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -62,10 +72,12 @@ const Solar = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados Juros
   useEffect(() => {
@@ -80,10 +92,12 @@ const Solar = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingFatuTot(false));
     }
     getFatuTotLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados inadimplência
   useEffect(() => {
@@ -95,10 +109,12 @@ const Solar = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingInadimplencia(false));
     }
     getInadimplencia();
-  }, []);
+  }, [reloadTrigger]);
 
   useEffect(() => {
     const getCredInadimplencia = (async () => {
@@ -111,10 +127,23 @@ const Solar = (props: Props) => {
           setCredInadimplencia(data);
         }).catch((err) => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingCredInadimplencia(false));
     });
     getCredInadimplencia();
-  }, [monthSelected]);
+  }, [monthSelected, reloadTrigger]);
+
+  const isLoading = loadingEstoque || loadingTotais || loadingFatuTot || loadingInadimplencia || loadingCredInadimplencia;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingEstoque(true);
+    setLoadingTotais(true);
+    setLoadingFatuTot(true);
+    setLoadingInadimplencia(true);
+    setLoadingCredInadimplencia(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const colorBar = (value: any) => {
     if (value <= 90) return '#DC2626';
@@ -140,6 +169,12 @@ const Solar = (props: Props) => {
       />
       <div className="container m-auto md:px-0 px-1">
         <MainMenuSolar />
+        {isLoading ? (
+          <LoadingRows rows={8} />
+        ) : hasError ? (
+          <ErrorRetry onRetry={handleRetry} />
+        ) : (
+        <>
         <div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-2 mt-4">
           <Kpi
             icon={<GiPayMoney />}
@@ -282,6 +317,8 @@ const Solar = (props: Props) => {
             titlerep="Representa"
           />
         </div>
+        </>
+        )}
 
       </div>
 

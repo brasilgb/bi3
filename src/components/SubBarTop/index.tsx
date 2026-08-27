@@ -28,7 +28,7 @@ const SubBarTop = (props: SubBarTopProps) => {
       <div className="container m-auto flex items-center justify-between">
         <div>
           <Link
-            className={`${props.back === '' ? 'text-gray-50' : 'text-gray-500'}`}
+            className={`inline-flex rounded-full p-1 transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-solar-blue-primary focus-visible:ring-offset-1 ${props.back === '' ? 'text-gray-50 pointer-events-none' : 'text-gray-500 hover:text-solar-blue-primary hover:bg-gray-100 active:scale-90'}`}
             href={`${props.back}?depto=${props.depto}`}
           >
             <IoArrowBack size={20} />
@@ -44,7 +44,7 @@ const SubBarTop = (props: SubBarTopProps) => {
                     <li>
                       <button
                         onClick={() => setYearSelected(anoAtual - 1)}
-                        className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                        className={`${yearSelected === anoAtual - 1 ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500 hover:bg-gray-400 hover:text-gray-700'} rounded px-1 font-bold shadow-sm transition-all duration-200 ease-out active:scale-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-solar-green-prymary focus-visible:ring-offset-1`}
                       >
                         {anoAtual - 1}
                       </button>
@@ -52,7 +52,7 @@ const SubBarTop = (props: SubBarTopProps) => {
                     <li>
                       <button
                         onClick={() => setYearSelected(anoAtual)}
-                        className={`${yearSelected === anoAtual ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500'} rounded px-1 font-bold shadow-sm`}
+                        className={`${yearSelected === anoAtual ? 'bg-solar-green-prymary text-gray-50' : 'bg-gray-300 text-gray-500 hover:bg-gray-400 hover:text-gray-700'} rounded px-1 font-bold shadow-sm transition-all duration-200 ease-out active:scale-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-solar-green-prymary focus-visible:ring-offset-1`}
                       >
                         {anoAtual}
                       </button>
@@ -75,7 +75,7 @@ const SubBarTop = (props: SubBarTopProps) => {
         </div>
         <div>
           <Link
-            className={`${props.forwards === '' ? 'text-gray-50' : 'text-gray-500'}`}
+            className={`inline-flex rounded-full p-1 transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-solar-blue-primary focus-visible:ring-offset-1 ${props.forwards === '' ? 'text-gray-50 pointer-events-none' : 'text-gray-500 hover:text-solar-blue-primary hover:bg-gray-100 active:scale-90'}`}
             href={`${props.forwards}?depto=${props.depto}`}
           >
             <IoArrowForward size={20} />

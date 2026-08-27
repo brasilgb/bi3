@@ -1,5 +1,5 @@
 'use client'
-import AlertData from '@/components/AlertData'
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback'
 import DonutChart from '@/components/Charts/DonutChart'
 import KpiContainer from '@/components/KpiContainer'
 import { Kpi } from '@/components/Kpis'
@@ -27,6 +27,12 @@ const SAnaliseVenda = (props: Props) => {
   const [meioPagFilTotal, setMeioPagFilTotal] = useState<any>([]);
   const [allFiliais, setAllFiliais] = useState<any>([]);
   const [allMeios, setAllMeios] = useState<any>([]);
+  const [loadingMeioPag, setLoadingMeioPag] = useState(true);
+  const [loadingMeioPagTotal, setLoadingMeioPagTotal] = useState(true);
+  const [loadingMeioPagFilial, setLoadingMeioPagFilial] = useState(true);
+  const [loadingMeioPagFilTotal, setLoadingMeioPagFilTotal] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -39,12 +45,12 @@ const SAnaliseVenda = (props: Props) => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingMeioPag(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -57,12 +63,12 @@ const SAnaliseVenda = (props: Props) => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingMeioPagTotal(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -78,12 +84,12 @@ const SAnaliseVenda = (props: Props) => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingMeioPagFilial(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   useEffect(() => {
     const getMeioPag = (async () => {
@@ -96,12 +102,22 @@ const SAnaliseVenda = (props: Props) => {
         })
         .catch((err) => {
           console.log(err);
+          setHasError(true);
         })
-        .finally(() => console.log('ok')
-        )
+        .finally(() => setLoadingMeioPagFilTotal(false));
     });
     getMeioPag();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingMeioPag || loadingMeioPagTotal || loadingMeioPagFilial || loadingMeioPagFilTotal;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingMeioPag(true);
+    setLoadingMeioPagTotal(true);
+    setLoadingMeioPagFilial(true);
+    setLoadingMeioPagFilTotal(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const valuesFiliais = (meio: string, filial: string, campo: string) => {
     const meiofilial = meioPagFilial.filter((fmeio: any) => (fmeio?.MeioPagamento == meio && fmeio?.NomeFilial == filial)).map((vd: any) => (campo == 'VendaDevolucao' ? vd?.VendaDevolucao : vd?.PercentVenda));
@@ -110,9 +126,11 @@ const SAnaliseVenda = (props: Props) => {
 
   return (
     <>
-      {/* {meioPag.length > 0
-        ?  */}
-        <main className='animate__animated animate__fadeIn'>
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : <main className='animate__animated animate__fadeIn'>
           <div className='container mx-auto sm:p-0 '>
             {meioPagTotal?.map((pagtot: any, adx: number) => (
               <KpiContainer key={adx}>
@@ -257,8 +275,7 @@ const SAnaliseVenda = (props: Props) => {
             </BTable>
           </div>
         </main>
-        {/* : <AlertData />
-      } */}
+      }
     </>
   )
 }

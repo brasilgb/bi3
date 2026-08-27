@@ -1,4 +1,5 @@
 import AlertData from '@/components/AlertData';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
@@ -12,6 +13,10 @@ const NComPerformanceTipo = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [nComPerTipo, setNComPerTipo] = useState<any>([]);
   const [nComTotais, setNComTotais] = useState<any>([]);
+  const [loadingPerTipo, setLoadingPerTipo] = useState(true);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos serviço resumo dia
   useEffect(() => {
@@ -26,10 +31,12 @@ const NComPerformanceTipo = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingPerTipo(false));
     }
     getLComPerfAssoc();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -44,14 +51,28 @@ const NComPerformanceTipo = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getLComTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingPerTipo || loadingTotais;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingPerTipo(true);
+    setLoadingTotais(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {nComPerTipo.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : nComPerTipo.length > 0
         ? <div className="w-full bg-solar-orange-prymary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-800">
             <thead>
@@ -82,7 +103,7 @@ const NComPerformanceTipo = (props: Props) => {
                 .map((associacao: any, idx: number) => (
                   <BTr
                     key={idx}
-                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-orange-prymary/10`}
                   >
                     <BTd>{associacao.MateriaPrima}</BTd>
                     <BTd>{formatMoney(associacao?.Compra)}</BTd>

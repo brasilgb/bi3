@@ -25,9 +25,7 @@ const SMeioPagamento = () => {
         })
         .catch((err) => {
           console.log(err);
-        })
-        .finally(() => console.log('ok')
-        )
+        });
     });
     getMeioPag();
   }, [dataFiltro, setDataAtualizacao]);

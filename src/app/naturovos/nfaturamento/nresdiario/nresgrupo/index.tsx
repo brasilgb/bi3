@@ -6,6 +6,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import NResAssoc from "../nresassoc";
 import { IoChevronDown } from "react-icons/io5";
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 interface GrupoProps {
     setor: string;
@@ -15,6 +16,9 @@ const NResGrupo = ({ setor }: GrupoProps) => {
     const { dataFiltro } = useAuthContext();
     const [nFatuGrupo, setNFatuGrupo] = useState<any>([]);
     const [openAccordion, setOpenAccordion] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
     // Extração de dados resumos filiais
     useEffect(() => {
@@ -31,10 +35,18 @@ const NResGrupo = ({ setor }: GrupoProps) => {
                 })
                 .catch(err => {
                     console.log(err);
-                });
+                    setHasError(true);
+                })
+                .finally(() => setLoading(false));
         }
         getNFatuGrupo();
-    }, [dataFiltro,setor]);
+    }, [dataFiltro, setor, reloadTrigger]);
+
+    const handleRetry = () => {
+        setHasError(false);
+        setLoading(true);
+        setReloadTrigger(t => t + 1);
+    };
 
     const handleAccordionClick = (index: any) => {
         if (index !== openAccordion) {
@@ -43,6 +55,10 @@ const NResGrupo = ({ setor }: GrupoProps) => {
             setOpenAccordion(null);
         }
     };
+
+    if (loading) return <LoadingRows rows={3} />;
+    if (hasError) return <ErrorRetry onRetry={handleRetry} />;
+
     return (
         <div className="w-full animate__animated animate__fadeIn">
             <BTable classname="text-gray-800">
@@ -74,7 +90,7 @@ const NResGrupo = ({ setor }: GrupoProps) => {
                                 <BTr
                                     key={idx}
                                     onclick={() => handleAccordionClick(idx)}
-                                    classname={`${openAccordion === idx ? 'bg-gray-300 active:bg-gray-300 hover:bg-gray-300' : idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50 '} text-gray-500 active:bg-gray-300 hover:bg-red-50 cursor-pointer`}
+                                    classname={`${openAccordion === idx ? 'bg-gray-300 active:bg-gray-300 hover:bg-gray-300' : idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50 '} text-gray-500 active:bg-gray-300 transition-colors duration-150 hover:bg-solar-orange-prymary/10 cursor-pointer`}
                                 >
                                     <BTd classname="flex justify-center"><IoChevronDown size={20} color={openAccordion === idx ? '#2168eb':'#bebbbb'} className={`duration-300 ${openAccordion === idx ? '-rotate-180' : 'rotate-0'}`} /></BTd>
                                     <BTd>{setor.Grupo}</BTd>

@@ -2,13 +2,18 @@ import AlertData from '@/components/AlertData';
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
 import { formatMoney } from '@/utils';
 import React from 'react';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 type Props = {};
 
-const SAssociacao = ({ totais, data }: any) => {
+const SAssociacao = ({ totais, data, loading, hasError, onRetry }: any) => {
   return (
     <>
-      {data.length > 0
+      {loading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={onRetry} />
+        : data.length > 0
         ? <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
           <BTable classname="text-gray-50">
             <thead>
@@ -39,7 +44,7 @@ const SAssociacao = ({ totais, data }: any) => {
                 .map((associacao: any, idx: number) => (
                   <BTr
                     key={idx}
-                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                    classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
                   >
                     <BTd>{associacao.Associacao}</BTd>
                     <BTd>{formatMoney(associacao.Faturamento)}</BTd>

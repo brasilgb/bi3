@@ -1,4 +1,5 @@
 import { BTable, BTd, BTh, BTr } from '@/components/Table';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import { useAuthContext } from '@/contexts/AuthContext';
 import birel from '@/services/birel';
 import { formatMoney } from '@/utils';
@@ -9,6 +10,10 @@ type Props = {};
 const Vencidos = (props: Props) => {
   const [vencidosTotais, setVencidosTotais] = useState<any>([]);
   const [vencidos, setVencidos] = useState<any>([]);
+  const [loadingTotais, setLoadingTotais] = useState(true);
+  const [loadingVencidos, setLoadingVencidos] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -20,10 +25,12 @@ const Vencidos = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotais(false));
     }
     getVencidaosTotais();
-  }, []);
+  }, [reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -35,10 +42,22 @@ const Vencidos = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingVencidos(false));
     }
     getVencidos();
-  }, []);
+  }, [reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingTotais(true);
+    setLoadingVencidos(true);
+    setReloadTrigger(t => t + 1);
+  };
+
+  if (loadingTotais || loadingVencidos) return <LoadingRows />;
+  if (hasError) return <ErrorRetry onRetry={handleRetry} />;
 
   return (
     <div className="w-full bg-solar-blue-primary rounded-t-md shadow-sm overflow-auto animate__animated animate__fadeIn">
@@ -63,7 +82,7 @@ const Vencidos = (props: Props) => {
             .map((vencido: any, idx: number) => (
               <BTr
                 key={idx}
-                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 hover:bg-red-50`}
+                classname={`${idx % 2 === 0 ? 'bg-gray-100' : 'bg-neutral-50'} text-gray-500 transition-colors duration-150 hover:bg-solar-blue-primary/10`}
               >
                 <BTd>{vencido?.FaixaVencidos}</BTd>
                 <BTd>{formatMoney(vencido?.ValorVencido)}</BTd>

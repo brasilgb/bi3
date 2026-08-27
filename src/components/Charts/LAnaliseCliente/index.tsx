@@ -9,8 +9,8 @@ type Props = {
 };
 
 const LAnaliseCliente = ({ data }: Props) => {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [height, setHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
@@ -28,8 +28,6 @@ const LAnaliseCliente = ({ data }: Props) => {
   const cliNovos = data?.sort((a: any, b: any) => (a.CodPlano > b.CodPlano ? 1 : -1)).filter((fl: any) => (fl.Situacao === 'Novos')).map((value: any) => value.QtdCliente);
   const cliRecuperados = data?.sort((a: any, b: any) => (a.CodPlano > b.CodPlano ? 1 : -1)).filter((fl: any) => (fl.Situacao === 'Recuperados')).map((value: any) => value.QtdCliente);
 
-  const AnoMesAtual = data.sort((a: any, b: any) => (a.AnoMesAtual > b.AnoMesAtual ? 1 : -1)).map((value: any) => value.AnoMesAtual);
-
   Highcharts.setOptions({
     lang: {
       decimalPoint: ',',
@@ -44,7 +42,7 @@ const LAnaliseCliente = ({ data }: Props) => {
     },
     title: {
       useHTML: true,
-      text: `<h1 class="sm:text-sm text-[9px] text-gray-500 w-full">Análise Quantidade Cliente por Situação e Tipo de Movimento <span class="uppercase">(${moment(mes[0]).format('MMM')}</span>)</h1>`,
+      text: `<h1 class="sm:text-sm text-[9px] text-gray-500 w-full">Análise Quantidade Cliente por Situação e Tipo de Movimento <span class="uppercase">(${moment(mes[0], 'MM').format('MMM')}</span>)</h1>`,
       align: 'left',
     },
     // subtitle: {

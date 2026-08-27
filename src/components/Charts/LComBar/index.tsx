@@ -7,7 +7,7 @@ type Props = {
 };
 
 const LComBar = ({ data }: Props) => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
   // const [height, setHeight] = useState(window.innerHeight);
   const updateDimensions = () => {
     setWidth(window.innerWidth);

@@ -1,6 +1,7 @@
 'use client';
 import Progress from '@/components/Charts/Progress';
 import { Kpi } from '@/components/Kpis';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 import MainMenuNaturovos from "@/components/MainMenu/naturovos";
 import SubBarTop from '@/components/SubBarTop';
 import { useAuthContext } from '@/contexts/AuthContext';
@@ -20,6 +21,9 @@ const Naturovos = () => {
   const [dataAtualizacao, setDataAtualizacao] = useState<any>(
     moment().format('DD/MM/YYYY HH:mm:ss')
   );
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
   // Extração de dados resumos totais
   useEffect(() => {
     async function getTotais() {
@@ -33,10 +37,18 @@ const Naturovos = () => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoading(false));
     }
     getTotais();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const handleRetry = () => {
+    setHasError(false);
+    setLoading(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   const colorBar = (value: any) => {
     if (value <= 90) return '#DC2626';
@@ -60,6 +72,12 @@ const Naturovos = () => {
       />
       <div className="container m-auto md:px-0 px-2">
         <MainMenuNaturovos />
+        {loading ? (
+          <LoadingRows rows={6} />
+        ) : hasError ? (
+          <ErrorRetry onRetry={handleRetry} />
+        ) : (
+        <>
         <div className="grid md:grid-cols-3 md:gap-4 gap-2 mt-4">
           <Kpi
             icon={<GiPayMoney />}
@@ -104,6 +122,8 @@ const Naturovos = () => {
             />
           </div>
         </div>
+        </>
+        )}
       </div>
 
     </main>

@@ -8,6 +8,7 @@ import birel from '@/services/birel';
 import { formatMoney } from '@/utils';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { LoadingRows, ErrorRetry } from '@/components/StateFeedback';
 
 type Props = {};
 
@@ -15,6 +16,10 @@ const NPerformance = (props: Props) => {
   const { dataFiltro } = useAuthContext();
   const [nGraficoPerf, setNGraficoPerf] = useState<any>([]);
   const [nFatuTot, setNFatuTot] = useState<any>([]);
+  const [loadingGrafico, setLoadingGrafico] = useState(true);
+  const [loadingTotal, setLoadingTotal] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(0);
 
   // Extração de dados resumos filiais
   useEffect(() => {
@@ -29,10 +34,12 @@ const NPerformance = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingGrafico(false));
     }
     getLGraficoLojas();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
 
   // Extração de dados resumos totais
   useEffect(() => {
@@ -47,14 +54,28 @@ const NPerformance = (props: Props) => {
         })
         .catch(err => {
           console.log(err);
-        });
+          setHasError(true);
+        })
+        .finally(() => setLoadingTotal(false));
     }
     getNFatuTot();
-  }, [dataFiltro]);
+  }, [dataFiltro, reloadTrigger]);
+
+  const isLoading = loadingGrafico || loadingTotal;
+  const handleRetry = () => {
+    setHasError(false);
+    setLoadingGrafico(true);
+    setLoadingTotal(true);
+    setReloadTrigger(t => t + 1);
+  };
 
   return (
     <>
-      {nFatuTot.length > 0
+      {isLoading
+        ? <LoadingRows />
+        : hasError
+        ? <ErrorRetry onRetry={handleRetry} />
+        : nFatuTot.length > 0
         ? <>
           <div className="mt-4 w-full rounded-md shadow-sm overflow-x-auto animate__animated animate__fadeIn">
             <div className="bg-solar-orange-prymary text-sm text-gray-800 font-medium p-2 uppercase">
