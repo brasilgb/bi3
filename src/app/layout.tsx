@@ -40,13 +40,13 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={roboto.className}>
-        <div className="h-screen flex flex-col bg-gray-100">
+        <div className="h-screen flex flex-col bg-gray-50">
           <AuthProvider>
             {isPublicPage && children}
             {!isPublicPage && (
               <PrivateRoute>
                 <Header />
-                <div className="flex-grow bg-gray-100 pb-4">{children}</div>
+                <div className="flex-grow bg-gray-50 pb-4">{children}</div>
                 <Footer />
               </PrivateRoute>
             )}

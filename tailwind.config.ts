@@ -10,6 +10,22 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+  			// Cor principal do Portal Grupo Solar (mesma escala do portalsolar) -
+  			// usada no "chrome" (header/footer) que representa o portal em si,
+  			// nao os relatorios/departamentos especificos (loja/naturovos).
+  			solar: {
+  				50: '#fffaeb',
+  				100: '#fff4d1',
+  				200: '#ffeaa3',
+  				300: '#ffde70',
+  				400: '#ffd138',
+  				500: '#fdc300',
+  				600: '#d6a400',
+  				700: '#ad8500',
+  				800: '#8a6a00',
+  				900: '#664e00',
+  				950: '#3d2f00',
+  			},
   			'solar-blue-primary': '#1a9cd9',
   			'solar-blue-secundary': '#0d3b85',
   			'solar-green-prymary': '#bccf00',

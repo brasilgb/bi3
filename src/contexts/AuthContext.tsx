@@ -1,8 +1,8 @@
 'use client';
 import birel from '@/services/birel';
+import { APP_ROUTES } from '@/constants/app-routes';
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import moment from 'moment';
-import { useRouter } from 'next/navigation';
 import React, {
   createContext,
   useContext,
@@ -13,7 +13,6 @@ import React, {
 const AuthContext = createContext({} as any);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [dataFiltro, setDataFiltro] = useState(new Date());
   const [dataInicial, setDataInicial] = useState(new Date());
@@ -142,7 +141,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signOut = () => {
     deleteCookie('portal_access');
     setUser(null);
-    router.push('http://portal.gruposolar.com.br/login');
+    // window.location, nao o router do Next: o login fica em "/", fora do
+    // basePath "/bi3" do bi3 - o router prefixaria a rota incorretamente.
+    window.location.href = APP_ROUTES.public.login;
   };
 
   return (

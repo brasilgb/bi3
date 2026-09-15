@@ -1,11 +1,8 @@
 'use client';
 import { useAuthContext } from '@/contexts/AuthContext';
-// import { useAuthContext } from "@/contexts/AuthContext";
-import Link from 'next/link';
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from 'react';
-import { IoMdUnlock } from 'react-icons/io';
-import { IoExit, IoImage, IoKey, IoPerson } from 'react-icons/io5';
+import { IoExit, IoKey, IoPerson } from 'react-icons/io5';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 const Profile = () => {
@@ -24,36 +21,37 @@ const Profile = () => {
     <>
       <div className="relative">
         <button
-          className="flex items-center justify-between px-2"
+          className="flex items-center justify-between p-2 rounded-md hover:bg-black/10 transition-colors"
           onClick={toggle}
         >
-          <div className={`${depto === 'naturovos' ? 'text-gray-800' : 'text-solar-gray-light'}`}>
+          <div className={`${depto === 'naturovos' ? 'text-gray-800' : depto === 'loja' ? 'text-solar-gray-light' : 'text-black'}`}>
             <IoPerson size={20} />
           </div>
-          <div className={`${depto === 'naturovos' ? 'text-gray-800' : 'text-solar-gray-light'}`}>
+          <div className={`${depto === 'naturovos' ? 'text-gray-800' : depto === 'loja' ? 'text-solar-gray-light' : 'text-black'}`}>
             <MdOutlineKeyboardArrowDown
-
               size={20}
               className={`duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
             />
           </div>
         </button>
         <div
-          className={`md:absolute fixed md:top-11 top-[68px] left-1 right-1 md:left-auto z-[101] md:w-[350px] flex flex-col py-4 bg-gray-50 rounded-md shadow-lg border border-white ${transClass}`}
+          className={`absolute top-11 right-0 z-30 w-[350px] flex flex-col py-4 bg-gray-50 rounded-md shadow-lg border border-white ${transClass}`}
         >
           <span className="text-sm text-gray-600 px-4 pb-3 flex items-center ">
             <IoPerson color="#6d6a6a" size={20} />
             <span className="ml-1">{user?.userName}</span>
           </span>
           <span className="w-full border-b border-gray-200"></span>
-          <Link
+          {/* <a> comum, nao next/link: changepassword fica em "/", fora do
+          basePath "/bi3" do bi3 */}
+          <a
             className="text-gray-600 hover:text-gray-400 px-4 pt-2 flex items-center"
-            href={`https://portal.gruposolar.com.br/changepassword?firstAccess=false&code=${user?.userCode}`}
+            href={`/changepassword?firstAccess=false&code=${user?.userCode}`}
             onClick={() => setIsOpen(false)}
           >
             <IoKey color="#6d6a6a" size={20} />
             <span className="ml-1">Alterar minha senha</span>
-          </Link>
+          </a>
           <button
             className="text-gray-600 hover:text-gray-400 px-4 pt-2 flex items-center"
             onClick={signOut}

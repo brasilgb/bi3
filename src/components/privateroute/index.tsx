@@ -1,7 +1,6 @@
 'use client';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
 import { checkUserAuthenticated } from '@/functions/check-user-authenticated';
 import { APP_ROUTES } from '@/constants/app-routes';
 
@@ -10,7 +9,6 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  const router = useRouter();
   // Começa como `null` (nem autenticado, nem não-autenticado) para que a
   // primeira renderização no cliente seja idêntica à do servidor — o cookie
   // só pode ser lido depois de montar, dentro do useEffect. Decidir isso
@@ -23,9 +21,11 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     const authenticated = !!checkUserAuthenticated();
     setIsUserAutenticated(authenticated);
     if (!authenticated) {
-      router.push(APP_ROUTES.public.login);
+      // window.location, nao o router do Next: o login fica em "/", fora do
+      // basePath "/bi3" do bi3 - o router prefixaria a rota incorretamente.
+      window.location.href = APP_ROUTES.public.login;
     }
-  }, [router]);
+  }, []);
 
   if (isUserAutenticated === null) return null;
 
